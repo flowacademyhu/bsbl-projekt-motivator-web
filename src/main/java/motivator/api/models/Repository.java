@@ -1,4 +1,4 @@
-package motivator.github;
+package motivator.api.models;
 
 public class Repository {
 

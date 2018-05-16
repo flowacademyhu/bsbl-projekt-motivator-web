@@ -1,4 +1,4 @@
-package motivator.slack;
+package motivator.api.models;
 
 public class Channel {
 

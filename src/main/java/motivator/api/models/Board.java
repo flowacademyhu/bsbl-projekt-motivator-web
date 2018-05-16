@@ -1,4 +1,4 @@
-package motivator.trello;
+package motivator.api.models;
 
 public class Board {
 

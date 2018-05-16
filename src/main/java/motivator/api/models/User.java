@@ -1,4 +1,4 @@
-package motivator;
+package motivator.api.models;
 
 public class User {
 
