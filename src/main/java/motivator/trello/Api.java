@@ -1,4 +1,4 @@
-package motivator.trello;
+package java.motivator.trello;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class Api {
 
-    public String getCardName(int id, String key, String token) throws IOException {
-        String url = "https://api.trello.com/1/cards/" + id + "/name?" + key + "=e8c4fc3da567b572e098c47cf43b1064&" + token + "=d9b14b0aaed586ba684d85db86b47435a2fb551332945c1408146ba7887e7f9e";
+    public String cardName(String cardId, String key, String token) throws IOException {
+        String url = "https://api.trello.com/1/cards/" + cardId + "/name?&key=" + key + "&token=" + token;
         URLConnection connection = new URL(url + key + token).openConnection();
         InputStream response = connection.getInputStream();
 
@@ -21,8 +21,8 @@ public class Api {
         return responseBody;
     }
 
-    public String getDateLastAct(int id, String key, String token) throws IOException {
-        String url = "https://api.trello.com/1/cards/" + id + "/dateLastActivity?" + key + "=e8c4fc3da567b572e098c47cf43b1064&" + token + "=d9b14b0aaed586ba684d85db86b47435a2fb551332945c1408146ba7887e7f9e";
+    public String cardDue(String cardId, String key, String token) throws IOException {
+        String url = "https://api.trello.com/1/cards/" + cardId + "/due?&key=" + key + "&token=" + token;
         URLConnection connection = new URL(url + key + token).openConnection();
         InputStream response = connection.getInputStream();
 
@@ -34,8 +34,8 @@ public class Api {
         return responseBody;
     }
 
-    public String getDue(int id, String key, String token) throws IOException {
-        String url = "https://api.trello.com/1/cards/" + id + "/due?" + key + "=e8c4fc3da567b572e098c47cf43b1064&" + token + "=d9b14b0aaed586ba684d85db86b47435a2fb551332945c1408146ba7887e7f9e";
+    public String cardDueComp(String cardId, String key, String token) throws IOException {
+        String url = "https://api.trello.com/1/cards/" + cardId + "/dueComplete?&key=" + key + "&token=" + token;
         URLConnection connection = new URL(url + key + token).openConnection();
         InputStream response = connection.getInputStream();
 
@@ -47,8 +47,8 @@ public class Api {
         return responseBody;
     }
 
-    public String getDueComp(int id, String key, String token) throws IOException {
-        String url = "https://api.trello.com/1/cards/" + id + "/dueComplete?" + key + "=e8c4fc3da567b572e098c47cf43b1064&" + token + "=d9b14b0aaed586ba684d85db86b47435a2fb551332945c1408146ba7887e7f9e";
+    public String idList(String cardId, String key, String token) throws IOException {
+        String url = "https://api.trello.com/1/cards/" + cardId + "/list?fields=id&key=" + key + "&token=" + token;
         URLConnection connection = new URL(url + key + token).openConnection();
         InputStream response = connection.getInputStream();
 
@@ -60,8 +60,8 @@ public class Api {
         return responseBody;
     }
 
-    public String getIdList(int id, String key, String token) throws IOException {
-        String url = "https://api.trello.com/1/cards/" + id + "/idList?" + key + "=e8c4fc3da567b572e098c47cf43b1064&" + token + "=d9b14b0aaed586ba684d85db86b47435a2fb551332945c1408146ba7887e7f9e";
+    public String listName(String cardId, String key, String token) throws IOException {
+        String url = "https://api.trello.com/1/cards/" + cardId + "/list?fields=name&key=" + key + "&token=" + token;
         URLConnection connection = new URL(url + key + token).openConnection();
         InputStream response = connection.getInputStream();
 
@@ -73,8 +73,35 @@ public class Api {
         return responseBody;
     }
 
-    public String getList(int id, String key, String token) throws IOException {
-        String url = "https://api.trello.com/1/cards/" + id + "/list?" + key + "=e8c4fc3da567b572e098c47cf43b1064&" + token + "=d9b14b0aaed586ba684d85db86b47435a2fb551332945c1408146ba7887e7f9e";
+    public String getDateLastAct(String cardId, String key, String token) throws IOException {
+        String url = "https://api.trello.com/1/cards/" + cardId + "?fields=dateLastActiviy&key=" + key + "&token=" + token;
+        URLConnection connection = new URL(url + key + token).openConnection();
+        InputStream response = connection.getInputStream();
+
+        String responseBody = "";
+        try (Scanner scanner = new Scanner(response)) {
+            responseBody = scanner.useDelimiter("\\A").next();
+            System.out.println(responseBody);
+        }
+        return responseBody;
+    }
+
+    // user relevant
+    public String userAllCard(String username, String key, String token) throws IOException { // username+id jön vissza
+        String url = "https://api.trello.com/1/members/" + username + "/cards?fields=name&key=" + key + "&token=" + token;
+        URLConnection connection = new URL(url + key + token).openConnection();
+        InputStream response = connection.getInputStream();
+
+        String responseBody = "";
+        try (Scanner scanner = new Scanner(response)) {
+            responseBody = scanner.useDelimiter("\\A").next();
+            System.out.println(responseBody);
+        }
+        return responseBody;
+    }
+
+    public String boardAllCards(String boardId, String key, String token) throws IOException { // username+id jön vissza
+        String url = "https://api.trello.com/1/boards/" + boardId + "/cards?fields=name&key=" + key + "&token=" + token;
         URLConnection connection = new URL(url + key + token).openConnection();
         InputStream response = connection.getInputStream();
 
