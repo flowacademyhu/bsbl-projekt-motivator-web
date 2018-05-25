@@ -1,4 +1,4 @@
-package motivator.api.models;
+package java.motivator.api.models;
 
 public class GroupBoard {
     private long groupId;
