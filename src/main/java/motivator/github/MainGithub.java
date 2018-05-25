@@ -21,10 +21,10 @@ public class MainGithub {
     public static void main(String[] args) throws IOException {
         MainGithub mainGithub = new MainGithub();
         mainGithub.getAllRepositories();
+        mainGithub.getUserRepositories();
         mainGithub.getRepositoryBranchesNames();
         mainGithub.getPageCommits();
-        mainGithub.getUserRepositories();
-        mainGithub.getFileContents();
+        //mainGithub.getFileContents();
     }
 
     // GET TREE STRUCTURE OF GIT REPOSITORY (COMMIT TEXTS AND COMMIT SHALS): git log --graph --oneline --all
@@ -58,6 +58,20 @@ public class MainGithub {
         return branches;
     }
 
+    // LIST ALL OWN REPOSITORIES OF THE OWNER
+    private void getUserRepositories() {
+        final String user = "laszlobalint";
+        final String format = "{0}) {1}- created on {2}";
+        int count = 1;
+        RepositoryService service = new RepositoryService();
+        try {
+            for (Repository repo : service.getRepositories(user))
+                System.out.println(MessageFormat.format(format, count++, repo.getName(), repo.getCreatedAt()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // LAST 20 COMMITS OF THE REPOSITORY (message, shalId, author, date)
     private void getPageCommits() {
         final int size = 20;
@@ -77,20 +91,6 @@ public class MainGithub {
                 System.out.print("MESSAGE: " + commitMessage + " - ");
                 System.out.println(MessageFormat.format(message, sha, author, date));
             }
-        }
-    }
-
-    // LAST 25 COMMITS OF THE REPOSITORY (message, shalId, author, date)
-    private void getUserRepositories() {
-        final String user = "laszlobalint";
-        final String format = "{0}) {1}- created on {2}";
-        int count = 1;
-        RepositoryService service = new RepositoryService();
-        try {
-            for (Repository repo : service.getRepositories(user))
-                System.out.println(MessageFormat.format(format, count++, repo.getName(), repo.getCreatedAt()));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
