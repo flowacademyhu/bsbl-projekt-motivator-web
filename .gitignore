@@ -1,6 +1,14 @@
 .idea/
 .gradle/
 /build/
+/out/
+/gradle/
+gradlew
+gradlew.bat
+*.txt
+*.iml
+
+
 
 # Ignore Gradle GUI config
 gradle-app.setting
