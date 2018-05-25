@@ -1,7 +1,5 @@
 package motivator.github;
 
-import com.sun.org.apache.regexp.internal.RE;
-import org.eclipse.egit.github.core.CommitFile;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.RepositoryCommit;
 import org.eclipse.egit.github.core.RepositoryId;
@@ -9,7 +7,6 @@ import org.eclipse.egit.github.core.service.CommitService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.kohsuke.github.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.*;
