@@ -36,5 +36,9 @@ dependencies {
     compile 'mysql:mysql-connector-java'
     compile("com.h2database:h2")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    compile group: 'org.eclipse.mylyn.github', name: 'org.eclipse.egit.github.core', version: '2.1.5'
+    compile group: 'org.kohsuke', name: 'github-api', version: '1.93'
+
     testCompile("junit:junit")
 }
