@@ -26,7 +26,7 @@ public class Api {
     }
 
     // visszaadja a card name-et.
-    public String cardName(String cardId, String tokenKey) throws IOException {
+    public void cardName(String cardId, String tokenKey, Card card) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "?fields=name" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
@@ -35,7 +35,7 @@ public class Api {
             responseBody = scanner.useDelimiter("\\A").next();
             System.out.println(responseBody);
         }
-        return responseBody;
+        card.setCardName(responseBody);
     }
 
     //visszaadja van-e hat?rid?
@@ -52,6 +52,7 @@ public class Api {
     }
 
     //visszaadja siker?lt-e teljes?teni hat?rid?re
+    String dueComp;
     public String cardDueComp(String cardId, String tokenKey) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/dueComplete?" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -59,13 +60,15 @@ public class Api {
         String responseBody = "";
         try (Scanner scanner = new Scanner(response)) {
             responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println(responseBody);
+            //System.out.println(responseBody);
         }
-        return responseBody;
+        dueComp = responseBody;
+        return dueComp;
     }
 
+
     //visszaadja a list ID-t
-    public String idList(String cardId, String tokenKey) throws IOException {
+    public void idList(String cardId, String tokenKey, Card card) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/list?fields=id" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
@@ -74,7 +77,7 @@ public class Api {
             responseBody = scanner.useDelimiter("\\A").next();
             System.out.println(responseBody);
         }
-        return responseBody;
+        card.setCardName(responseBody);
     }
 
     //visszadja az ID-t ?s a name-et
