@@ -3,12 +3,21 @@
 /build/
 /out/
 /gradle/
+<<<<<<< HEAD
 gradlew
 gradlew.bat
 *.txt
 *.iml
 
 
+=======
+
+gradlew
+gradlew.bat
+
+*.txt
+*.iml
+>>>>>>> 126217bbf1737d73274431d74890781c7709a560
 
 # Ignore Gradle GUI config
 gradle-app.setting
