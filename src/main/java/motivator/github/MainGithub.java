@@ -24,7 +24,7 @@ public class MainGithub {
         mainGithub.getUserRepositories();
         mainGithub.getRepositoryBranchesNames();
         mainGithub.getPageCommits();
-        //mainGithub.getFileContents();
+        mainGithub.getFileContents();
     }
 
     // GET TREE STRUCTURE OF GIT REPOSITORY (COMMIT TEXTS AND COMMIT SHALS): git log --graph --oneline --all
