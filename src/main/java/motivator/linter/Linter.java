@@ -1,21 +1,54 @@
 package motivator.linter;
 
-/*
-CleanCode Linter:
-	Min:
-	- LoC fájl/function szinten
-	- Egybe ágyazott if/while/for
-	- Változó scope vizsgálat (használva van e? ha igen többször mint 1?)
-	- Ne legyenek halmozott feltételek (beszédes)
-	- Ékezet mentesség
-	- Sortörés számláló
-	- Function bemeneti paraméter számláló
-	Max:
-	- Ne legyen rövidítés
-	- Nyelv felismerés
-*/
+import java.util.Arrays;
+
 public class Linter {
-    public void stringParser(String input) {
-        String[] rows = input.split("\n");
+    private int depthCount;
+
+    public Linter() {
+        this.depthCount = 0;
+    }
+
+    public String[] rowSplitter(String input) {
+        return input.split("\n");
+    }
+
+    /*
+    public boolean rowCounter(String[] input) {
+        int rowCount = 0;
+        for (int i = 0; i < input.length; i++) {
+            rowCount++;
+            if (input[i].contains("{")) {
+                return rowCounter(Arrays.copyOfRange(input, i, input.length));
+            }
+            if (input[i].contains("}")) {
+                return rowCount <= 15;
+            }
+        }
+        return true;
+    }
+    */
+
+    public boolean fileLength(String[] input) {
+        return input.length <= 100;
+    }
+
+    public char[] charSplitter(String input) {
+        return input.toCharArray();
+    }
+
+    public boolean depthChecker(char[] input) {
+        for (char inputChar: input) {
+            if (inputChar == '{') {
+                depthCount++;
+            }
+            if (depthCount > 4) {
+                return false;
+            }
+            if (inputChar == '}') {
+                depthCount--;
+            }
+        }
+        return true;
     }
 }
