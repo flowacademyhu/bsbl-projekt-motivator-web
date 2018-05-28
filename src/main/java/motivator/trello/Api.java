@@ -34,7 +34,6 @@ public class Api {
         String responseBody = "";
         try (Scanner scanner = new Scanner(response)) {
             responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println(responseBody);
         }
         String repBody = responseBody.substring(41).replace("\"}", "");
         card.setCardName(repBody);
@@ -48,7 +47,6 @@ public class Api {
         String responseBody = "";
         try (Scanner scanner = new Scanner(response)) {
             responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println(responseBody);
         }
         String repBody = responseBody.substring(7, 31).replace("\"}", "");
         card.setId(repBody);
@@ -66,7 +64,6 @@ public class Api {
         String repBody = responseBody.substring(11).replace("}", "").replace("T", "").replace("Z", "");
         if (repBody.equals("null\n")) {
             card.setHasDue(false);
-            System.out.println(card.getDueDate());
         } else {
             card.setHasDue(true);
             DateFormat df = new SimpleDateFormat("yyyy-MM-ddhh:mm", Locale.ENGLISH);
@@ -97,7 +94,6 @@ public class Api {
         String responseBody = "";
         try (Scanner scanner = new Scanner(response)) {
             responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println(responseBody);
         }
         String repBody = responseBody.substring(41).replace("\"}", "");
         card.setListName(repBody);
@@ -113,7 +109,6 @@ public class Api {
             responseBody = scanner.useDelimiter("\\A").next();
         }
         String repBody = responseBody.substring(53).replace("T", "").replace("\"}", "");
-
         DateFormat df = new SimpleDateFormat("yyyy-MM-ddhh:mm", Locale.ENGLISH);
         Date result =  df.parse(repBody);
         card.setLastActivity(result);
@@ -128,7 +123,6 @@ public class Api {
         String responseBody = "";
         try (Scanner scanner = new Scanner(response)) {
             responseBody = scanner.useDelimiter("\\A").next();
-            //System.out.println(responseBody.replace("[", "").replace("]", ""));
         }
         String[] userAllCarsrep= responseBody.replace("[", "").replace("]", "").split(",");
         return userAllCarsrep;
@@ -142,7 +136,6 @@ public class Api {
         String responseBody = "";
         try (Scanner scanner = new Scanner(response)) {
             responseBody = scanner.useDelimiter("\\A").next();
-            //System.out.println(responseBody.replace("[", "").replace("]", ""));
         }
         String[] boardAllCardsrep= responseBody.replace("[", "").replace("]", "").split(",");
         return boardAllCardsrep;
