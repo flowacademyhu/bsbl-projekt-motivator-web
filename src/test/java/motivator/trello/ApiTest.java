@@ -23,9 +23,11 @@ public class ApiTest {
     }
 
     @Test
-    public void cardDueComp() {
-        assertEquals();
+    public void cardDueComp() throws IOException {
+        api.authBuilder("e8c4fc3da567b572e098c47cf43b1064", "d9b14b0aaed586ba684d85db86b47435a2fb551332945c1408146ba7887e7f9e");
+        boolean before = card.isDueComp();
+        api.cardDueComp("Fcyq2AIW", api.getTokenKey(), card);
+        boolean after = card.isDueComp();
+        assertEquals(before, after);
         }
     }
-
-}
