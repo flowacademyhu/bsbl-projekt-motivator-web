@@ -1,8 +1,8 @@
 .idea/
 .gradle/
-/build/
-/out/
-/gradle/
+build/
+out/
+gradle/
 <<<<<<< HEAD
 gradlew
 gradlew.bat
