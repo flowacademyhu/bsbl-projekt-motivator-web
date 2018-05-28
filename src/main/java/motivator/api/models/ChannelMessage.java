@@ -12,9 +12,12 @@ public class ChannelMessage {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-    private long channelId;
     private String message;
     private Date time;
+
+    @ManyToOne
+    @JoinColumn(name = "channel_id")
+    private Channel channel;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -32,14 +35,6 @@ public class ChannelMessage {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(long channelId) {
-        this.channelId = channelId;
     }
 
     public String getMessage() {
@@ -72,5 +67,13 @@ public class ChannelMessage {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
     }
 }

@@ -109,6 +109,4 @@ public class User {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
-
-    private Board board;
 }

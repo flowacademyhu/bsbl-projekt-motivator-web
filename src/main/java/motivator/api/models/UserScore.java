@@ -14,6 +14,10 @@ public class UserScore {
     private int score;
     private String reason;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false)
@@ -62,5 +66,13 @@ public class UserScore {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
