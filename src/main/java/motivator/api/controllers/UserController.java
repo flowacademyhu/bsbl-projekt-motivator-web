@@ -5,26 +5,26 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import motivator.api.models.User;
 import motivator.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import java.util.Date;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
-@RestController
-@RequestMapping("/user")
+@Controller
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@PostMapping(value = "/register")
 	public User registerUser(User user) {
 		return userService.save(user);
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@PostMapping(value = "/login")
 	public String login(User login) throws ServletException {
 
 		String jwtToken = "";
@@ -51,7 +51,6 @@ public class UserController {
 		jwtToken = Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date())
 				.signWith(SignatureAlgorithm.HS256, "secretkey").compact();
 
-		System.out.println(jwtToken);
 		return jwtToken;
 	}
 }
