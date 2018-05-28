@@ -1,4 +1,3 @@
-/*
 package motivator.api.models;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -84,5 +83,4 @@ public class Board {
         this.updated = updated;
     }
 }
-*/
 
