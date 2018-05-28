@@ -18,10 +18,17 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-
 	@PostMapping(value = "/register")
 	public User registerUser(User user) {
-		return userService.save(user);
+		User newUser = new User();
+		newUser.setName(user.getName());
+		newUser.setPassword(user.getPassword());
+		newUser.setEmail(user.getEmail());
+		newUser.setGitHubProfile(user.getGitHubProfile());
+		newUser.setTrelloProfile(user.getTrelloProfile());
+		newUser.setSlackProfile(user.getSlackProfile());
+		newUser.setCurrentScore(0);
+		return userService.save(newUser);
 	}
 
 	@PostMapping(value = "/login")
@@ -30,7 +37,7 @@ public class UserController {
 		String jwtToken = "";
 
 		if (login.getEmail() == null || login.getPassword() == null) {
-			throw new ServletException("Please fill in username and password");
+			throw new ServletException("Please fill in e-mail address and password");
 		}
 
 		String email = login.getEmail();
@@ -39,18 +46,19 @@ public class UserController {
 		User user = userService.findByEmail(email);
 
 		if (user == null) {
-			throw new ServletException("User email not found.");
+			throw new ServletException("User e-mail address not found.");
 		}
 
 		String pwd = user.getPassword();
 
 		if (!password.equals(pwd)) {
-			throw new ServletException("Invalid login. Please check your name and password.");
+			throw new ServletException("Invalid login. Please check your e-mail address and/or password.");
 		}
 
 		jwtToken = Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date())
 				.signWith(SignatureAlgorithm.HS256, "secretkey").compact();
 
+		System.out.println("Token: " + jwtToken);
 		return jwtToken;
 	}
 }

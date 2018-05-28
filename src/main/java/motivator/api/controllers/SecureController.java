@@ -16,9 +16,7 @@ public class SecureController {
 	private UserService userService;
 
 	@RequestMapping("/user/users")
-	public String loginSuccess() {
-		return "Login Successful!";
-	}
+	public String loginSuccess() { return "This is a secured page. Login was successful! If you see this message, your token is valid"; }
 
 	@RequestMapping(value = "/user/email", method = RequestMethod.POST)
 	public User findByEmail(@RequestBody String email) {
