@@ -11,14 +11,11 @@ import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class Slack {
-
     private String text;
     private String url;
     private Long date;
     private Long time;
-
 
     public String getText() {
         return text;
