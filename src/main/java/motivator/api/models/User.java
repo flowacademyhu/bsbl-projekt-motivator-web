@@ -16,7 +16,6 @@ public class User {
     private String password;
     private String email;
     private String gitHubProfile;
-    private String gitHubPassword;
     private String trelloProfile;
     private String slackProfile;
     private int currentScore;
@@ -71,14 +70,6 @@ public class User {
         this.gitHubProfile = gitHubProfile;
     }
 
-    public String getGitHubPassword() {
-        return gitHubPassword;
-    }
-
-    public void setGitHubPassword(String gitHubPassword) {
-        this.gitHubPassword = gitHubPassword;
-    }
-
     public String getTrelloProfile() {
         return trelloProfile;
     }
@@ -118,4 +109,6 @@ public class User {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
+
+    private Board board;
 }

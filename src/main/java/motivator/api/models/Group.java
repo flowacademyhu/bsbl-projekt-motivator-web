@@ -12,26 +12,29 @@ public class Group {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-    private long parentId;
     private String name;
-    private long boardId;
-    private long repositoryID;
 
-    public long getBoardId() {
-        return boardId;
-    }
+    @OneToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
 
-    public void setBoardId(long boardId) {
-        this.boardId = boardId;
-    }
+    @OneToOne
+    @JoinColumn(name = "repository_id")
+    private Repository repository;
 
-    public long getRepositoryID() {
-        return repositoryID;
-    }
+    @OneToOne
+    @JoinColumn(name = "channel_id")
+    private Channel channel;
 
-    public void setRepositoryID(long repositoryID) {
-        this.repositoryID = repositoryID;
-    }
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false)
+    private Date created;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at", nullable = false)
+    private Date updated;
 
     public Date getCreated() {
         return created;
@@ -49,16 +52,6 @@ public class Group {
         this.updated = updated;
     }
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false)
-    private Date created;
-
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_at", nullable = false)
-    private Date updated;
-
     public long getId() {
         return id;
     }
@@ -67,19 +60,35 @@ public class Group {
         this.id = id;
     }
 
-    public long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(long parentId) {
-        this.parentId = parentId;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public Repository getRepository() {
+        return repository;
+    }
+
+    public void setRepository(Repository repository) {
+        this.repository = repository;
+    }
+
+    public Channel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(Channel channel) {
+        this.channel = channel;
     }
 }
