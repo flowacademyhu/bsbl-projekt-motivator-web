@@ -5,6 +5,7 @@
 /out/
 /gradle/
 /bin/
+node_modules/
 
 gradlew
 gradlew.bat
