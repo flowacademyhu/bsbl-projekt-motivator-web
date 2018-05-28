@@ -3,9 +3,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Api {
     public Api() throws IOException {
@@ -35,53 +36,61 @@ public class Api {
             responseBody = scanner.useDelimiter("\\A").next();
             System.out.println(responseBody);
         }
-        card.setCardName(responseBody);
+        String repBody = responseBody.substring(41).replace("\"}", "");
+        card.setCardName(repBody);
+    }
+
+    //csak az ID-t adja át a cardId-nak
+    public void cardId(String cardId, String tokenKey, Card card) throws IOException {
+        String url = "https://api.trello.com/1/cards/" + cardId + "?fields=name" + tokenKey;
+        URLConnection connection = new URL(url).openConnection();
+        InputStream response = connection.getInputStream();
+        String responseBody = "";
+        try (Scanner scanner = new Scanner(response)) {
+            responseBody = scanner.useDelimiter("\\A").next();
+            System.out.println(responseBody);
+        }
+        String repBody = responseBody.substring(7, 31).replace("\"}", "");
+        card.setId(repBody);
     }
 
     //visszaadja van-e hat?rid?
-    public String cardDue(String cardId, String tokenKey) throws IOException {
+    public void cardDue(String cardId, String tokenKey, Card card) throws IOException, ParseException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/due?" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
         String responseBody = "";
         try (Scanner scanner = new Scanner(response)) {
             responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println(responseBody);
         }
-        return responseBody;
+        String repBody = responseBody.substring(11).replace("}", "").replace("T", "").replace("Z", "");
+        if (repBody.equals("null\n")) {
+            card.setHasDue(false);
+            System.out.println(card.getDueDate());
+        } else {
+            card.setHasDue(true);
+            DateFormat df = new SimpleDateFormat("yyyy-MM-ddhh:mm", Locale.ENGLISH);
+            Date result = df.parse(repBody);
+            card.setDueDate(result);
+        }
     }
 
     //visszaadja siker?lt-e teljes?teni hat?rid?re
-    String dueComp;
-    public String cardDueComp(String cardId, String tokenKey) throws IOException {
+    public void cardDueComp(String cardId, String tokenKey, Card card) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/dueComplete?" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
         String responseBody = "";
         try (Scanner scanner = new Scanner(response)) {
             responseBody = scanner.useDelimiter("\\A").next();
-            //System.out.println(responseBody);
         }
-        dueComp = responseBody;
-        return dueComp;
-    }
-
-
-    //visszaadja a list ID-t
-    public void idList(String cardId, String tokenKey, Card card) throws IOException {
-        String url = "https://api.trello.com/1/cards/" + cardId + "/list?fields=id" + tokenKey;
-        URLConnection connection = new URL(url).openConnection();
-        InputStream response = connection.getInputStream();
-        String responseBody = "";
-        try (Scanner scanner = new Scanner(response)) {
-            responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println(responseBody);
-        }
-        card.setCardName(responseBody);
+        String repBody = responseBody.substring(10).replace("}", "");
+        Boolean bool = Boolean.parseBoolean(repBody);
+        card.setDueComp(bool);
     }
 
     //visszadja az ID-t ?s a name-et
-    public String listName(String cardId, String tokenKey) throws IOException {
+    public void listName(String cardId, String tokenKey, Card card) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/list?fields=name" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
@@ -90,20 +99,24 @@ public class Api {
             responseBody = scanner.useDelimiter("\\A").next();
             System.out.println(responseBody);
         }
-        return responseBody;
+        String repBody = responseBody.substring(41).replace("\"}", "");
+        card.setListName(repBody);
     }
 
     //visszadja az ID-t ?s az utols? activityt
-    public String getDateLastAct(String cardId, String tokenKey) throws IOException {
+    public void getDateLastAct(String cardId, String tokenKey, Card card) throws IOException, ParseException {
         String url = "https://api.trello.com/1/cards/" + cardId + "?fields=dateLastActivity" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
         String responseBody = "";
         try (Scanner scanner = new Scanner(response)) {
             responseBody = scanner.useDelimiter("\\A").next();
-            System.out.println(responseBody);
         }
-        return responseBody;
+        String repBody = responseBody.substring(53).replace("T", "").replace("\"}", "");
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-ddhh:mm", Locale.ENGLISH);
+        Date result =  df.parse(repBody);
+        card.setLastActivity(result);
     }
 
     // user relevant.

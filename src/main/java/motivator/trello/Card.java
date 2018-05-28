@@ -1,14 +1,31 @@
 package motivator.trello;
 
-import java.sql.DatabaseMetaData;
-import java.sql.Date;
 
 public class Card {
-    private String id;
-    private String cardName;
-    private Date dueDate;
-    private boolean dueComp;
-    private Date lastActivity;
+    private String id; //ok
+    private String cardName; //ok
+    private boolean hasDue; //ok
+    private java.util.Date dueDate; //ok
+    private boolean dueComp; //ok
+    private java.util.Date lastActivity; //ok
+
+    public String getListName() {
+        return listName;
+    }
+
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
+
+    private String listName;
+
+    public boolean isHasDue() {
+        return hasDue;
+    }
+
+    public void setHasDue(boolean hasDue) {
+        this.hasDue = hasDue;
+    }
 
     public String getId() {
         return id;
@@ -26,11 +43,11 @@ public class Card {
         this.cardName = cardName;
     }
 
-    public Date getDueDate() {
+    public java.util.Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(java.util.Date dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -42,11 +59,11 @@ public class Card {
         this.dueComp = dueComp;
     }
 
-    public Date getLastActivity() {
+    public java.util.Date getLastActivity() {
         return lastActivity;
     }
 
-    public void setLastActivity(Date lastActivity) {
+    public void setLastActivity(java.util.Date lastActivity) {
         this.lastActivity = lastActivity;
     }
 }

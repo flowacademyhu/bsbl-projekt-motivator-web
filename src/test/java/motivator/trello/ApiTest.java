@@ -1,6 +1,5 @@
 package motivator.trello;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -13,4 +12,20 @@ public class ApiTest {
 
     public ApiTest() throws IOException {
     }
+
+    @Test
+    public void cardName() throws IOException {
+        api.authBuilder("e8c4fc3da567b572e098c47cf43b1064", "d9b14b0aaed586ba684d85db86b47435a2fb551332945c1408146ba7887e7f9e");
+        String beforeName = card.getCardName();
+        api.cardName("Fcyq2AIW", api.getTokenKey(), card);
+        String afterName = card.getCardName();
+        assertNotEquals(beforeName, afterName);
+    }
+
+    @Test
+    public void cardDueComp() {
+        assertEquals();
+        }
+    }
+
 }
