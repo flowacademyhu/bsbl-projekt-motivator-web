@@ -1,13 +1,12 @@
 package motivator.trello;
 
-
-public class Card {
-    private String id; //ok
-    private String cardName; //ok
-    private boolean hasDue; //ok
-    private java.util.Date dueDate; //ok
-    private boolean dueComp; //ok
-    private java.util.Date lastActivity; //ok
+public class TrelloCard {
+    private String id;
+    private String cardName;
+    private boolean hasDue;
+    private java.util.Date dueDate;
+    private boolean dueComp;
+    private java.util.Date lastActivity;
 
     public String getListName() {
         return listName;

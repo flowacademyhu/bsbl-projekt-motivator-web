@@ -14,8 +14,8 @@ class LinterTest {
             "import java.util.Arrays;\n" +
             "import java.util.Scanner;\n" +
             "\n" +
-            "public class Api {\n" +
-            "    public Api() throws IOException {\n" +
+            "public class TrelloApi {\n" +
+            "    public TrelloApi() throws IOException {\n" +
             "    }\n" +
             "\n" +
             "    public String getTokenKey() {\n" +
@@ -33,7 +33,7 @@ class LinterTest {
             "    }\n" +
             "\n" +
             "    // visszaadja a card name-et.\n" +
-            "    public void cardName(String cardId, String tokenKey, Card card) throws IOException {\n" +
+            "    public void cardName(String cardId, String tokenKey, TrelloCard card) throws IOException {\n" +
             "        String url = \"https://api.trello.com/1/cards/\" + cardId + \"?fields=name\" + tokenKey;\n" +
             "        URLConnection connection = new URL(url).openConnection();\n" +
             "        InputStream response = connection.getInputStream();\n" +
@@ -75,7 +75,7 @@ class LinterTest {
             "\n" +
             "\n" +
             "    //visszaadja a list ID-t\n" +
-            "    public void idList(String cardId, String tokenKey, Card card) throws IOException {\n" +
+            "    public void idList(String cardId, String tokenKey, TrelloCard card) throws IOException {\n" +
             "        String url = \"https://api.trello.com/1/cards/\" + cardId + \"/list?fields=id\" + tokenKey;\n" +
             "        URLConnection connection = new URL(url).openConnection();\n" +
             "        InputStream response = connection.getInputStream();\n" +

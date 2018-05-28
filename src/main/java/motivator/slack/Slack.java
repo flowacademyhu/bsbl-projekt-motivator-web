@@ -114,4 +114,3 @@ public class Slack {
         }, startingTime.getTime(), 1000 * 60 * 60 * 24);
     }
 }
-

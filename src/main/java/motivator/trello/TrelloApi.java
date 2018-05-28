@@ -8,8 +8,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Api {
-    public Api() throws IOException {
+public class TrelloApi {
+    public TrelloApi() {
     }
 
     public String getTokenKey() {
@@ -26,8 +26,8 @@ public class Api {
         return tokenKey;
     }
 
-    // visszaadja a card name-et.
-    public void cardName(String cardId, String tokenKey, Card card) throws IOException {
+    // Returns the Trello Card name
+    public void cardName(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "?fields=name" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
@@ -36,11 +36,11 @@ public class Api {
             responseBody = scanner.useDelimiter("\\A").next();
         }
         String repBody = responseBody.substring(41).replace("\"}", "");
-        card.setCardName(repBody);
+        trelloCard.setCardName(repBody);
     }
 
-    //csak az ID-t adja át a cardId-nak
-    public void cardId(String cardId, String tokenKey, Card card) throws IOException {
+    // Passes Id to the cardId
+    public void cardId(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "?fields=name" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
@@ -49,11 +49,11 @@ public class Api {
             responseBody = scanner.useDelimiter("\\A").next();
         }
         String repBody = responseBody.substring(7, 31).replace("\"}", "");
-        card.setId(repBody);
+        trelloCard.setId(repBody);
     }
 
-    //visszaadja van-e hat?rid?
-    public void cardDue(String cardId, String tokenKey, Card card) throws IOException, ParseException {
+    // Returns if there is an issue date
+    public void cardDue(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException, ParseException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/due?" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
@@ -63,17 +63,17 @@ public class Api {
         }
         String repBody = responseBody.substring(11).replace("}", "").replace("T", "").replace("Z", "");
         if (repBody.equals("null\n")) {
-            card.setHasDue(false);
+            trelloCard.setHasDue(false);
         } else {
-            card.setHasDue(true);
+            trelloCard.setHasDue(true);
             DateFormat df = new SimpleDateFormat("yyyy-MM-ddhh:mm", Locale.ENGLISH);
             Date result = df.parse(repBody);
-            card.setDueDate(result);
+            trelloCard.setDueDate(result);
         }
     }
 
-    //visszaadja siker?lt-e teljes?teni hat?rid?re
-    public void cardDueComp(String cardId, String tokenKey, Card card) throws IOException {
+    // Returns if the task was completed until due date
+    public void cardDueComp(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/dueComplete?" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
@@ -83,11 +83,11 @@ public class Api {
         }
         String repBody = responseBody.substring(10).replace("}", "");
         Boolean bool = Boolean.parseBoolean(repBody);
-        card.setDueComp(bool);
+        trelloCard.setDueComp(bool);
     }
 
-    //visszadja az ID-t ?s a name-et
-    public void listName(String cardId, String tokenKey, Card card) throws IOException {
+    // Returns the Id and the username
+    public void listName(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/list?fields=name" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
@@ -96,11 +96,11 @@ public class Api {
             responseBody = scanner.useDelimiter("\\A").next();
         }
         String repBody = responseBody.substring(41).replace("\"}", "");
-        card.setListName(repBody);
+        trelloCard.setListName(repBody);
     }
 
-    //visszadja az ID-t ?s az utols? activityt
-    public void getDateLastAct(String cardId, String tokenKey, Card card) throws IOException, ParseException {
+    // Returns the Id and the last activity
+    public void getDateLastAct(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException, ParseException {
         String url = "https://api.trello.com/1/cards/" + cardId + "?fields=dateLastActivity" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
         InputStream response = connection.getInputStream();
@@ -111,11 +111,10 @@ public class Api {
         String repBody = responseBody.substring(53).replace("T", "").replace("\"}", "");
         DateFormat df = new SimpleDateFormat("yyyy-MM-ddhh:mm", Locale.ENGLISH);
         Date result =  df.parse(repBody);
-        card.setLastActivity(result);
+        trelloCard.setLastActivity(result);
     }
 
-    // user relevant.
-    // visszaadja a user ?sszes cardj?nak ID-j?t.
+    // User relevant: Returns all user's card Id
     public String[] userAllCard(String username, String tokenKey) throws IOException { // username+id j?n vissza
         String url = "https://api.trello.com/1/members/" + username + "/cards?fields=id" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -128,7 +127,7 @@ public class Api {
         return userAllCarsrep;
     }
 
-    //visszaadja a board-on szerepl? cardok ?sszes ID-j?t
+    // Returns all Id-s which are represented on the board
     public String[] boardAllCards(String boardId, String tokenKey) throws IOException { // username+id j?n vissza
         String url = "https://api.trello.com/1/boards/" + boardId + "/cards?fields=id" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -141,7 +140,7 @@ public class Api {
         return boardAllCardsrep;
     }
 
-    //visszaadja a user ?s a board k?z?s cardjainak ID-j?t
+    // Returns the card Ids where the user and board are sharing them
     ArrayList<String> ar = new ArrayList<>();
     public ArrayList boardUserCards(String[] boardCards, String[] userCards) {
         for(int i = 0; i < boardCards.length; i++) {

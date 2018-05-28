@@ -16,7 +16,7 @@ public class UserScore {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private java.motivator.api.models.User user;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -68,11 +68,11 @@ public class UserScore {
         this.updated = updated;
     }
 
-    public User getUser() {
+    public java.motivator.api.models.User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(java.motivator.api.models.User user) {
         this.user = user;
     }
 }
