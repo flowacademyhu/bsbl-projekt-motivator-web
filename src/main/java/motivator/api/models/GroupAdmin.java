@@ -1,3 +1,4 @@
+/*
 package motivator.api.models;
 
 import javax.persistence.Entity;
@@ -24,3 +25,4 @@ public class GroupAdmin {
         this.userId = userId;
     }
 }
+*/
