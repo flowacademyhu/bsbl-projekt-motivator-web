@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.naming.NameAlreadyBoundException;
+
 @RestController
 @RequestMapping("/secure")
 public class SecureController {
@@ -26,6 +28,14 @@ public class SecureController {
 
 	@RequestMapping(value = "/user/update", method = RequestMethod.POST)
 	public User updateUser(User user) {
-		return userRepository.save(user);
+		User editUser = findByEmail(user.getEmail());
+		System.out.println(editUser);
+		editUser.setName(user.getName());
+		editUser.setPassword(user.getPassword());
+		editUser.setGitHubProfile(user.getGitHubProfile());
+		editUser.setTrelloProfile(user.getTrelloProfile());
+		editUser.setSlackProfile(user.getSlackProfile());
+		editUser.setCurrentScore(findByEmail(user.getEmail()).getCurrentScore());
+		return userRepository.save(editUser);
 	}
 }
