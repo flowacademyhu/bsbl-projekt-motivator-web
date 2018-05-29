@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import javax.naming.NameAlreadyBoundException;
 import javax.servlet.ServletException;
 import java.util.Date;
 
@@ -19,10 +20,13 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public User registerUser(User user) {
+	public User registerUser(User user) throws NameAlreadyBoundException {
 		User newUser = new User();
 		newUser.setName(user.getName());
 		newUser.setPassword(user.getPassword());
+		if (userService.findByEmail(user.getEmail()) != null) {
+			throw new NameAlreadyBoundException("E-mail is already in use.");
+		}
 		newUser.setEmail(user.getEmail());
 		newUser.setGitHubProfile(user.getGitHubProfile());
 		newUser.setTrelloProfile(user.getTrelloProfile());
