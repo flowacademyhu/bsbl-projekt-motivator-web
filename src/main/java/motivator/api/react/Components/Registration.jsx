@@ -70,7 +70,7 @@ class Create extends Component {
                 <label for="author">SlackProfile:</label>
                 <input type="text" class="form-control" name="slackProfile" value={slackProfile} onChange={this.onChange} placeholder="SlackProfile" />
               </div>
-              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="submit" action="/login" class="btn btn-default">Submit</button>
             </form>
           </div>
         </div>
