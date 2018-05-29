@@ -1,4 +1,4 @@
-package java.motivator.api.models;
+package motivator.api.models;
 
 public class MainModel {
 }

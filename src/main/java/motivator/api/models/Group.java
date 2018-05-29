@@ -1,4 +1,4 @@
-package java.motivator.api.models;
+package motivator.api.models;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
