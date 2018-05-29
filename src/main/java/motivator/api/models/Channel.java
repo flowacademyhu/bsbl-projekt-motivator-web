@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "channel")
 public class Channel {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String name;
     private String webHookUrl;
 
@@ -25,11 +26,11 @@ public class Channel {
     @Column(name = "updated_at", nullable = false)
     private Date updated;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

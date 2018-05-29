@@ -7,18 +7,19 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
     private String password;
     private String email;
     private String gitHubProfile;
     private String trelloProfile;
     private String slackProfile;
-    private int currentScore;
+    private Long currentScore;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,11 +31,11 @@ public class User {
     @Column(name = "updated_at", nullable = false)
     private Date updated;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -86,11 +87,11 @@ public class User {
         this.slackProfile = slackProfile;
     }
 
-    public int getCurrentScore() {
+    public Long getCurrentScore() {
         return currentScore;
     }
 
-    public void setCurrentScore(int currentScore) {
+    public void setCurrentScore(Long currentScore) {
         this.currentScore = currentScore;
     }
 

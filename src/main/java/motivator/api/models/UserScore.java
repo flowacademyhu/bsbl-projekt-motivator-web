@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "user_score")
 public class UserScore {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
-    private int score;
+    private Long id;
+    private Long score;
     private String reason;
 
     @ManyToOne
@@ -28,19 +29,19 @@ public class UserScore {
     @Column(name = "updated_at", nullable = false)
     private Date updated;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getScore() {
+    public Long getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Long score) {
         this.score = score;
     }
 
@@ -50,6 +51,14 @@ public class UserScore {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getCreated() {
@@ -66,13 +75,5 @@ public class UserScore {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
