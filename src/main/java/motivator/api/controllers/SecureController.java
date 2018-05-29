@@ -1,5 +1,6 @@
 package motivator.api.controllers;
 
+import motivator.api.dao.UserRepository;
 import motivator.api.models.User;
 import motivator.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class SecureController {
 
 	@Autowired
-	private UserService userService;
+	private UserRepository userRepository;
 
 	@RequestMapping("/user/users")
 	public String loginSuccess() { return "This is a secured page. Login was successful! If you see this message, your token is valid"; }
 
 	@RequestMapping(value = "/user/email", method = RequestMethod.POST)
-	public User findByEmail(@RequestBody String email) {
-		return userService.findByEmail(email);
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 
 	@RequestMapping(value = "/user/update", method = RequestMethod.POST)
-	public User updateUser(@RequestBody User user) {
-		return userService.save(user);
+	public User updateUser(User user) {
+		return userRepository.save(user);
 	}
 }

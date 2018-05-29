@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "group")
 public class Group {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String name;
 
     @OneToOne
@@ -36,27 +37,11 @@ public class Group {
     @Column(name = "updated_at", nullable = false)
     private Date updated;
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -90,5 +75,21 @@ public class Group {
 
     public void setChannel(Channel channel) {
         this.channel = channel;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "board")
 public class Board {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String name;
     private String link;
     private String token;
@@ -27,11 +28,11 @@ public class Board {
     @Column(name = "updated_at", nullable = false)
     private Date updated;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
