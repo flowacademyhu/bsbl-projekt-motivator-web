@@ -1,0 +1,1 @@
+// /statistics/user-statistics
