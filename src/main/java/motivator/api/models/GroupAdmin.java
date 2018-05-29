@@ -1,4 +1,4 @@
-package java.motivator.api.models;
+package motivator.api.models;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
