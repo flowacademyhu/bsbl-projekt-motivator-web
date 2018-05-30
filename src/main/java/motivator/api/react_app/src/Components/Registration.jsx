@@ -25,7 +25,7 @@ class Create extends Component {
 
     const { name, password, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
 
-    axios.post('localhost:8080/registration', { name, password, email, gitHubProfile, trelloProfile, slackProfile })
+    axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })
       .then((result) => {
         this.props.history.push("/")
       });
