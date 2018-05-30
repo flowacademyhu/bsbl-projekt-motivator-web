@@ -19,7 +19,6 @@ export default class Login extends React.Component {
 
     var email = this.state.email;
     var password = this.state.password;
-    // var self = this;
 
     axios.post(`http://127.0.0.1:8080/login`, { email, password })
       .then(res => {

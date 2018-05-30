@@ -30,10 +30,10 @@ const Router = () => (
       <Switch>
         <Route path='/registration' component={Registration} />
         <Route path='/login' component={Login} />
-        {/*  <Route path='/gettingStarted' component={GettingStarted} />
+        {/*         <Route path='/gettingStarted' component={GettingStarted} />
         <Route path='/github' component={Github} /> */}
         <Route path='/' component={Groups} />
-        {/* <Route path='/groupsCreate' component={GroupsCreate} />
+        {/*         <Route path='/groupsCreate' component={GroupsCreate} />
         <Route path='/groupsEdit' component={GroupsEdit} />
         <Route path='/groupsMemberEdit' component={GroupsMemberEdit} />
         <Route path='/groupsMemberNew' component={GroupsMemberNew} />
@@ -56,7 +56,7 @@ const Router = () => (
   </BrowserRouter>
 );
 export default Router;
-/**/
+
 // npm install -S react-router-bootstrap
 // npm i react-bootstrap
 // npm starttal indul
