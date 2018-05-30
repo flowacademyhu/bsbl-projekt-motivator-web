@@ -3,23 +3,26 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ModalFooter } from 'react-bootstrap'; // Components
-import Login from './Login';
-import GettingStarted from './GettingStarted';
-import Github from './Github';
-import Groups from './Groups';
-import GroupsCreate from './GroupsCreate';
-import GroupsEdit from './GroupsEdit';
-import GroupsMemberEdit from './GroupsMemberEdit';
-import GroupsMemberNew from './GroupsMemberNew';
-import GroupsProfile from './GroupsProfile';
-import PasswordForgotten from './PasswordForgotten';
-import PasswordReset from './PasswordReset';
-import Slack from './Slack';
-import Statistics from './Statistics';
-import Trello from './Trello';
-import UserProfile from './UserProfile';
-import UserProfileEdit from './UserProfileEdit';
-import Registration from './Registration';
+import Login from './Components/Login';
+import GettingStarted from './Components/GettingStarted';
+import Github from './Components/Github';
+import Groups from './Components/Groups';
+import GroupsCreate from './Components/GroupsCreate';
+import GroupsEdit from './Components/GroupsEdit';
+import GroupsMemberEdit from './Components/GroupsMemberEdit';
+import GroupsMemberNew from './Components/GroupsMemberNew';
+import GroupsProfile from './Components/GroupsProfile';
+import PasswordForgotten from './Components/PasswordForgotten';
+import PasswordReset from './Components/PasswordReset';
+import Slack from './Components/Slack';
+import Statistics from './Components/Statistics';
+import Trello from './Components/Trello';
+import UserProfile from './Components/UserProfile';
+import UserProfileEdit from './Components/UserProfileEdit';
+import Registration from './Components/Registration';
+import GroupsLine from './Components/Groups/GroupsLine';
+import GroupStatistics from './Components/Statistics/GroupStatistics';
+import UserStatistics from './Components/Statistics/UserStatistics';
 
 const Router = () => (
   <BrowserRouter>
@@ -42,6 +45,9 @@ const Router = () => (
         <Route path='/trello' exact component={Trello} />
         <Route path='/userProfile' exact component={UserProfile} />
         <Route path='/userProfileEdit' exact component={UserProfileEdit} />
+        <Route path='/groupsLine' exact component={GroupsLine} />
+        <Route path='/groupStatistics' exact component={GroupStatistics} />
+        <Route path='/userStatistics' exact component={UserStatistics} />
       </Switch>
       <ModalFooter>
         <p> Flow Academy - 2018 - Team BSBL - Motivator Project</p>
