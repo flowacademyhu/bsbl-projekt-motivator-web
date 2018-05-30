@@ -36,7 +36,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(User login) throws ServletException {
+	public String login(@RequestBody User login) throws ServletException {
 
 		String jwtToken = "";
 
