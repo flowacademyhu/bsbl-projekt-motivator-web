@@ -16,6 +16,10 @@ public class Channel {
     private String name;
     private String webHookUrl;
 
+    @OneToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false)
