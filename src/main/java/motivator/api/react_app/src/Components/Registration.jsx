@@ -27,7 +27,9 @@ class Create extends Component {
 
     axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })
       .then((result) => {
-          console.log("szarosgatya");
+        if (result.status === 200) {
+          window.location.replace('/Login');
+        }
       });
   }
 
