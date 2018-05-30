@@ -20,6 +20,9 @@ import Trello from './Components/Trello';
 import UserProfile from './Components/UserProfile';
 import UserProfileEdit from './Components/UserProfileEdit';
 import Registration from './Components/Registration';
+import GroupsLine from './Components/Groups/GroupsLine';
+import GroupStatistics from './Components/Statistics/GroupStatistics';
+import UserStatistics from './Components/Statistics/UserStatistics';
 
 const Router = () => (
   <BrowserRouter>
@@ -42,6 +45,9 @@ const Router = () => (
         <Route path='/trello' exact component={Trello} />
         <Route path='/userProfile' exact component={UserProfile} />
         <Route path='/userProfileEdit' exact component={UserProfileEdit} />
+        <Route path='/groupsLine' exact component={GroupsLine} />
+        <Route path='/groupStatistics' exact component={GroupStatistics} />
+        <Route path='/userStatistics' exact component={UserStatistics} />
       </Switch>
       <ModalFooter>
         <p> Flow Academy - 2018 - Team BSBL - Motivator Project</p>

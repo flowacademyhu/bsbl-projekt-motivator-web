@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-
+import Registration from './Registration';
+import { Link } from 'react-router-dom'
 export default class PersonList extends React.Component {
   state = {
     email: '',
@@ -42,8 +43,9 @@ export default class PersonList extends React.Component {
           </label>
           <button type="submit">Login</button>
         </form>
+        <Link to="/Registration">Registration</Link>
       </div>
     )
   }
 }        
-//<Link to="/Registration">Registration</Link>
+//        
