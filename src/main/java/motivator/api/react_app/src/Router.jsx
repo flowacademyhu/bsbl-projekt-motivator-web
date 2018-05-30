@@ -4,7 +4,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ModalFooter } from 'react-bootstrap'; // Components
 import Login from './Components/Login';
-import GettingStarted from './Components/GettingStarted';
+/* import GettingStarted from './Components/GettingStarted';
 import Github from './Components/Github';
 import Groups from './Components/Groups';
 import GroupsCreate from './Components/GroupsCreate';
@@ -18,19 +18,20 @@ import Slack from './Components/Slack';
 import Statistics from './Components/Statistics';
 import Trello from './Components/Trello';
 import UserProfile from './Components/UserProfile';
-import UserProfileEdit from './Components/UserProfileEdit';
+import UserProfileEdit from './Components/UserProfileEdit'; */
 import Registration from './Components/Registration';
-import GroupsLine from './Components/Groups/GroupsLine';
+/* import GroupsLine from './Components/Groups/GroupsLine';
 import GroupStatistics from './Components/Statistics/GroupStatistics';
-import UserStatistics from './Components/Statistics/UserStatistics';
+import UserStatistics from './Components/Statistics/UserStatistics'; */
 
 const Router = () => (
   <BrowserRouter>
     <div>
       <Switch>
+        <Route path='/' component={Login} />
         <Route path='/registration' component={Registration} />
         <Route path='/login' component={Login} />
-        <Route path='/gettingStarted' component={GettingStarted} />
+        {/* <Route path='/gettingStarted' component={GettingStarted} />
         <Route path='/github' component={Github} />
         <Route path='/' component={Groups} />
         <Route path='/groupsCreate' component={GroupsCreate} />
@@ -47,7 +48,7 @@ const Router = () => (
         <Route path='/userProfileEdit' exact component={UserProfileEdit} />
         <Route path='/groupsLine' exact component={GroupsLine} />
         <Route path='/groupStatistics' exact component={GroupStatistics} />
-        <Route path='/userStatistics' exact component={UserStatistics} />
+        <Route path='/userStatistics' exact component={UserStatistics} /> */}
       </Switch>
       <ModalFooter>
         <p> Flow Academy - 2018 - Team BSBL - Motivator Project</p>

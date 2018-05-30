@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Registration from './Registration';
 import { Link } from 'react-router-dom'
 export default class PersonList extends React.Component {
   state = {
@@ -17,12 +16,16 @@ export default class PersonList extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const user = {
+    var email = this.state.email;
+    var password = this.state.password;
+
+/*     const login = {
       email: this.state.email,
       password: this.state.password
     };
+    console.log(login) */
 
-    axios.post(`localhost:8080/login`, { user })
+    axios.post(`http://127.0.0.1:8080/login`, { email, password })
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -39,11 +42,11 @@ export default class PersonList extends React.Component {
           </label>
           <label>
             Password:
-            <input type="password" name="psw" onChange={this.handleChange} />
+            <input type="password" name="password" onChange={this.handleChange} />
           </label>
           <button type="submit">Login</button>
         </form>
-        <Link to="/Registration">Registration</Link>
+        <Link to="/registration">Registration</Link>
       </div>
     )
   }
