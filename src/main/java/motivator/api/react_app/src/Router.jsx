@@ -28,7 +28,6 @@ const Router = () => (
   <BrowserRouter>
     <div>
       <Switch>
-        <Route path='/' component={Login} />
         <Route path='/registration' component={Registration} />
         <Route path='/login' component={Login} />
         {/* <Route path='/gettingStarted' component={GettingStarted} />
