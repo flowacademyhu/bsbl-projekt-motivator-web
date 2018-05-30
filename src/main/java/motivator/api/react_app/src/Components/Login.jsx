@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 
-export default class Login extends React.Component {
+export default class Login extends Component {
+  constructor(props) {
+    super(props);
+  };
+
   state = {
     email: '',
     password: ''
-  }
+  };
+
+    redir = (props) => {
+      this.props.history.push('/');
+    };
 
   handleChange = (event) => {
     const state = this.state
@@ -25,28 +33,29 @@ export default class Login extends React.Component {
         console.log(res);
         console.log(res.data);
         if (res.status === 200) {
-          window.location.replace('/Groups');
+          this.redir();
+          // window.location.replace('/Groups');
           // self.$router.push({path: '/Groups'});
         }
       });
   };
 
-  render() {
+  render () {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
           <label>
             E-mail adress:
-            <input type="email" name="email" onChange={this.handleChange} />
-          </label>
+            <input type='email' name='email' onChange={this.handleChange} />
+          </label><br />
           <label>
             Password:
-            <input type="password" name="password" onChange={this.handleChange} />
-          </label>
-          <button type="submit">Login</button>
+            <input type='password' name='password' onChange={this.handleChange} />
+          </label><br />
+          <button type='submit'>Login</button>
         </form>
-        <Link to="/registration">Registration</Link>
+        <Link type='button' to='/registration'>Registration</Link>
       </div>
     )
   }
-}        
+};

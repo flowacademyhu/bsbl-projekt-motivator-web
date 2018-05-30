@@ -1,21 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
-class Header extends React.Component {
-  render() {
+class Header extends Component {
+  render () {
     return (
-      <div className="Header">
-        <Link to="/home"><button>Home</button></Link>
+      <div className='Header'>
+        <NavLink to='/'><button>Home</button></NavLink>
         <select>
-          <option value="volvo">Volvo</option>
+          <option selected disabled>Choose your group</option>
+          <option value='group_one'>Group One</option>
+          <option value='group_two'>Group Two</option>
         </select>
-        <Link to="/github"><button>Github</button></Link>
-        <Link to="/slack"><button>Slack</button></Link>
-        <Link to="/trello"><button>Trello</button></Link>
-        <Link to="/groupProfile"><button>Group Profile</button></Link>
-        <Link to="/userProfile"><button>User Profile</button></Link>
-        <Link to="/logout"><button>Logout</button></Link>
+        <NavLink to='/github'><button>GitHub</button></NavLink>
+        <NavLink to='/slack'><button>Slack</button></NavLink>
+        <NavLink to='/trello'><button>Trello</button></NavLink>
+        <NavLink to='/groupProfile'><button>Group Profile</button></NavLink>
+        <NavLink to='/userProfile'><button>User Profile</button></NavLink>
+        <NavLink to='/logout'><button>Logout</button></NavLink>
       </div>
     );
   }
 }
+
+export default Header;
