@@ -14,9 +14,13 @@ public class Board {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String name;
-    private String link;
-    private String token;
-    private String key;
+    private String tLink;
+    private String tToken;
+    private String tKey;
+
+    @OneToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -44,28 +48,28 @@ public class Board {
         this.name = name;
     }
 
-    public String getLink() {
-        return link;
+    public String gettLink() {
+        return tLink;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void settLink(String tLink) {
+        this.tLink = tLink;
     }
 
-    public String getToken() {
-        return token;
+    public String gettToken() {
+        return tToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void settToken(String tToken) {
+        this.tToken = tToken;
     }
 
-    public String getKey() {
-        return key;
+    public String gettKey() {
+        return tKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void settKey(String tKey) {
+        this.tKey = tKey;
     }
 
     public Date getCreated() {

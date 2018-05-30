@@ -7,25 +7,13 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "group")
+@Table(name = "groups")
 public class Group {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String name;
-
-    @OneToOne
-    @JoinColumn(name = "board_id")
-    private Board board;
-
-    @OneToOne
-    @JoinColumn(name = "repository_id")
-    private Repository repository;
-
-    @OneToOne
-    @JoinColumn(name = "channel_id")
-    private Channel channel;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,30 +39,6 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public Repository getRepository() {
-        return repository;
-    }
-
-    public void setRepository(Repository repository) {
-        this.repository = repository;
-    }
-
-    public Channel getChannel() {
-        return channel;
-    }
-
-    public void setChannel(Channel channel) {
-        this.channel = channel;
     }
 
     public Date getCreated() {
