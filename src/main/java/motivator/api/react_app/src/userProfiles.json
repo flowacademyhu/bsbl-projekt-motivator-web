@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "created_at": "02/01/2018",
+        "current_score": "58",
+        "email": "test@test.com",
+        "git_hub_profile": "github.com/test",
+        "name": "Test User",
+        "password": "testboy123",
+        "slack_profile": "slack.com/test",
+        "trello_profile": "trello.com/test",
+        "updated_at": "03/02/2018"
+    },
+    {
+        "id": 2,
+        "created_at": "02/01/2010",
+        "current_score": "100",
+        "email": "test@test.com",
+        "git_hub_profile": "github.com/test",
+        "name": "Test Boy",
+        "password": "testboy123",
+        "slack_profile": "slack.com/test",
+        "trello_profile": "trello.com/test",
+        "updated_at": "03/02/2018"
+    },
+    {
+        "id": 3,
+        "created_at": "02/01/2011",
+        "current_score": "150",
+        "email": "test@test.com",
+        "git_hub_profile": "github.com/test",
+        "name": "Test Girl",
+        "password": "testboy123",
+        "slack_profile": "slack.com/test",
+        "trello_profile": "trello.com/test",
+        "updated_at": "03/02/2018"
+    }
+]
