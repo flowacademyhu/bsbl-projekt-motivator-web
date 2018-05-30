@@ -7,16 +7,16 @@
 ##############################################################################
 
 # Attempt to set APP_HOME
-# Resolve tLink: $0 may be a tLink
+# Resolve links: $0 may be a link
 PRG="$0"
 # Need this for relative symlinks.
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
-    tLink=`expr "$ls" : '.*-> \(.*\)$'`
-    if expr "$tLink" : '/.*' > /dev/null; then
-        PRG="$tLink"
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
     else
-        PRG=`dirname "$PRG"`"/$tLink"
+        PRG=`dirname "$PRG"`"/$link"
     fi
 done
 SAVED="`pwd`"
