@@ -20,7 +20,7 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public User registerUser(User user) throws NameAlreadyBoundException {
+	public User registerUser(@RequestBody User user) throws NameAlreadyBoundException {
 		User newUser = new User();
 		newUser.setName(user.getName());
 		newUser.setPassword(user.getPassword());
