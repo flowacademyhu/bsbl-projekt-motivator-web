@@ -46,7 +46,7 @@ export default class PersonList extends React.Component {
           </label>
           <button type="submit">Login</button>
         </form>
-        <Link to="/Registration">Registration</Link>
+        <Link to="/registration">Registration</Link>
       </div>
     )
   }

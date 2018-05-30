@@ -27,9 +27,7 @@ class Create extends Component {
 
     axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })
       .then((result) => {
-        if (result.status == '200') {
-          this.$router.push('/login');
-        }
+          console.log("szarosgatya");
       });
   }
 
@@ -40,7 +38,7 @@ class Create extends Component {
         <div className="panel panel-default">
           <div className="panel-heading">
             <h3 className="panel-title">
-              Registrate new profile.
+              Registrate a new profile fgt. !
             </h3>
           </div>
           <div className="panel-body">
