@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
+
 export default class PersonList extends React.Component {
   state = {
     email: '',
@@ -18,19 +19,18 @@ export default class PersonList extends React.Component {
 
     var email = this.state.email;
     var password = this.state.password;
-
-/*     const login = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    console.log(login) */
+    // var self = this;
 
     axios.post(`http://127.0.0.1:8080/login`, { email, password })
       .then(res => {
         console.log(res);
         console.log(res.data);
-      })
-  }
+        if (res.status === 200) {
+          window.location.replace('/Groups');
+          // self.$router.push({path: '/Groups'});
+        }
+      });
+  };
 
   render() {
     return (
