@@ -7,13 +7,17 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "groups")
-public class Group {
-
+@Table(name = "user_score")
+public class UserScore {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    private String name;
+    private Long score;
+    private String reason;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,12 +37,28 @@ public class Group {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getScore() {
+        return score;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setScore(Long score) {
+        this.score = score;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getCreated() {

@@ -1,7 +1,31 @@
+<<<<<<< HEAD
+/.idea/
+/.gradle/
+/.settings/
+/build/
+/out/
+/gradle/
+/bin/
+node_modules/
+
+gradlew
+gradlew.bat
+
+*.txt
+*.iml
+
+=======
 .idea/
 .gradle/
+/out/
+/gradle/
 /build/
-
+gradlew
+gradlew.bat
+*.txt
+*.iml
+node_modules/
+>>>>>>> muller93/#8
 # Ignore Gradle GUI config
 gradle-app.setting
 
