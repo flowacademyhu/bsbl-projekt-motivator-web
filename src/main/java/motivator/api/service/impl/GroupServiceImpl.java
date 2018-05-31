@@ -19,7 +19,10 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.save(group);
     }
 
-    public Group findByName(String name) { return groupRepository.findByName(name);
-    }
+    public Group findByName(String name) { return groupRepository.findByName(name); }
+
+    public Group findAll() { return groupRepository.findAll(); }
+
+    public Group deleteByName(String name) { return groupRepository.deleteByName(name); }
 }
 
