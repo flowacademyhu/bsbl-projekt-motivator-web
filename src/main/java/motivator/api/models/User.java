@@ -20,6 +20,7 @@ public class User {
     private String trelloProfile;
     private String slackProfile;
     private Long currentScore;
+    private String activeGroup;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -93,6 +94,14 @@ public class User {
 
     public void setCurrentScore(Long currentScore) {
         this.currentScore = currentScore;
+    }
+
+    public String getActiveGroup() {
+        return activeGroup;
+    }
+
+    public void setActiveGroup(String activeGroup) {
+        this.activeGroup = activeGroup;
     }
 
     public Date getCreated() {
