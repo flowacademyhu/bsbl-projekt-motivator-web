@@ -68,3 +68,4 @@ export default Router;
 // npm install -S react-router-bootstrap
 // npm i react-bootstrap
 // npm starttal indul
+// npm install reactjs-popup --save
