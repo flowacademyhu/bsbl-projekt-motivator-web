@@ -34,8 +34,6 @@ export default class Login extends Component {
         console.log(res.data);
         if (res.status === 200) {
           this.redir();
-          // window.location.replace('/Groups');
-          // self.$router.push({path: '/Groups'});
         }
       });
   };
