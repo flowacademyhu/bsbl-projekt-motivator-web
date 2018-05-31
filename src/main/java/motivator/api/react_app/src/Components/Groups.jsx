@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+/* import axios from 'axios'; */
 
 class Groups extends Component {
 
@@ -12,6 +13,18 @@ class Groups extends Component {
       admins: ['Tyson', 'Bruno']
     }
   };
+
+/*   getGroupInfo() {
+    var self = this;
+    axios.get(`http://127.0.0.1:8080/current/groups`)
+      .then(function (response) {
+        console.log(response);
+        self.setState({name: response.data.name})
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  } */
 
   render() {
     return (
@@ -36,19 +49,5 @@ class Groups extends Component {
     );
   }
 }
-
-/*   getGroups = () => {
-    axios.get(`http://127.0.0.1:8080/current/groups`)
-      .then(function (response) {
-        console.log(response.data);
-        console.log(response.status);
-        if (response.status === 200) {
-          groupsGet = response.data.map((group) => {
-          render() { return ( <li key={group.id}>{group.name} - {group.admin}</li> ) }
-          }
-        }
-      }
-    });
-  } */
 
 export default Groups;
