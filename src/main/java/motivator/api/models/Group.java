@@ -14,6 +14,9 @@ public class Group {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String name;
+    private String gitHubGrupRep;
+    private String trelloGroup;
+    private String slackGroupHook;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -55,5 +58,29 @@ public class Group {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public String getGitHubGrupRep() {
+        return gitHubGrupRep;
+    }
+
+    public void setGitHubGrupRep(String gitHubGrupRep) {
+        this.gitHubGrupRep = gitHubGrupRep;
+    }
+
+    public String getTrelloGroup() {
+        return trelloGroup;
+    }
+
+    public void setTrelloGroup(String trelloGroup) {
+        this.trelloGroup = trelloGroup;
+    }
+
+    public String getSlackGroupHook() {
+        return slackGroupHook;
+    }
+
+    public void setSlackGroupHook(String slackGroupHook) {
+        this.slackGroupHook = slackGroupHook;
     }
 }
