@@ -1,13 +1,11 @@
-// /
-
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ModalFooter } from 'react-bootstrap'; // Components
 import Login from './Components/Login';
 /* import GettingStarted from './Components/GettingStarted';
-import Github from './Components/Github';
+import Github from './Components/Github'; */
 import Groups from './Components/Groups';
-import GroupsCreate from './Components/GroupsCreate';
+/* import GroupsCreate from './Components/GroupsCreate';
 import GroupsEdit from './Components/GroupsEdit';
 import GroupsMemberEdit from './Components/GroupsMemberEdit';
 import GroupsMemberNew from './Components/GroupsMemberNew';
@@ -23,16 +21,19 @@ import Registration from './Components/Registration';
 /* import GroupsLine from './Components/Groups/GroupsLine';
 import GroupStatistics from './Components/Statistics/GroupStatistics';
 import UserStatistics from './Components/Statistics/UserStatistics'; */
+import Header from './Components/Header';
 
 const Router = () => (
   <BrowserRouter>
     <div>
+      <header>
+        <Header />
+      </header>
       <Switch>
         <Route path='/registration' component={Registration} />
         <Route path='/login' component={Login} />
         {/* <Route path='/gettingStarted' component={GettingStarted} />
         <Route path='/github' component={Github} />
-        <Route path='/' component={Groups} />
         <Route path='/groupsCreate' component={GroupsCreate} />
         <Route path='/groupsEdit' component={GroupsEdit} />
         <Route path='/groupsMemberEdit' component={GroupsMemberEdit} />
@@ -47,16 +48,19 @@ const Router = () => (
         <Route path='/userProfileEdit' exact component={UserProfileEdit} />
         <Route path='/groupsLine' exact component={GroupsLine} />
         <Route path='/groupStatistics' exact component={GroupStatistics} />
-        <Route path='/userStatistics' exact component={UserStatistics} /> */}
+        <Route path='/userStatistics' exact component={UserStatistics} /> */} */}
+        <Route path='/' exact component={Groups} />
+        <Route render={() => <h3>Error 404 Custom Page</h3>} />
       </Switch>
       <ModalFooter>
-        <p> Flow Academy - 2018 - Team BSBL - Motivator Project</p>
+        <p> Flow Academy - 2018 - Team BSBL &copy; - Motivator Project</p>
       </ModalFooter>
     </div>
   </BrowserRouter>
 );
+
 export default Router;
-/**/
+
 // npm install -S react-router-bootstrap
 // npm i react-bootstrap
 // npm starttal indul
