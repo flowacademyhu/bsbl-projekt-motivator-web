@@ -8,6 +8,9 @@ import motivator.api.service.UserService;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.internal.SessionFactoryBuilderImpl;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +42,7 @@ public class HomeController {
 
         List<Home> list = new ArrayList<>();
 
-        Session session = factory.getCurrentSession();
+        Session session = factory.openSession();
         String grpQuery = "SELECT motivator.groups.name FROM motivator.groups " +
                 "right join motivator.group_user on motivator.groups.id = motivator.group_user.group_id " +
                 "left join motivator.user on motivator.group_user.user_id = motivator.user.id" +
@@ -70,7 +73,7 @@ public class HomeController {
             }
             list.add(temp);
         }
-
+        session.close();
         return new ResponseEntity<List<Home>>(list, HttpStatus.OK);
     }
 }
