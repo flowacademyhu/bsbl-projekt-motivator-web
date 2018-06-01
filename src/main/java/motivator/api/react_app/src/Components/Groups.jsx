@@ -23,7 +23,7 @@ class Groups extends Component {
 
   getGroupInfo () {
     // var self = this;
-    axios.get(`http://127.0.0.1:8080/currentuser`)
+    axios.get(`http://127.0.0.1:8080/app/currentuser`)
       .then(function (response) {
         console.log(response);
         // self.setState({ respone: response.data });
