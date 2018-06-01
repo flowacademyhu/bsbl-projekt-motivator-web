@@ -26,7 +26,7 @@ public class SecureController {
 		return userRepository.findByEmail(email);
 	}
 
-	@RequestMapping(value = "/user/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/app/currentuser/update", method = RequestMethod.POST)
 	public User updateUser(User user) {
 		User editUser = findByEmail(user.getEmail());
 		System.out.println(editUser);

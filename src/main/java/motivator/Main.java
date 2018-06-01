@@ -12,7 +12,7 @@ public class Main {
     public FilterRegistrationBean jwtFilter() {
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JwtFilter());
-        registrationBean.addUrlPatterns("/secure/*");
+        registrationBean.addUrlPatterns("/app/*");
 
         return registrationBean;
     }

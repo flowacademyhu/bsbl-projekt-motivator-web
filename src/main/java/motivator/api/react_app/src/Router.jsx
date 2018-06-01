@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ModalFooter } from 'react-bootstrap'; // Components
 import Login from './Components/Login';
+import UserProfile from './Components/UserProfile';
+import UserProfileEdit from './Components/UserProfileEdit'; 
 /* import GettingStarted from './Components/GettingStarted';
 import Github from './Components/Github'; */
 import Groups from './Components/Groups';
@@ -15,8 +17,8 @@ import PasswordReset from './Components/PasswordReset';
 import Slack from './Components/Slack';
 import Statistics from './Components/Statistics';
 import Trello from './Components/Trello';
-import UserProfile from './Components/UserProfile';
-import UserProfileEdit from './Components/UserProfileEdit'; */
+;
+*/
 import Registration from './Components/Registration';
 /* import GroupsLine from './Components/Groups/GroupsLine';
 import GroupStatistics from './Components/Statistics/GroupStatistics';
@@ -32,6 +34,9 @@ const Router = () => (
       <Switch>
         <Route path='/registration' component={Registration} />
         <Route path='/login' component={Login} />
+        <Route path='/userProfile' exact component={UserProfile} />
+        <Route path='/userProfileEdit' exact component={UserProfileEdit} />
+
         {/* <Route path='/gettingStarted' component={GettingStarted} />
         <Route path='/github' component={Github} />
         <Route path='/groupsCreate' component={GroupsCreate} />
@@ -44,8 +49,7 @@ const Router = () => (
         <Route path='/slack' exact component={Slack} />
         <Route path='/statistics' exact component={Statistics} />
         <Route path='/trello' exact component={Trello} />
-        <Route path='/userProfile' exact component={UserProfile} />
-        <Route path='/userProfileEdit' exact component={UserProfileEdit} />
+        
         <Route path='/groupsLine' exact component={GroupsLine} />
         <Route path='/groupStatistics' exact component={GroupStatistics} />
         <Route path='/userStatistics' exact component={UserStatistics} /> */} */}

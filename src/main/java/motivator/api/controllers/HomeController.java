@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import motivator.api.models.Group;
 import motivator.api.models.User;
-import motivator.api.service.GroupService;
 import motivator.api.service.UserService;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -26,12 +25,12 @@ public class HomeController {
         private String groupName;
         private List<String> admins;
     }
-    
+
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/currentuser", method = RequestMethod.GET)
-    public ResponseEntity<List<Home>> getInfo (@RequestHeader String Authorization) {
+    @RequestMapping(value = "/app/currentuser", method = RequestMethod.GET)
+    public ResponseEntity<List<Home>> getInfo (@RequestHeader String jwtToken) {
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(Authorization).getBody();
@@ -45,7 +44,7 @@ public class HomeController {
                 "left join motivator.user on motivator.group_user.user_id = motivator.user.id" +
                 "where motivator.user.name = :name;";
         SQLQuery grpSql = session.createSQLQuery(grpQuery);
-        grpSql.setParameter("name", user.getName());
+        grpSql.setParameter("name", user.getName());secure
         List grpList = grpSql.list();
 
         for (Object gItem: grpList) {

@@ -86,4 +86,5 @@ public class UserController {
 		System.out.println("Expiration: " + claims.getExpiration());
 	return jwtToken;
 	}
+	
 }
