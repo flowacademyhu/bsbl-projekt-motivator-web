@@ -93,8 +93,6 @@ public class UserController {
 		headers.add("Authorization", "Bearer " + jwtToken);
 		return (new ResponseEntity<>("", headers, HttpStatus.OK));
 	}
-<<<<<<< HEAD
-=======
 
     @RequestMapping(value = "/userProfileUpdate", method = RequestMethod.POST)
     public ResponseEntity<User> updateUser(@RequestHeader String jwtToken, @RequestBody User user)  {
@@ -126,5 +124,4 @@ public class UserController {
 
         return new ResponseEntity<User>(userDb,HttpStatus.OK);
     }
->>>>>>> f0e5628f2110fb8d206526f1ac88efe7d6446ec4
 }
