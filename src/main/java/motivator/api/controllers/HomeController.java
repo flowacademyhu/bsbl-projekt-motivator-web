@@ -31,10 +31,10 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping(value = "/currentuser", method = RequestMethod.GET)
-    public ResponseEntity<List<Home>> getInfo (@RequestHeader String jwtToken) {
+    public ResponseEntity<List<Home>> getInfo (@RequestHeader String Authorization) {
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
-                .parseClaimsJws(jwtToken).getBody();
+                .parseClaimsJws(Authorization).getBody();
         User user = userService.findByEmail(claims.getSubject());
 
         List<Home> list = new ArrayList<>();
