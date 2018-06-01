@@ -5,6 +5,8 @@ import motivator.api.models.User;
 import motivator.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -86,5 +88,35 @@ public class UserController {
 		System.out.println("Expiration: " + claims.getExpiration());
 	return jwtToken;
 	}
-	
+
+    @RequestMapping(value = "/userProfileUpdate", method = RequestMethod.POST)
+    public ResponseEntity<User> updateUser(@RequestHeader String jwtToken, @RequestBody User user)  {
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(jwtToken).getBody();
+        String email = claims.getSubject();
+	    User userDb = userService.findByEmail(email);
+
+        userDb.setName(user.getName());
+        userDb.setPassword(user.getPassword());
+        userDb.setGitHubProfile(user.getGitHubProfile());
+        userDb.setTrelloProfile(user.getTrelloProfile());
+        userDb.setSlackProfile(user.getSlackProfile());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Responded", "MyController");
+
+        return ResponseEntity.accepted().headers(headers).body(userDb);
+	}
+
+    @RequestMapping(value = "/userprofile", method = RequestMethod.GET)
+    public ResponseEntity<User> userProfile(@RequestHeader String jwtToken)  {
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(jwtToken).getBody();
+        String email = claims.getSubject();
+        User userDb = userService.findByEmail(email);
+
+        return new ResponseEntity<User>(userDb,HttpStatus.OK);
+    }
 }
