@@ -7,7 +7,8 @@ import UserProfileEdit from './Components/UserProfileEdit';
 /* import GettingStarted from './Components/GettingStarted';
 import Github from './Components/Github'; */
 import Groups from './Components/Groups';
-/* import GroupsCreate from './Components/GroupsCreate';
+import GroupsCreate from './Components/GroupsCreate';
+/*
 import GroupsEdit from './Components/GroupsEdit';
 import GroupsMemberEdit from './Components/GroupsMemberEdit';
 import GroupsMemberNew from './Components/GroupsMemberNew';
@@ -36,10 +37,9 @@ const Router = () => (
         <Route path='/login' component={Login} />
         <Route path='/userProfile' exact component={UserProfile} />
         <Route path='/userProfileEdit' exact component={UserProfileEdit} />
-
+        <Route path='/groupsCreate' component={GroupsCreate} />
         {/* <Route path='/gettingStarted' component={GettingStarted} />
         <Route path='/github' component={Github} />
-        <Route path='/groupsCreate' component={GroupsCreate} />
         <Route path='/groupsEdit' component={GroupsEdit} />
         <Route path='/groupsMemberEdit' component={GroupsMemberEdit} />
         <Route path='/groupsMemberNew' component={GroupsMemberNew} />

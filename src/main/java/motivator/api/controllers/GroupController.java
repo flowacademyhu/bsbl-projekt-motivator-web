@@ -29,7 +29,7 @@ public class GroupController {
     private GroupRepository groupRepository;
 
     @RequestMapping(value = "/app/currentuser/createGroup", method = RequestMethod.POST)
-    public Group createUser(@RequestBody Group group){
+    public Group createUser(@RequestBody Group group, @RequestHeader String jwtToken) throws NameAlreadyBoundException {
         Group newGroup = new Group();
         newGroup.setName(group.getName());
         if (groupService.findByName(group.getName()) != null) {
