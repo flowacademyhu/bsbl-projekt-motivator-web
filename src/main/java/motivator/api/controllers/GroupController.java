@@ -11,12 +11,8 @@ import motivator.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.naming.NameAlreadyBoundException;
-import javax.servlet.ServletException;
-import java.util.ArrayList;
-import java.util.Date;
 
 @CrossOrigin(origins = "http://localhost/curentuser/groups", maxAge = 3600)
 @RestController
@@ -29,7 +25,7 @@ public class GroupController {
     private GroupRepository groupRepository;
 
     @RequestMapping(value = "/app/currentuser/createGroup", method = RequestMethod.POST)
-    public Group createUser(@RequestBody Group group){
+    public Group createUser(@RequestBody Group group, @RequestHeader String jwtToken) throws NameAlreadyBoundException {
         Group newGroup = new Group();
         newGroup.setName(group.getName());
         if (groupService.findByName(group.getName()) != null) {

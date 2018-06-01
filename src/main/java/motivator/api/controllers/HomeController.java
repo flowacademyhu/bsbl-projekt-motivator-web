@@ -30,7 +30,7 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping(value = "/app/currentuser", method = RequestMethod.GET)
-    public ResponseEntity<List<Home>> getInfo (@RequestHeader String jwtToken) {
+    public ResponseEntity<List<Home>> getInfo (@RequestHeader String Authorization) {
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(Authorization).getBody();
