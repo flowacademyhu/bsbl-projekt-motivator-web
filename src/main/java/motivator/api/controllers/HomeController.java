@@ -31,6 +31,7 @@ public class HomeController {
 
     @RequestMapping(value = "/app/currentuser", method = RequestMethod.GET)
     public ResponseEntity<List<Home>> getInfo (@RequestHeader (value = "Authorization") String Authorization) {
+        Authorization = Authorization.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(Authorization).getBody();

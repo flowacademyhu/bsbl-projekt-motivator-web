@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export default class Login extends Component {
   constructor(props) {
@@ -36,18 +36,15 @@ export default class Login extends Component {
       }
     }
 
-   // return dispatch => {
-      return axios(authOptions)
-        .then(res => {
-          console.log(res);
-          if (res.status === 200) {
-            this.state.token = res.data;
-            console.log(this.state.token);
-            this.redir();
-          }
-        });
-    }
-  //};
+    return axios(authOptions)
+      .then(res => {
+        if (res.status === 200) {
+          window.localStorage.setItem(`Authorization`, res.data)
+          console.log(window.localStorage.getItem(`Authorization`));
+          this.redir();
+        }
+      });
+  }
 
   render() {
     return (
