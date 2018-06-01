@@ -20,7 +20,7 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
-    @RequestMapping(value = "/createGroup", method = RequestMethod.POST)
+    @RequestMapping(value = "/app/currentuser/createGroup", method = RequestMethod.POST)
     public Group createUser(@RequestBody Group group){
         Group newGroup = new Group();
         newGroup.setName(group.getName());
