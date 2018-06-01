@@ -93,4 +93,38 @@ public class UserController {
 		headers.add("Authorization", "Bearer " + jwtToken);
 		return (new ResponseEntity<>("", headers, HttpStatus.OK));
 	}
+<<<<<<< HEAD
+=======
+
+    @RequestMapping(value = "/userProfileUpdate", method = RequestMethod.POST)
+    public ResponseEntity<User> updateUser(@RequestHeader String jwtToken, @RequestBody User user)  {
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(jwtToken).getBody();
+        String email = claims.getSubject();
+	    User userDb = userService.findByEmail(email);
+
+        userDb.setName(user.getName());
+        userDb.setPassword(user.getPassword());
+        userDb.setGitHubProfile(user.getGitHubProfile());
+        userDb.setTrelloProfile(user.getTrelloProfile());
+        userDb.setSlackProfile(user.getSlackProfile());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Responded", "MyController");
+
+        return ResponseEntity.accepted().headers(headers).body(userDb);
+	}
+
+    @RequestMapping(value = "/userprofile", method = RequestMethod.GET)
+    public ResponseEntity<User> userProfile(@RequestHeader String jwtToken)  {
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(jwtToken).getBody();
+        String email = claims.getSubject();
+        User userDb = userService.findByEmail(email);
+
+        return new ResponseEntity<User>(userDb,HttpStatus.OK);
+    }
+>>>>>>> f0e5628f2110fb8d206526f1ac88efe7d6446ec4
 }
