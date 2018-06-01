@@ -13,6 +13,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.naming.NameAlreadyBoundException;
 import javax.servlet.ServletException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
@@ -67,7 +70,7 @@ public class UserController {
 	public ResponseEntity<String> createToken(String email) {
 		long nowMillis = System.currentTimeMillis();
 		Date now = new Date(nowMillis);
-		long expMillis = nowMillis + (5 * 60 * 1000);
+		long expMillis = nowMillis + (1440 * 60 * 1000);
 		Date exp = new Date(expMillis);
 
 		String jwtToken = Jwts.builder()
@@ -83,18 +86,14 @@ public class UserController {
 		Claims claims = Jwts.parser()
 				.setSigningKey("secretkey")
 				.parseClaimsJws(jwtToken).getBody();
-		System.out.println("Subject: " + claims.getSubject());
-		System.out.println("Expiration: " + claims.getExpiration());
+		System.out.println("E-mail address: " + claims.getSubject());
+		System.out.println("Expiration date: " + claims.getExpiration());
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Expose-Headers", "*");
-		headers.add("Content-Type", "application/json; charset=UTF-8");
-		headers.add("X-Fsl-Location", "/");
 		headers.add("Authorization", "Bearer " + jwtToken);
-		return (new ResponseEntity<>("", headers, HttpStatus.OK));
+		return (new ResponseEntity<>(jwtToken, headers, HttpStatus.OK));
 	}
-<<<<<<< HEAD
-=======
 
     @RequestMapping(value = "/userProfileUpdate", method = RequestMethod.POST)
     public ResponseEntity<User> updateUser(@RequestHeader String jwtToken, @RequestBody User user)  {
@@ -110,10 +109,7 @@ public class UserController {
         userDb.setTrelloProfile(user.getTrelloProfile());
         userDb.setSlackProfile(user.getSlackProfile());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Responded", "MyController");
-
-        return ResponseEntity.accepted().headers(headers).body(userDb);
+        return new ResponseEntity<User>(userDb, HttpStatus.OK);
 	}
 
     @RequestMapping(value = "/userprofile", method = RequestMethod.GET)
@@ -126,5 +122,4 @@ public class UserController {
 
         return new ResponseEntity<User>(userDb,HttpStatus.OK);
     }
->>>>>>> f0e5628f2110fb8d206526f1ac88efe7d6446ec4
 }

@@ -22,11 +22,17 @@ class Groups extends Component {
     } */
 
   getGroupInfo () {
-    // var self = this;
-    axios.get(`http://127.0.0.1:8080/app/currentuser`)
+    var token = window.localStorage.getItem(`Authorization`);
+    var config = {
+      headers: {
+        Authorization: `Bearer ` + token
+      }
+    };
+    var self = this;
+    axios.get(`http://127.0.0.1:8080/app/currentuser`, config)
       .then(function (response) {
         console.log(response);
-        // self.setState({ respone: response.data });
+        self.setState({ respone: response.data });
       })
       .catch(function (error) {
         console.log(error);
