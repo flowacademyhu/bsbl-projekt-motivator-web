@@ -27,7 +27,7 @@ class CreateGroup extends Component {
     e.preventDefault();
     const { name, gitHubGrupRep, trelloGroup, slackGroupHook } = this.state;
 
-    axios.post(`http://127.0.0.1:8080/groups/create`, { name, gitHubGrupRep, trelloGroup, slackGroupHook })
+    axios.post(`http://127.0.0.1:8080/currentuser/groups/create`, { name, gitHubGrupRep, trelloGroup, slackGroupHook })
       .then((result) => {
         if (result.status === 200) {
           this.redir();
@@ -58,6 +58,8 @@ class CreateGroup extends Component {
                 <input type="text" className="form-control" name="trelloGroup" value={trelloGroup} onChange={this.onChange} placeholder="Give a trello" />
               </div>
               <div className="form-group">
+                <p>Click at the link and create a Slack App if your group doesn't have any!</p>
+                <Link to="https://api.slack.com/slack-apps" target="_blank">Create Slack-App</Link>
                 <label htmlFor="isbn">Slack:</label>
                 <input type="text" className="form-control" name="slackGroupHoo" value={slackGroupHoo} onChange={this.onChange} placeholder="Give a slack" />
               </div>
