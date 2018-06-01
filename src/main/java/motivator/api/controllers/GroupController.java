@@ -56,12 +56,12 @@ public class GroupController {
         groupAdmin.setGroup(group);
         return groupAdminRepository.save(groupAdmin);
     }
-
+/*
     @RequestMapping(path="/all", method = RequestMethod.GET)
     public ArrayList<Group> getAllGroup() {
-        return groupRepository.findAll();
+        //return groupRepository.findAll();
     }
-
+*/
     @RequestMapping(path="/delete", method = RequestMethod.DELETE)
     public Group deleteGroup(@RequestBody Group group) {
         return groupService.deleteByName(group.getName());
@@ -70,9 +70,9 @@ public class GroupController {
     @RequestMapping(path="/update", method = RequestMethod.PUT)
     public Group updateGroup(@PathVariable("name") String name, @RequestBody Group group, User user) {
 
-        Group currentGroup = GroupService.findByName(group.getName());
-        currentGroup.setGroup();
-        currentGroup.setUser();
+        //Group currentGroup = GroupService.findByName(group.getName());
+        //currentGroup.setGroup();
+        //currentGroup.setUser();
 
         return groupService.deleteByName(group.getName());
     }
