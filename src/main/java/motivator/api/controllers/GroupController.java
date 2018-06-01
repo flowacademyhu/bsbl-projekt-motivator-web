@@ -2,6 +2,7 @@ package motivator.api.controllers;
 
 import io.jsonwebtoken.*;
 import motivator.api.dao.GroupAdminRepository;
+import motivator.api.dao.GroupRepository;
 import motivator.api.models.Group;
 import motivator.api.models.User;
 import motivator.api.models.GroupAdmin;
@@ -14,6 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.naming.NameAlreadyBoundException;
 import javax.servlet.ServletException;
+import java.util.ArrayList;
 import java.util.Date;
 
 @CrossOrigin(origins = "http://localhost/curentuser/groups", maxAge = 3600)
@@ -24,9 +26,10 @@ public class GroupController {
     private GroupService groupService;
     private UserService userService;
     private GroupAdminRepository groupAdminRepository;
+    private GroupRepository groupRepository;
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public Group createGroup(@RequestBody Group group, User user, @RequestHeader String jwtToken) throws NameAlreadyBoundException {
+    public Group createGroup(@RequestBody Group group, @RequestHeader String jwtToken) throws NameAlreadyBoundException {
         Group newGroup = new Group();
         newGroup.setName(group.getName());
         if (groupService.findByName(group.getName()) != null) {
@@ -42,8 +45,8 @@ public class GroupController {
 
         String email = claims.getSubject();
 
-        userService.findByEmail(email);
-        manILovePizza();
+        User user = userService.findByEmail(email);
+        manILovePizza(user, newGroup);
         return groupService.save(newGroup);
     }
 
@@ -55,8 +58,8 @@ public class GroupController {
     }
 
     @RequestMapping(path="/all", method = RequestMethod.GET)
-    public Group getAllGroup() {
-        return groupService.findAll();
+    public ArrayList<Group> getAllGroup() {
+        return groupRepository.findAll();
     }
 
     @RequestMapping(path="/delete", method = RequestMethod.DELETE)

@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GroupRepository extends CrudRepository<Group, Long> {
     Group findByName(String name);
-    Group findAll();
     Group deleteByName(String name);
 }
