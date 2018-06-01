@@ -44,7 +44,7 @@ public class HomeController {
                 "left join motivator.user on motivator.group_user.user_id = motivator.user.id" +
                 "where motivator.user.name = :name;";
         SQLQuery grpSql = session.createSQLQuery(grpQuery);
-        grpSql.setParameter("name", user.getName());secure
+        grpSql.setParameter("name", user.getName());
         List grpList = grpSql.list();
 
         for (Object gItem: grpList) {

@@ -4,6 +4,7 @@ import io.jsonwebtoken.*;
 import motivator.api.models.User;
 import motivator.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -58,18 +59,18 @@ public class UserController {
 		if (!password.equals(pwd)) {
 			throw new ServletException("Invalid login. Please check your e-mail address and/or password.");
 		}
-		jwtToken = createToken(jwtToken, email);
+		jwtToken = createToken(email);
 
 		return jwtToken;
 	}
 
-	public String createToken(String jwtToken, String email) {
+	public String createToken(String email) {
 		long nowMillis = System.currentTimeMillis();
 		Date now = new Date(nowMillis);
 		long expMillis = nowMillis + (5 * 60 * 1000);
 		Date exp = new Date(expMillis);
 
-		jwtToken = Jwts.builder()
+		String jwtToken = Jwts.builder()
 				.setSubject(email)
 				.claim("roles", "user")
 				.setIssuedAt(now)
@@ -77,12 +78,11 @@ public class UserController {
 				.signWith(SignatureAlgorithm.HS256, "secretkey")
 				.compact();
 		System.out.println("Token: " + jwtToken);
+        new HttpHeaders().set("Authorization", "Bearer " + jwtToken);
 		Claims claims = Jwts.parser()
 				.setSigningKey("secretkey")
 				.parseClaimsJws(jwtToken).getBody();
-		System.out.println("ID: " + claims.getId());
 		System.out.println("Subject: " + claims.getSubject());
-		System.out.println("Issuer: " + claims.getIssuer());
 		System.out.println("Expiration: " + claims.getExpiration());
 	return jwtToken;
 	}
