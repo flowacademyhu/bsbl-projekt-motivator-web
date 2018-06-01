@@ -9,7 +9,8 @@ export default class Login extends Component {
 
   state = {
     email: '',
-    password: ''
+    password: '',
+    token: ''
   };
 
     redir = (props) => {
@@ -31,8 +32,9 @@ export default class Login extends Component {
     axios.post(`http://127.0.0.1:8080/login`, { email, password })
       .then(res => {
         console.log(res);
-        console.log(res.data);
         if (res.status === 200) {
+          this.state.token = res.data;
+          console.log(this.state.token);
           this.redir();
         }
       });

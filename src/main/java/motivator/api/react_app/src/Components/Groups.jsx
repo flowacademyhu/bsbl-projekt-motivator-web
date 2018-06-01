@@ -22,11 +22,11 @@ class Groups extends Component {
     } */
 
   getGroupInfo () {
-    var self = this;
+    // var self = this;
     axios.get(`http://127.0.0.1:8080/currentuser`)
       .then(function (response) {
-        console.log(response.data);
-        self.setState({ respone: response.data });
+        console.log(response);
+        // self.setState({ respone: response.data });
       })
       .catch(function (error) {
         console.log(error);
@@ -34,6 +34,7 @@ class Groups extends Component {
   }
 
   render () {
+    this.getGroupInfo();
     return (
       <div>
         <h2>Groups of the user:</h2>

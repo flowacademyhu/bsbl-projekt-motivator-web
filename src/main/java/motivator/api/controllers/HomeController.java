@@ -33,7 +33,7 @@ public class HomeController {
     public ResponseEntity<List<Home>> getInfo (@RequestHeader String jwtToken) {
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
-                .parseClaimsJws(jwtToken).getBody();
+                .parseClaimsJws(Authorization).getBody();
         User user = userService.findByEmail(claims.getSubject());
 
         List<Home> list = new ArrayList<>();
