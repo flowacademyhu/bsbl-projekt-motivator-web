@@ -7,7 +7,7 @@ import axios from 'axios';
 class UserProfile extends Component {
 
   state = {
-    name: 'asfdsaddfs',
+    name: '',
     password: '',
     email: '',
     gitHubProfile: '',
