@@ -25,15 +25,22 @@ export default class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
     var email = this.state.email;
     var password = this.state.password;
+    var authOptions = {
+      method: `POST`,
+      url: `http://127.0.0.1:8080/login`,
+      data: { email, password},
+      headers: {
+        Authorization: `Bearer ` + this.state.token
+      }
+    }
 
     axios.post(`http://127.0.0.1:8080/login`, { email, password })
       .then(res => {
         console.log(res);
-        if (res.status === 200) {
-          this.state.token = res.data;
+        if (res.status   === 200) {
+          this.state.token = res.headers;
           console.log(this.state.token);
           this.redir();
         }

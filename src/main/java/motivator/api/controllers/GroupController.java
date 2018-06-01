@@ -42,11 +42,11 @@ public class GroupController {
         String email = claims.getSubject();
 
         User user = userService.findByEmail(email);
-        manILovePizza(user, newGroup);
+        setAdmin(user, newGroup);
         return groupService.save(newGroup);
     }
 
-    public GroupAdmin manILovePizza(User user, Group group) {
+    public GroupAdmin setAdmin(User user, Group group) {
         GroupAdmin groupAdmin = new GroupAdmin();
         groupAdmin.setUser(user);
         groupAdmin.setGroup(group);

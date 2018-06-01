@@ -20,9 +20,17 @@ public class JwtFilter extends GenericFilterBean {
 	public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
 			throws IOException, ServletException {
 
+		String token = "";
+
 		final HttpServletRequest request = (HttpServletRequest) req;
 		final HttpServletResponse response = (HttpServletResponse) res;
-		final String authHeader = ((HttpServletRequest) request).getHeader("authorization");
+		final String authHeader = (request).getHeader("Authorization");
+
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Headers","Authorization");
+		response.setHeader("Authorization", "Bearer " + authHeader.substring(7));
+
+		System.out.println("AuthHeader: " + authHeader);
 
 		if ("OPTIONS".equals(request.getMethod())) {
 			response.setStatus(HttpServletResponse.SC_OK);
@@ -32,7 +40,7 @@ public class JwtFilter extends GenericFilterBean {
 				throw new ServletException("Missing or invalid Authorization header");
 			}
 			try {
-				String token = authHeader.substring(7);
+				token = authHeader.substring(7);
 				Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
 				userController.createToken(claims.getSubject());
 				request.setAttribute("claims", claims);
