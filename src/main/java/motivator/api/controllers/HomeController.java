@@ -2,15 +2,13 @@ package motivator.api.controllers;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import motivator.api.config.HibernateUtil;
 import motivator.api.models.Group;
 import motivator.api.models.User;
 import motivator.api.service.UserService;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.internal.SessionFactoryBuilderImpl;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +20,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
 public class HomeController {
-    private SessionFactory factory;
-
     private class Home {
         private String groupName;
         private List<String> admins;
@@ -41,14 +37,14 @@ public class HomeController {
         User user = userService.findByEmail(claims.getSubject());
 
         List<Home> list = new ArrayList<>();
-
+        SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
-        String grpQuery = "SELECT motivator.groups.name FROM motivator.groups " +
-                "right join motivator.group_user on motivator.groups.id = motivator.group_user.group_id " +
-                "left join motivator.user on motivator.group_user.user_id = motivator.user.id" +
-                "where motivator.user.name = :name;";
+        String grpQuery = "SELECT groups.name FROM groups " +
+                "right join group_user on groups.id = group_user.group_id " +
+                "left join user on group_user.user_id = user.id " +
+                "where user.name = :userName";
         SQLQuery grpSql = session.createSQLQuery(grpQuery);
-        grpSql.setParameter("name", user.getName());
+        grpSql.setParameter("userName", user.getName());
         List grpList = grpSql.list();
 
         for (Object gItem: grpList) {
@@ -57,10 +53,10 @@ public class HomeController {
             String grpName = grp.getName();
             temp.groupName = grpName;
 
-            String adminQuery = "Select motivator.user.name from motivator.user " +
-                    "right join motivator.group_admin on motivator.user.id = motivator.group_admin.id " +
-                    "left join motivator.groups on motivator.group_admin.id = motivator.groups.id " +
-                    "where motivator.groups.name = :groupName;";
+            String adminQuery = "Select user.name from user " +
+                    "right join group_admin on user.id = group_admin.id " +
+                    "left join groups on group_admin.id = groups.id " +
+                    "where groups.name = :groupName";
             SQLQuery adminSql = session.createSQLQuery(adminQuery);
             adminSql.setParameter("groupName", grpName);
             List adminList = adminSql.list();
