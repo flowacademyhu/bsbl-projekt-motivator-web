@@ -95,7 +95,7 @@ public class UserController {
 		return (new ResponseEntity<>(jwtToken, headers, HttpStatus.OK));
 	}
 
-    @RequestMapping(value = "/userProfileUpdate", method = RequestMethod.POST)
+    @RequestMapping(value = "/userprofileupdate", method = RequestMethod.POST)
     public ResponseEntity<User> updateUser(@RequestHeader String jwtToken, @RequestBody User user)  {
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
@@ -112,9 +112,10 @@ public class UserController {
         return new ResponseEntity<User>(userDb, HttpStatus.OK);
 	}
 
-    @RequestMapping(value = "/userprofile", method = RequestMethod.GET)
-    public ResponseEntity<User> userProfile(@RequestHeader String jwtToken)  {
-        Claims claims = Jwts.parser()
+    @RequestMapping(value = "/app/userprofile", method = RequestMethod.GET)
+    public ResponseEntity<User> userProfile(@RequestHeader (value = "Authorization") String jwtToken)  {
+		jwtToken = jwtToken.replace("Bearer ", "");
+		Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(jwtToken).getBody();
         String email = claims.getSubject();

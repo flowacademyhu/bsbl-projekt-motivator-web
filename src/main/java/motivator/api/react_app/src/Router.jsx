@@ -36,8 +36,8 @@ const Router = () => (
       <Switch>
         <Route path='/registration' component={Registration} />
         <Route path='/login' component={Login} />
-        <Route path='/userProfile' exact component={UserProfile} />
-        <Route path='/userProfileEdit' exact component={UserProfileEdit} />
+        <Route path='/userprofile' exact component={UserProfile} />
+        <Route path='/userprofileedit' exact component={UserProfileEdit} />
         <Route path='/groupsCreate' component={GroupsCreate} />
         <Route path='/slack' exact component={Slack} />
         {/* <Route path='/gettingStarted' component={GettingStarted} />

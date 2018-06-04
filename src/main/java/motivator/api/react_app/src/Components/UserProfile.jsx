@@ -16,59 +16,34 @@ class UserProfile extends Component {
   };
 
   getUserData = () => {
-    axios.get(`http://127.0.0.1:8080/userProfile`)
-    .then((result) => {
-      if (result.status === 200) {
-        this.redir();
+
+  }
+  componentDidMount() {
+    var self = this;
+    var token = window.localStorage.getItem('Authorization');
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token
       }
-    var name = this.state.name;
-    var password = this.state.password;
-    var email = this.state.email
-    var gitHubProfile = this.state.gitHubProfile;
-    var trelloProfile = this.state.trelloProfile;
-    var slackProfile = this.state.slackProfile;
-    });
-  }
-
-  redir = (props) => {
-    this.props.history.push('/');
-  };
-
-  handleChange = (event) => {
-    const state = this.state
-    state[event.target.name] = event.target.value;
-    this.setState(state);
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-
-    var name = this.state.name;
-    var password = this.state.password;
-    var email = this.state.email
-    var gitHubProfile = this.state.gitHubProfile;
-    var trelloProfile = this.state.trelloProfile;
-    var slackProfile = this.state.slackProfile;
-
-    axios.get('/userProfile')
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-  
-
-
-   /* axios.get(`http://127.0.0.1:8080/userProfileEdit`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })
+    }
+    axios.get(`http://127.0.0.1:8080/app/userprofile`, config)
       .then((result) => {
         if (result.status === 200) {
-          this.redir();
+          var res = result.data;
+          var newData = {
+            name: res.name,
+            currentPassword: res.currentPassword,
+            password: res.password,
+            email: res.email,
+            gitHubProfile: res.gitHubProfile,
+            trelloProfile: res.trelloProfile,
+            slackProfile: res.slackProfile
+          }
+          self.setState(newData)
+          console.log(res)
         }
       });
-  }*/
-
+  }
 
   render() {
     return (
@@ -90,7 +65,7 @@ class UserProfile extends Component {
           Trello URL: {this.state.trelloProfile}
         </label>
         <label>
-          <NavLink to='/userProfileEdit'><Button bsStyle='success'>Edit</Button></NavLink>
+          <NavLink to='/userprofileedit'><Button bsStyle='success'>Edit</Button></NavLink>
         </label>
       </div>
     )
