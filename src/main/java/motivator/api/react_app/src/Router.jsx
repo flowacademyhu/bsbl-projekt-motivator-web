@@ -8,6 +8,7 @@ import UserProfileEdit from './Components/UserProfileEdit';
 import Github from './Components/Github'; */
 import Groups from './Components/Groups';
 import GroupsCreate from './Components/GroupsCreate';
+import Slack from './Components/Slack';
 /*
 import GroupsEdit from './Components/GroupsEdit';
 import GroupsMemberEdit from './Components/GroupsMemberEdit';
@@ -38,6 +39,7 @@ const Router = () => (
         <Route path='/userProfile' exact component={UserProfile} />
         <Route path='/userProfileEdit' exact component={UserProfileEdit} />
         <Route path='/groupsCreate' component={GroupsCreate} />
+        <Route path='/slack' exact component={Slack} />
         {/* <Route path='/gettingStarted' component={GettingStarted} />
         <Route path='/github' component={Github} />
         <Route path='/groupsEdit' component={GroupsEdit} />
@@ -46,7 +48,6 @@ const Router = () => (
         <Route path='/groupsProfile' component={GroupsProfile} />
         <Route path='/passwordForgotten' exact component={PasswordForgotten} />
         <Route path='/passwordReset' exact component={PasswordReset} />
-        <Route path='/slack' exact component={Slack} />
         <Route path='/statistics' exact component={Statistics} />
         <Route path='/trello' exact component={Trello} />
         
