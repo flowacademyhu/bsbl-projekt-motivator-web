@@ -39,8 +39,11 @@ class Groups extends Component {
       });
   }
 
-  render () {
+  componentDidMount () {
     this.getGroupInfo();
+  }
+
+  render () {
     return (
       <div>
         <h2>Groups of the user:</h2>

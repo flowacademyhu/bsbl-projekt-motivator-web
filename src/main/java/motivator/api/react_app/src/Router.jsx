@@ -8,19 +8,15 @@ import UserProfileEdit from './Components/UserProfileEdit';
 import Github from './Components/Github'; */
 import Groups from './Components/Groups';
 import GroupsCreate from './Components/GroupsCreate';
-import Slack from './Components/Slack';
-/*
-import GroupsEdit from './Components/GroupsEdit';
+/* import GroupsEdit from './Components/GroupsEdit';
 import GroupsMemberEdit from './Components/GroupsMemberEdit';
 import GroupsMemberNew from './Components/GroupsMemberNew';
 import GroupsProfile from './Components/GroupsProfile';
 import PasswordForgotten from './Components/PasswordForgotten';
 import PasswordReset from './Components/PasswordReset';
 import Slack from './Components/Slack';
-import Statistics from './Components/Statistics';
+import Statistics from './Components/Statistics'; */
 import Trello from './Components/Trello';
-;
-*/
 import Registration from './Components/Registration';
 /* import GroupsLine from './Components/Groups/GroupsLine';
 import GroupStatistics from './Components/Statistics/GroupStatistics';
@@ -39,8 +35,8 @@ const Router = () => (
         <Route path='/userprofile' exact component={UserProfile} />
         <Route path='/userprofileedit' exact component={UserProfileEdit} />
         <Route path='/groupsCreate' component={GroupsCreate} />
-        <Route path='/slack' exact component={Slack} />
-        {/* <Route path='/gettingStarted' component={GettingStarted} />
+       {/*  <Route path='/slack' exact component={Slack} />
+        <Route path='/gettingStarted' component={GettingStarted} />
         <Route path='/github' component={Github} />
         <Route path='/groupsEdit' component={GroupsEdit} />
         <Route path='/groupsMemberEdit' component={GroupsMemberEdit} />
@@ -48,12 +44,11 @@ const Router = () => (
         <Route path='/groupsProfile' component={GroupsProfile} />
         <Route path='/passwordForgotten' exact component={PasswordForgotten} />
         <Route path='/passwordReset' exact component={PasswordReset} />
-        <Route path='/statistics' exact component={Statistics} />
+        <Route path='/statistics' exact component={Statistics} /> */}
         <Route path='/trello' exact component={Trello} />
-        
-        <Route path='/groupsLine' exact component={GroupsLine} />
+        {/* <Route path='/groupsLine' exact component={GroupsLine} />
         <Route path='/groupStatistics' exact component={GroupStatistics} />
-        <Route path='/userStatistics' exact component={UserStatistics} /> */} */}
+        <Route path='/userStatistics' exact component={UserStatistics} /> */} */} */}
         <Route path='/' exact component={Groups} />
         <Route render={() => <h3>Error 404 Custom Page</h3>} />
       </Switch>
@@ -70,3 +65,4 @@ export default Router;
 // npm i react-bootstrap
 // npm starttal indul
 // npm install reactjs-popup --save
+// npm i react-iframe
