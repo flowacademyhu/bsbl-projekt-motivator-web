@@ -20,7 +20,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
 public class HomeController {
-    private class Home {
+    class Home {
         private String groupName;
         private List<String> admins;
     }

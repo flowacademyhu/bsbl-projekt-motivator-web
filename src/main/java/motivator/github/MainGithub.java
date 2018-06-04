@@ -7,7 +7,7 @@ import org.eclipse.egit.github.core.service.CommitService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.kohsuke.github.*;
 
-import java.io.IOException;
+import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
 
@@ -16,18 +16,18 @@ public class MainGithub {
     private static final String FULL_REPOSITORY = "laszlobalint/java";
     private static final String OWNER = "laszlobalint";
     private static final String REPOSITORY = "java";
-    private static List<String> shals = new ArrayList<>();
+    public static List<String> shals = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         MainGithub mainGithub = new MainGithub();
-        mainGithub.getAllRepositories();
-        mainGithub.getUserRepositories();
-        mainGithub.getRepositoryBranchesNames();
+        // mainGithub.getAllRepositories();
+        // mainGithub.getUserRepositories();
+        // mainGithub.getRepositoryBranchesNames();
         mainGithub.getPageCommits();
         mainGithub.getFileContents();
     }
 
-    // GET TREE STRUCTURE OF GIT REPOSITORY (COMMIT TEXTS AND COMMIT SHALS): git log --graph --oneline --all
+    // GET TREE STRUCTURE OF GIT REPOSITORY (COMMIT TEXTS AND COMMIT SHALS): git log --pretty=format:'%h : %s' --graph --oneline --all > log.log
 
     // LISTS OUT ALL THE REPOSIOTRY NAMES THAT USER HAS ACCESS TO
     private GHMyself getAllRepositories() throws IOException {
@@ -94,7 +94,7 @@ public class MainGithub {
         }
     }
 
-    // LIST THE CHANGES OF THE FILES INT THE COMMIT:
+    // LIST THE CHANGES OF THE FILES IN THE COMMIT:
     private void getFileContents() throws IOException {
         try {
             gitHub = GitHub.connect();
@@ -104,6 +104,7 @@ public class MainGithub {
         for (String shal1 : shals) {
             List<GHCommit.File> files = gitHub.getRepository(FULL_REPOSITORY).getCommit(shal1).getFiles();
             for (GHCommit.File file : files) {
+                System.out.println(file.getLinesChanged());
                 System.out.println(file.getPatch());
             }
         }
