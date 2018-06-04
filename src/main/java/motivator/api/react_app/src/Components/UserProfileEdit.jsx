@@ -13,31 +13,34 @@ class UserProfileEdit extends Component {
     slackProfile: ''
   };
 
-  getUserData = () => {
+  componentDidMount() {
     var self = this;
-    var token = window.localStorage.getItem(`Authorization`);
+    var token = window.localStorage.getItem('Authorization');
     var config = {
       headers: {
-        Authorization: `Bearer ` + token
+        Authorization: "Bearer " + token
       }
-    };
-    axios.get(`http://127.0.0.1:8080/userprofile`, config)
+    }
+    axios.get(`http://127.0.0.1:8080/app/userprofile`, config)
       .then((result) => {
         if (result.status === 200) {
           var res = result.data;
-          self.state.name = res.name;
-          self.state.currentPassword = res.currentPassword;
-          self.state.password = res.password;
-          self.state.email = res.email;
-          self.state.gitHubProfile = res.gitHubProfile;
-          self.state.trelloProfile = res.trelloProfile;
-          self.state.slackProfile = res.slackProfile;
+          var newData = {
+            name: res.name,
+            password: res.password,
+            email: res.email,
+            gitHubProfile: res.gitHubProfile,
+            trelloProfile: res.trelloProfile,
+            slackProfile: res.slackProfile
+          }
+          self.setState(newData)
+          console.log(res)
         }
       });
   }
 
   redir = (props) => {
-    this.props.history.push('/userprofile');
+    this.props.history.push('/userProfile');
   };
 
   onChange = (event) => {
@@ -46,7 +49,19 @@ class UserProfileEdit extends Component {
     this.setState(state);
   }
 
-  onSubmit = event => {
+ /*  onSubmit = (e) => {
+    e.preventDefault();
+    const { name, password, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
+    axios.post(`http://127.0.0.1:8080/userprofileupdate`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })  
+    .then((result) => {
+        if (result.status === 200) {
+          console.log("sadfsaf")
+          this.redir();
+        }
+      });
+  } */
+
+  onSubmit = (event) => {
     event.preventDefault();
     var token = window.localStorage.getItem('Authorization');
     var config = {
@@ -54,16 +69,11 @@ class UserProfileEdit extends Component {
         Authorization: "Bearer " + token
       }
     }
-    axios.post(`/http://127.0.0.1:8080/userprofileedit`, {
-      name: this.name,
-      password: this.password,
-      email: this.email,
-      gitHubProfile: this.gitHubProfile,
-      trelloProfile: this.trelloProfile,
-      slackProfile: this.slackProfile
-    }, config)
-      .then(function (response) {
+    const { name, password, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
+    axios.post(`http://127.0.0.1:8080/userprofileupdate`, { name, password, email, gitHubProfile, trelloProfile, slackProfile }, config)
+      .then((response) => {
         console.log(response);
+        this.setState(response);
         this.redir();
       })
       .catch(function (error) {
