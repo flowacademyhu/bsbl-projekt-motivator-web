@@ -19,24 +19,33 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
-public class HomeController {
-    class Home {
-        private String groupName;
-        private List<String> admins;
-    }
-
+public class HeaderController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/app/currentuser", method = RequestMethod.GET)
-    public ResponseEntity<List<Home>> getInfo (@RequestHeader (value = "Authorization") String Authorization) {
+    @RequestMapping(value = "/app/currentuser/activegroup", method = RequestMethod.POST)
+    public ResponseEntity<String> updateActiveGroup (@RequestHeader(value = "Authorization") String Authorization, @RequestBody User input) {
         Authorization = Authorization.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(Authorization).getBody();
         User user = userService.findByEmail(claims.getSubject());
 
-        List<Home> list = new ArrayList<>();
+        user.setActiveGroup(input.getActiveGroup());
+
+        return new ResponseEntity<>("allright", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/app/currentuser/activegroup", method = RequestMethod.GET)
+    public ResponseEntity<List<String>> getGroups (@RequestHeader(value = "Authorization") String Authorization) {
+        Authorization = Authorization.replace("Bearer ", "");
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(Authorization).getBody();
+        User user = userService.findByEmail(claims.getSubject());
+
+        List<String> groups = new ArrayList<>();
+
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         String grpQuery = "SELECT groups.name FROM groups " +
@@ -48,28 +57,10 @@ public class HomeController {
         List grpList = grpSql.list();
 
         for (Object gItem: grpList) {
-            Group grp = (Group) gItem;
-            Home temp = new Home();
-            String grpName = grp.getName();
-            temp.groupName = grpName;
-
-            String adminQuery = "Select user.name from user " +
-                    "right join group_admin on user.id = group_admin.id " +
-                    "left join groups on group_admin.id = groups.id " +
-                    "where groups.name = :groupName";
-            SQLQuery adminSql = session.createSQLQuery(adminQuery);
-            adminSql.setParameter("groupName", grpName);
-            List adminList = adminSql.list();
-
-            for (Object aItem: adminList) {
-                User admin = (User) aItem;
-                String adminName = admin.getName();
-
-                temp.admins.add(adminName);
-            }
-            list.add(temp);
+            String groupName = ((Group) gItem).getName();
+            groups.add(groupName);
         }
         session.close();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(groups, HttpStatus.OK);
     }
 }
