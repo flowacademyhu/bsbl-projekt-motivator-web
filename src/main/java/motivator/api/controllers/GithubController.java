@@ -25,16 +25,14 @@ public class GithubController {
         private String commitShal;          // COMMIT SHAL
         private String commitMessage;       // COMMIT MESSAGE
         private Date commitDate;          // COMMIT DATE
-        private HashMap<String, Integer> changes;   // CHANGED FILENAME + CONTENT OF FILE
+        // private HashMap<String, Integer> changes;   // CHANGED FILENAME + CONTENT OF FILE
 
         @Override
         public String toString() {
             return "GitHub{" +
                     "commitShal='" + commitShal + '\'' +
                     ", commitMessage='" + commitMessage + '\'' +
-                    ", commitDate=" + commitDate +
-                    ", fileNames=" + changes +
-                    '}';
+                    ", commitDate=" + commitDate;
         }
     }
 
@@ -42,7 +40,7 @@ public class GithubController {
     private UserService userService;
 
     @RequestMapping(value = "/app/github", method = RequestMethod.GET)
-    public ResponseEntity<List<GitHub>> getGithubInfo(@RequestHeader(value = "Authorization") String Authorization) throws IOException {
+    public @ResponseBody ResponseEntity<Object> getGithubInfo(@RequestHeader(value = "Authorization") String Authorization) throws IOException {
 
         Authorization = Authorization.replace("Bearer ", "");
         Claims claims = Jwts.parser()
@@ -63,27 +61,10 @@ public class GithubController {
                 temp.commitShal = shal;
                 temp.commitMessage = commit.getCommit().getMessage();
                 temp.commitDate = commit.getCommit().getAuthor().getDate();
-                int additions = 0;
-                int deletions = 0;
-                int totals = 0;
-                try {
-                    additions = commit.getStats().getAdditions();
-                    deletions = commit.getStats().getDeletions();
-                    totals = commit.getStats().getTotal();
-                } catch (NullPointerException e) {
-                    System.out.println("Null");
-                }
-                try {
-                    temp.changes.put("Additions", additions);
-                    temp.changes.put("Deletions", deletions);
-                    temp.changes.put("Totals", totals);
-                } catch (NullPointerException e) {
-                    System.out.println("Null");
-                }
                 System.out.println(temp);
                 list.add(temp);
             }
         }
-        return new ResponseEntity<List<GitHub>>(list, HttpStatus.OK);
+        return new ResponseEntity<Object>(list, HttpStatus.OK);
     }
 }

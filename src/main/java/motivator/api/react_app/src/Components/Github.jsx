@@ -7,34 +7,48 @@ class Github extends Component {
   constructor () {
     super();
     this.state = {
-      commits: []
+      commitShal: '',
+      commitMessage: '',
+      commitDate: ''
     };
   }
 
-  componentDidMount () {
-    var token = window.localStorage.getItem(`Authorization`);
+  componentWillMount () {
+    var self = this;
+    var token = window.localStorage.getItem('Authorization');
     var config = {
       headers: {
-        Authorization: `Bearer ` + token
+        Authorization: 'Bearer ' + token
       }
     };
-    var self = this;
+
     axios.get(`http://127.0.0.1:8080/app/github`, config)
-      .then(function (response) {
-        console.log(response);
-        console.log('Commits:' + JSON.stringify(response.data));
-        self.setState({ response: response.data.commits });
+      .then((response) => {
+        if (response.status === 200 || response.status === 202) {
+          var result = response.data;
+          var newData = {
+            commitShal: result.commitShal,
+            commitMessage: result.commitMessage,
+            commitDate: result.commitDate
+          };
+
+          self.setState(newData);
+          console.log(result);
+        }
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }
 
   render () {
-    console.log(this.state);
     return (
       <div>
-        { this.state.commits.map((commit) => <span key={commit.commitShal}> {commit.commitMessage} {commit.commitDate} </span>) }
+        {<span key={this.state.commitShal}>
+          {this.state.commitShal}
+          {this.state.commitMessage}
+          {this.state.commitDate}
+        </span>}
       </div>
     );
   }
