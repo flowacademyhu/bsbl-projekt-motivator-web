@@ -14,21 +14,23 @@ class Trello extends Component {
     };
   }
 
-  componentWillMount () {
-    var token = window.localStorage.getItem(`Authorization`);
+  componentDidMount () {
+    var token = window.localStorage.getItem('Authorization');
     var config = {
       headers: {
-        Authorization: `Bearer ` + token
+        Authorization: 'Bearer ' + token
       }
     };
-    var self = this;
-    axios.get(`http://127.0.0.1:8080/app/currentuser/activegroup`, config)
-      .then(function (response) {
-        console.log(response.data);
-        self.setState({ trelloUrl: response.data });
-      })
-      .catch(function (error) {
-        console.log(error);
+
+    axios.get(`http://127.0.0.1:8080/app/currentuser/activegroup/trello`, config)
+      .then((response) => {
+        if (response.status === 200) {
+          var result = response.data;
+          this.setState({ trelloUrl: result });
+          console.log(this.state.trelloUrl);
+        } else {
+          console.log('Cannot show active Trello board.');
+        }
       });
   }
 

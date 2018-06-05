@@ -20,15 +20,12 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
 public class TrelloController {
-    private class Trello {
-        private String trelloUrl;
-    }
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/app/currentuser/activegroup/trello", method = RequestMethod.GET)
-    public ResponseEntity<Trello> getActiveGroupTable(@RequestHeader(value = "Authorization") String Authorization) {
+    public ResponseEntity<String> getActiveGroupTable(@RequestHeader(value = "Authorization") String Authorization) {
         Authorization = Authorization.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
@@ -42,8 +39,8 @@ public class TrelloController {
         Session session = factory.openSession();
         String actQuery = "SELECT groups.trello_group FROM groups " +
                         "right join group_user on groups.id = group_user.group_id " +
-                        "left join user on group_user_id = user.id " +
-                        "where group.name = :activeGroup";
+                        "left join user on group_user.user_id = user.id " +
+                        "where groups.name = :activeGroup";
         SQLQuery actSql = session.createSQLQuery(actQuery);
         actSql.setParameter("activeGroup", activeGroup);
         List result = actSql.list();
@@ -51,13 +48,8 @@ public class TrelloController {
         for (Object actItem : result) {
             activeTrello = ((Group) actItem).getTrelloGroup();
         }
-        Trello trello = new Trello();
-        trello.trelloUrl = activeTrello;
         session.close();
 
-        HttpHeaders responseHeader = new HttpHeaders();
-        responseHeader.add("Authorization", "Bearer " + Authorization);
-        responseHeader.add("Trello", activeTrello);
-        return new ResponseEntity<Trello>(trello, responseHeader, HttpStatus.OK);
+        return new ResponseEntity<String>(activeTrello, HttpStatus.OK);
     }
 }

@@ -50,7 +50,7 @@ export default class Login extends Component {
         <div>
           <form onSubmit={this.handleSubmit}>
             <label>
-              E-mail adress:
+              E-mail address:
             <input type='email' name='email' onChange={this.handleChange} />
             </label><br />
             <label>

@@ -122,6 +122,6 @@ public class UserController {
         String email = claims.getSubject();
         User userDb = userService.findByEmail(email);
 
-        return new ResponseEntity<User>(userDb,HttpStatus.OK);
+        return new ResponseEntity<User>(userDb, HttpStatus.OK);
     }
 }
