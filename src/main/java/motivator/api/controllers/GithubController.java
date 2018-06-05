@@ -6,10 +6,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import motivator.api.models.User;
 import motivator.api.service.UserService;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.eclipse.egit.github.core.RepositoryCommit;
 import org.eclipse.egit.github.core.RepositoryId;
 import org.eclipse.egit.github.core.service.CommitService;
-import org.eclipse.egit.github.core.service.RepositoryService;
 import org.kohsuke.github.GHCommit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,9 +27,10 @@ import java.util.*;
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
 public class GithubController {
-    private static final String FULL_REPOSITORY = "laszlobalint/java";
+    private static final String FULL_REPOSITORY = "laszlobalint/javascript";
     private static final String OWNER = "laszlobalint";
-    private static final String REPOSITORY = "java";
+    private static final String REPOSITORY = "javascript";
+    private static final String TOKEN = "fe2f95e702371c2d324a6b10fe0f7e55a87ad59f";
 
     private class GitHub {
         private String commitShal;          // COMMIT SHAL
@@ -56,15 +60,13 @@ public class GithubController {
                 .parseClaimsJws(Authorization).getBody();
         User user = userService.findByEmail(claims.getSubject());
 
-        // RepositoryService service = new RepositoryService();
-        // service.getClient().setCredentials("laszlobalint", "nigiri001");
-
         List<GitHub> list = new ArrayList<>();
 
         final int size = 1;
         final RepositoryId repo = new RepositoryId(OWNER, REPOSITORY);
         final CommitService service = new CommitService();
-        org.kohsuke.github.GitHub connectionGitHub = org.kohsuke.github.GitHub.connect();
+        org.kohsuke.github.GitHub connectionGitHub = org.kohsuke.github.GitHub.connectUsingOAuth(TOKEN);
+
         for (Collection<RepositoryCommit> commits : service.pageCommits(repo, size)) {
             for (RepositoryCommit commit : commits) {
                 GitHub temp = new GitHub();

@@ -7,11 +7,11 @@ class Github extends Component {
   constructor () {
     super();
     this.state = {
-      response: ''
+      commits: []
     };
   }
 
-  getGithubInfo () {
+  componentDidMount () {
     var token = window.localStorage.getItem(`Authorization`);
     var config = {
       headers: {
@@ -21,22 +21,18 @@ class Github extends Component {
     var self = this;
     axios.get(`http://127.0.0.1:8080/app/github`, config)
       .then(function (response) {
-        console.log(response);
-        self.setState({ response: response.data });
+        console.log('Commits:' + response.data);
+        self.setState({ response: response.data.commits });
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  componentWillMount () {
-    this.getGithubInfo();
-  }
-
   render () {
     return (
       <div>
-        GitHub
+        { this.state.commits.map((commit) => <span key={commit.commitShal}> {commit.commitMessage} {commit.commitDate} </span>) }
       </div>
     );
   }

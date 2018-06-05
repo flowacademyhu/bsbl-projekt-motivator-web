@@ -5,7 +5,6 @@ import axios from 'axios';
 
 
 class UserProfile extends Component {
-
   state = {
     name: '',
     password: '',
@@ -16,8 +15,8 @@ class UserProfile extends Component {
   };
 
   getUserData = () => {
-
   }
+
   componentDidMount() {
     var self = this;
     var token = window.localStorage.getItem('Authorization');
