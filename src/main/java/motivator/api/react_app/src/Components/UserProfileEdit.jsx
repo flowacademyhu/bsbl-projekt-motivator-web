@@ -4,16 +4,19 @@ import axios from 'axios';
 class UserProfileEdit extends Component {
 
   state = {
-    name: '',
-    currentPassword: '',
-    password: '',
-    email: '',
-    gitHubProfile: '',
-    trelloProfile: '',
-    slackProfile: ''
+    oldPass: '',
+    resdata: {
+      name: '',
+      currentPassword: '',
+      password: '',
+      email: '',
+      gitHubProfile: '',
+      trelloProfile: '',
+      slackProfile: ''
+    }
   };
 
-  componentDidMount() {
+  componentWillMount() {
     var self = this;
     var token = window.localStorage.getItem('Authorization');
     var config = {
@@ -26,14 +29,17 @@ class UserProfileEdit extends Component {
         if (result.status === 200) {
           var res = result.data;
           var newData = {
-            name: res.name,
-            password: res.password,
-            email: res.email,
-            gitHubProfile: res.gitHubProfile,
-            trelloProfile: res.trelloProfile,
-            slackProfile: res.slackProfile
+            resdata: {
+              name: res.name,
+              password: res.password,
+              email: res.email,
+              gitHubProfile: res.gitHubProfile,
+              trelloProfile: res.trelloProfile,
+              slackProfile: res.slackProfile
+            }
           }
           self.setState(newData)
+          self.setState({oldPass: newData.resdata.password});
           console.log(res)
         }
       });
@@ -49,17 +55,25 @@ class UserProfileEdit extends Component {
     this.setState(state);
   }
 
- /*  onSubmit = (e) => {
-    e.preventDefault();
-    const { name, password, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
-    axios.post(`http://127.0.0.1:8080/userprofileupdate`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })  
-    .then((result) => {
-        if (result.status === 200) {
-          console.log("sadfsaf")
-          this.redir();
-        }
-      });
-  } */
+  newPasswordEquals = () => {
+    var newPass = document.getElementById("newPassw").value;
+    var confNewPass = document.getElementById("confPassw").value;
+    if (newPass === confNewPass) {
+      return true
+    } else {
+      return false;
+    }
+  }
+
+  passwordEquals = () => {
+    var currPass = document.getElementById("currPassw").value;
+    var oldPass = this.state.oldPass;
+    if (oldPass === currPass) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   onSubmit = (event) => {
     event.preventDefault();
@@ -69,36 +83,28 @@ class UserProfileEdit extends Component {
         Authorization: "Bearer " + token
       }
     }
-    const { name, password, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
-    axios.post(`http://127.0.0.1:8080/userprofileupdate`, { name, password, email, gitHubProfile, trelloProfile, slackProfile }, config)
-      .then((response) => {
-        console.log(response);
-        this.setState(response);
-        this.redir();
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-  }
-
-  /*passwordEquals = () => {
-    if (this.state.password === this.render.currentPassword) {
-
+    if (this.newPasswordEquals() === false || this.passwordEquals() === false) {
+      alert("Old password wrong or password confirmation doesn't match.")
+      return false;
     } else {
-      this.render();
+      const { name, password, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
+
+      axios.post(`http://127.0.0.1:8080/userprofileupdate`, { name, password, email, gitHubProfile, trelloProfile, slackProfile }, config)
+        .then((response) => {
+          console.log(response);
+          this.setState(response);
+          this.redir();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   }
 
-  newPasswordEquals = () => {
-    if (this.render.newPassword === this.render.repeatNewPassword) {
-    } else {
-      this.render();
-    }
-  }*/
   render() {
     return (
       <div>
+        <p>E-mail address: {this.state.email}</p>
         <form onSubmit={this.onSubmit}>
           <label>
             Username:
@@ -106,19 +112,15 @@ class UserProfileEdit extends Component {
           </label>
           <label>
             Current password:
-          <input type='password' name='currentPassword' placeholder='Current password' onChange={this.onChange} />
+          <input id='currPassw' type='password' name='currentPassword' placeholder='Current password' />
           </label>
           <label>
             New password:
-          <input type='password' name='newPassword' placeholder='New password' onChange={this.onChange} />
+          <input id='newPassw' type='password' name='password' placeholder='New password' />
           </label>
           <label>
-            Repeat new password:
-          <input type='password' name='repeatNewPassword' placeholder='Repeat new password' onChange={this.onChange} />
-          </label>
-          <label>
-            E-mail address:
-          <input type='text' name='email' placeholder={this.state.email} onChange={this.onChange} />
+            Confirm password:
+          <input id='confPassw' type='password' name='password' placeholder='Confirm password' onChange={this.onChange} />
           </label>
           <label>
             Github URL:
@@ -132,7 +134,7 @@ class UserProfileEdit extends Component {
             Slack URL:
           <input type='text' name='slackProfile' placeholder={this.state.slackProfile} onChange={this.onChange} />
           </label>
-          <button type="submit" className="btn btn-default" onClick = {this.onSubmit} >Submit</button>
+          <button type="submit" className="btn btn-default" onClick={this.onSubmit} >Submit</button>
         </form>
       </div>
     )
