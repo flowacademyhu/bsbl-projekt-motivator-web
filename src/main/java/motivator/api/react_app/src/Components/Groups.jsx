@@ -12,15 +12,6 @@ class Groups extends Component {
     };
   }
 
-  /*       Motivator: {
-          admins: ['Tasi', 'Feri']
-        },
-        PubOrder: {
-          admins: ['Tyson', 'Bruno']
-        }
-      };
-    } */
-
   getGroupInfo () {
     var token = window.localStorage.getItem(`Authorization`);
     var config = {
@@ -32,14 +23,14 @@ class Groups extends Component {
     axios.get(`http://127.0.0.1:8080/app/currentuser`, config)
       .then(function (response) {
         console.log(response);
-        self.setState({ respone: response.data });
+        self.setState({ response: response.data });
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  componentDidMount () {
+  componentWillMount () {
     this.getGroupInfo();
   }
 

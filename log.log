@@ -1,0 +1,263 @@
+*   9195555 Merge branch 'development' of https://github.com/flowacademyhu/bsbl-projekt-motivator-web into development
+|\  
+| * 1f16066 Router commented
+| * 13b8593 Trello sample board
+| * b24b8b4 update
+| *   76feeb1 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\  
+| * \   04ed34d Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \  
+| * | | 0546041 commit changes
+* | | | 7caad87 Queries up and running
+| |_|/  
+|/| |   
+* | | 6c61d04 Session is null
+* | |   a2954ef Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \ \  
+| * \ \   f37ad06 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \ \  
+| * | | | eb4da79 react
+| | |_|/  
+| |/| |   
+* | | | e9b0057 Token stored in browser :D
+| |/ /  
+|/| |   
+* | | 2412ba5 Towards coooookies
+|/ /  
+* |   1d85f7d kkkk
+|\ \  
+| * \   f0e5628 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \  
+| * | | dee8f25 user controller
+* | | | dcbfeea GroupAdmin edited
+| |/ /  
+|/| |   
+* | | 9a6ee85 don't use my laptop
+| |/  
+|/|   
+* |   34dddd3 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \  
+| |/  
+| *   085bf51 Merge branch 'development' of https://github.com/flowacademyhu/bsbl-projekt-motivator-web into development
+| |\  
+| | *   cb6f993 okkk
+| | |\  
+| | * | 1b12b2b Pop up
+| * | | c5d24a2 secure try
+| | |/  
+| |/|   
+* | | f4d3c76 group admin rep
+|/ /  
+* |   19403d8 Merge branch 'development' of https://github.com/flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \  
+| * | 7081d5c commented
+| * | b445674 create group
+| * |   30b6351 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \  
+| | * \   bcecbcd Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| | |\ \  
+| | | |/  
+| | * | f99c1bc userProfile & userProfileEdit in progress
+| * | |   3d99cfa Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \ \  
+| * \ \ \   ff4db9a Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \ \ \  
+| * | | | | 140ec79 update
+| * | | | |   88ef004 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \ \ \ \  
+| | | |_|/ /  
+| | |/| | |   
+| * | | | | 1cb3693 group controller
+* | | | | | e49c2c0 fixing pathing
+| |_|_|_|/  
+|/| | | |   
+* | | | |   01df618 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \ \ \ \  
+| | |_|_|/  
+| |/| | |   
+| * | | | b5a4872 Home controller
+| | |_|/  
+| |/| |   
+* | | | fcd4e6a Axios getter
+|/ / /  
+* | | 2dc826e Getting started on Groups trigger pop up
+* | | b26a1cf Html file changed
+* | | efc8cfd Title change
+* | | 91b89fe Main modified, Axios added
+| |/  
+|/|   
+* | 3a0ae49 Main Page first version
+|/  
+* 92732ae add active group fiield to user
+* 7dc3b84 balint te fa
+*   45c6d99 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\  
+| * 44d566e Tiny Bootstrap added
+| * ef6b64f Header updated, redirect changed and so on
+| *   d29e018 Main started
+| |\  
+| | *   389c8b5 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development end
+| | |\  
+| | * | b016a48 header
+| | * |   1523143 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| | |\ \  
+| | * | | 6410541 save
+| | * | |   3d03121 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| | |\ \ \  
+| | * \ \ \   c8dce64 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| | |\ \ \ \  
+| * | | | | | a706637 Main page started
+| | |_|_|_|/  
+| |/| | | |   
+| * | | | | cffe737 ssp
+* | | | | | 578cb3f new group
+|/ / / / /  
+* | | | | 9ad1b81 redirect to login
+* | | | |   d9aa3af Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \ \ \ \  
+| * | | | | 1bf3f15 Redirect after login done
+| | |_|_|/  
+| |/| | |   
+* | | | | 906833d man i love turtles
+|/ / / /  
+* | | |   2155020 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \ \ \  
+| * \ \ \   2956b05 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \ \ \  
+| | | |_|/  
+| | |/| |   
+| * | | | 54c95d1 port change
+* | | | | 659cab9 i like turtles no2
+| |/ / /  
+|/| | |   
+* | | | 3354ca1 i like turtles
+|/ / /  
+* | | d1020f3 login
+| |/  
+|/|   
+* | 5086eed Registration version 2.0
+* | 61b1dfe Login through Axios
+* | cd31abd Save the day
+* |   36fae03 new
+|\ \  
+| * | 6902621 registration issue
+* | | 175ac61 Routes modified
+|/ /  
+* |   6fbecb1 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \  
+| * | d8a4bf5 hibernate fix #3
+* | | c91df50 react app
+* | |   1386a14 Merge branch 'reactApp' into development
+|\ \ \  
+| |/ /  
+|/| |   
+| * | 10de99e React app run
+| * | b8ee428 react skeleton
+* | | 1ee20fa Update controller done
+* | | 8f68bfe registration form + 1
+* | | b88510e registration form
+* | |   8ff1bab Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \ \  
+* \ \ \   21378c5 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \ \ \  
+* \ \ \ \   3a828b8 asd
+|\ \ \ \ \  
+* | | | | | 28e021e asd
+| | | | | | * 55b479e Create LICENSE
+| | | | | |/  
+| | | | | * 320485c Doc folder
+| | | | | | * 31d9621 Profile test
+| | | | | |/  
+| | | | |/|   
+| | | | * | 2855014 first commit
+| | | |/ /  
+| | | * | 1893f38 ReactHome
+| | |/ /  
+| | * | 3c282b1 E-mail exists validation
+| | * | 8287127 Token function solved with Post methods
+| |/ /  
+| * | 5a25a2f model package fix
+|/ /  
+* | 0bcc26d Slack dependency insertion
+* | 8c1386d Comments added to Trello part
+* |   65838e1 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \  
+| * \   7fa7b3f Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \  
+| | * \   d3e4b93 trello
+| | |\ \  
+| | | * | 1cfe131 cleaning
+| | | * | 420263d trello ready
+| | | * | 12ff64c trello methods fix
+| | | * | b46a0be trello api
+| | | * | a7b249f card class
+| | | * | 0eb23ae fixes
+| | | * |   7b1ec41 trelli api
+| | | |\ \  
+| | | | * | a6fb066 add some methods
+| | | * | | 28edff1 trello api
+| | | * | | 67a6d81 gitignore
+| | | |/ /  
+| | | * | 1413fab trello api
+| * | | | 5c003c3 slack
+| * | | | 679b596 slack
+| |/ / /  
+| * | | 32c554f gitignore
+| * | |   9d544e2 Merge branch 'development' of github.com:flowacademyhu/bsbl-projekt-motivator-web into development
+| |\ \ \  
+| * | | | 979937c npm install
+* | | | | 853e5c6 Register use with full details
+| |/ / /  
+|/| | |   
+* | | | 909aa46 added hibernate to application.properties
+|/ / /  
+* | | 2d9bf97 changed react folder structure
+* | | b097ab7 taking out uneccesary comments
+* | | 7bc61fc gitignore fix
+* | |   851dcc7 Merge branch 'development' of https://github.com/flowacademyhu/bsbl-projekt-motivator-web into development
+|\ \ \  
+| * | | 85b4b73 React skeleton
+* | | | 02ed69e gitignore fix
+|/ / /  
+* | |   8bcc194 Login functions with token
+|\ \ \  
+| * | | 63027ae hibernate fix
+| * | | 1e93df3 gitignore fix
+| * | | cd2df2d Tables updated and column joins annotated
+| * | |   33db0fe Merge branch 'tothmate90/#23' into development
+| |\ \ \  
+| | * | | d6f53c6 first iteration of the linter
+* | | | | a9802fd Login functions with token 1.0
+* | | | |   35030af GitHub to be added
+|\ \ \ \ \  
+| |/ / / /  
+|/| | | |   
+| * | | | eb0f779 Comment changed2
+| * | | | 2ef159f Comment changed
+| * | | | b8f2dca GitHub information loaded1
+| * | | | 682bca5 GitHub information loaded
+| * | | | 5514e0a GitHub information read
+| | |_|/  
+| |/| |   
+| * | | 60184a0 Hibernate dependencies
+| | |/  
+| |/|   
+* | |   e357fb8 gitignore
+|\ \ \  
+| | |/  
+| |/|   
+| * | 126217b gitignore fixed
+* | | 6d1e3f6 gitignore
+|/ /  
+| | * 6ca68b6 trying to be a handler
+| |/  
+| * 2d41c61 fixes
+| | * 3a1600c gitignore
+| | * 3b3c1d1 trello controller
+| | * b3d6fcc controller branch
+| |/  
+|/|   
+* | 5e55f1d db model fix #1
+* | f5e451a add development branch
+|/  
+* 11fedad first commit
