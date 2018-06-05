@@ -21,6 +21,7 @@ import java.util.List;
 @RestController
 public class HomeController {
     class Home {
+        private Integer id;
         private String groupName;
         private List<String> admins;
     }
@@ -67,6 +68,7 @@ public class HomeController {
 
                 temp.admins.add(adminName);
             }
+            temp.id += 1;
             list.add(temp);
         }
         session.close();
