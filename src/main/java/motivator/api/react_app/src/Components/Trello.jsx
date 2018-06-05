@@ -7,17 +7,14 @@ import Iframe from 'react-iframe';
 import axios from 'axios';
 
 class Trello extends Component {
-  constructor (props) {
+  constructor () {
     super();
     this.state = {
-      trelloUrl: '',
-      disabled: false,
-      options: props.options,
-      value: null
+      trelloUrl: 'https://trello.com/b/415XHD44/test-motivator-board'
     };
   }
 
-  componentDidMount () {
+  componentWillMount () {
     var token = window.localStorage.getItem(`Authorization`);
     var config = {
       headers: {
@@ -27,7 +24,7 @@ class Trello extends Component {
     var self = this;
     axios.get(`http://127.0.0.1:8080/app/currentuser/activegroup`, config)
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
         self.setState({ trelloUrl: response.data });
       })
       .catch(function (error) {

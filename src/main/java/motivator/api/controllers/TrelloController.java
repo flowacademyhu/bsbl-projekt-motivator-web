@@ -10,6 +10,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +54,10 @@ public class TrelloController {
         Trello trello = new Trello();
         trello.trelloUrl = activeTrello;
         session.close();
-        return new ResponseEntity<Trello>(trello, HttpStatus.OK);
+
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.add("Authorization", "Bearer " + Authorization);
+        responseHeader.add("Trello", activeTrello);
+        return new ResponseEntity<Trello>(trello, responseHeader, HttpStatus.OK);
     }
 }
