@@ -14,7 +14,7 @@ public class Group {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private String name;
-    private String gitHubGrupRep;
+    private String gitHubGroupRep;
     private String trelloGroup;
     private String slackGroupHook;
 
@@ -61,11 +61,11 @@ public class Group {
     }
 
     public String getGitHubGrupRep() {
-        return gitHubGrupRep;
+        return gitHubGroupRep;
     }
 
     public void setGitHubGrupRep(String gitHubGrupRep) {
-        this.gitHubGrupRep = gitHubGrupRep;
+        this.gitHubGroupRep = gitHubGrupRep;
     }
 
     public String getTrelloGroup() {

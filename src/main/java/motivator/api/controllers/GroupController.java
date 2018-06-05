@@ -24,7 +24,7 @@ public class GroupController {
     private GroupAdminRepository groupAdminRepository;
     private GroupRepository groupRepository;
 
-    @RequestMapping(value = "/app/currentuser/createGroup", method = RequestMethod.POST)
+    @RequestMapping(value = "/app/createGroup/currentuser", method = RequestMethod.POST)
     public Group createUser(@RequestBody Group group, @RequestHeader String jwtToken) throws NameAlreadyBoundException {
         Group newGroup = new Group();
         newGroup.setName(group.getName());

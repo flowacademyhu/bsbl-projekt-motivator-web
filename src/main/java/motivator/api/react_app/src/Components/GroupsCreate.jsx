@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
@@ -16,7 +15,7 @@ class CreateGroup extends Component {
   }
 
   redir = (props) => {
-    this.props.history.push('/home');
+    this.props.history.push('/');
   };
 
   onChange = (e) => {
@@ -32,6 +31,8 @@ class CreateGroup extends Component {
     axios.post(`http://127.0.0.1:8080/currentuser/groups/create`, { name, gitHubGrupRep, trelloGroup, slackGroupHook })
       .then((result) => {
         if (result.status === 200) {
+          window.localStorage.setItem(`Authorization`, res.data)
+          console.log(window.localStorage.getItem(`Authorization`));
           this.redir();
         }
       });
@@ -75,5 +76,4 @@ class CreateGroup extends Component {
 }
 
 export default CreateGroup;
-
 
