@@ -20,6 +20,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
 public class HeaderController {
+
     @Autowired
     private UserService userService;
 

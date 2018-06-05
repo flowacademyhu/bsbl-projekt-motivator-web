@@ -12,7 +12,7 @@ class Groups extends Component {
     };
   }
 
-  getGroupInfo () {
+  getGroupInfo (state) {
     var token = window.localStorage.getItem(`Authorization`);
     var config = {
       headers: {
@@ -30,8 +30,8 @@ class Groups extends Component {
       });
   }
 
-  componentDidMount () {
-    this.getGroupInfo();
+  componentDidMount (state) {
+    this.getGroupInfo(this.state);
   }
 
   render () {
