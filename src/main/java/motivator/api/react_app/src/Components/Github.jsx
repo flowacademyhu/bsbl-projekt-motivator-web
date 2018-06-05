@@ -11,7 +11,7 @@ class Github extends Component {
     };
   }
 
-  componentDidMount () {
+  componentWillMount () {
     var token = window.localStorage.getItem(`Authorization`);
     var config = {
       headers: {
@@ -21,7 +21,7 @@ class Github extends Component {
     var self = this;
     axios.get(`http://127.0.0.1:8080/app/github`, config)
       .then(function (response) {
-        console.log('Commits:' + response.data);
+        console.log('Commits:' + JSON.stringify(response.data));
         self.setState({ response: response.data.commits });
       })
       .catch(function (error) {

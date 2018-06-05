@@ -30,7 +30,7 @@ class Groups extends Component {
       });
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.getGroupInfo();
   }
 

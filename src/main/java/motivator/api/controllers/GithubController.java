@@ -6,19 +6,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import motivator.api.models.User;
 import motivator.api.service.UserService;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.eclipse.egit.github.core.RepositoryCommit;
 import org.eclipse.egit.github.core.RepositoryId;
 import org.eclipse.egit.github.core.service.CommitService;
 import org.kohsuke.github.GHCommit;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -30,26 +24,25 @@ public class GithubController {
     private static final String FULL_REPOSITORY = "laszlobalint/javascript";
     private static final String OWNER = "laszlobalint";
     private static final String REPOSITORY = "javascript";
-    private static final String TOKEN = "fe2f95e702371c2d324a6b10fe0f7e55a87ad59f";
 
     private class GitHub {
         private String commitShal;          // COMMIT SHAL
         private String commitMessage;       // COMMIT MESSAGE
         private Date commitDate;          // COMMIT DATE
-        private HashMap<String, String> fileMap;   // CHANGED FILENAME + CONTENT OF FILE
+        private List<String> fileNames;   // CHANGED FILENAME + CONTENT OF FILE
+
+        @Override
+        public String toString() {
+            return "GitHub{" +
+                    "commitShal='" + commitShal + '\'' +
+                    ", commitMessage='" + commitMessage + '\'' +
+                    ", commitDate=" + commitDate +
+                    ", fileMap=" + fileNames;
+        }
     }
 
     @Autowired
     private UserService userService;
-
-    @Bean
-    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        MappingJackson2HttpMessageConverter converter =
-                new MappingJackson2HttpMessageConverter(mapper);
-        return converter;
-    }
 
     @RequestMapping(value = "/app/github", method = RequestMethod.GET)
     public ResponseEntity<List<GitHub>> getGithubInfo(@RequestHeader(value = "Authorization") String Authorization) throws IOException {
@@ -65,7 +58,7 @@ public class GithubController {
         final int size = 1;
         final RepositoryId repo = new RepositoryId(OWNER, REPOSITORY);
         final CommitService service = new CommitService();
-        org.kohsuke.github.GitHub connectionGitHub = org.kohsuke.github.GitHub.connectUsingOAuth(TOKEN);
+        org.kohsuke.github.GitHub connectionGitHub = org.kohsuke.github.GitHub.connectUsingPassword("USERNAME", "PASSWORD");
 
         for (Collection<RepositoryCommit> commits : service.pageCommits(repo, size)) {
             for (RepositoryCommit commit : commits) {
@@ -77,16 +70,14 @@ public class GithubController {
                 List<GHCommit.File> files = connectionGitHub.getRepository(FULL_REPOSITORY).getCommit(shal).getFiles();
                 for (GHCommit.File file : files) {
                     String fileName = null;
-                    String content = null;
                     fileName = file.getFileName();
-                    content = file.getPatch();
                     try {
-                        System.out.println(content);
-                        temp.fileMap.put(fileName, content);
+                        temp.fileNames.add(fileName);
                     } catch (NullPointerException e) {
-                        System.err.println("Empty file error!");
+                        System.err.println("No filename!");
                     }
                 }
+                System.out.println(temp);
                 list.add(temp);
             }
         }
