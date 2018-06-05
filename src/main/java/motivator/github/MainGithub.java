@@ -18,15 +18,6 @@ public class MainGithub {
     private static final String REPOSITORY = "java";
     public static List<String> shals = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException {
-        MainGithub mainGithub = new MainGithub();
-        // mainGithub.getAllRepositories();
-        // mainGithub.getUserRepositories();
-        // mainGithub.getRepositoryBranchesNames();
-        mainGithub.getPageCommits();
-        mainGithub.getFileContents();
-    }
-
     // GET TREE STRUCTURE OF GIT REPOSITORY (COMMIT TEXTS AND COMMIT SHALS): git log --pretty=format:'%h : %s' --graph --oneline --all > log.log
 
     // LISTS OUT ALL THE REPOSIOTRY NAMES THAT USER HAS ACCESS TO

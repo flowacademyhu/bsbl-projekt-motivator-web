@@ -109,7 +109,7 @@ public class UserController {
         userDb.setGitHubProfile(user.getGitHubProfile());
         userDb.setTrelloProfile(user.getTrelloProfile());
         userDb.setSlackProfile(user.getSlackProfile());
-
+		userService.save(userDb);
         return new ResponseEntity<User>(userDb, HttpStatus.OK);
 	}
 
