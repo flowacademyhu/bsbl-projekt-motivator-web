@@ -31,12 +31,24 @@ class Create extends Component {
       alert("Password confirmation doesn't match.")
       return false;
     } else {
-      axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })
-        .then((result) => {
-          if (result.status === 200) {
-            this.redir();
-          }
-        });
+      if (!this.emailRegex()) {
+        alert('Please enter a valid email address.');
+        return false;
+      } else {
+        axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })
+          .then((result) => {
+            if (result.status === 200) {
+              this.redir();
+            }
+          });
+      }
+    }
+  }
+  emailRegex = () => {
+    var email = document.getElementById("email").value;
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;    ;
+    if (!re.test(email)) {
+      return false;
     }
   }
 
@@ -74,7 +86,7 @@ class Create extends Component {
               </div>
               <div className="form-group">
                 <label htmlFor="publisher">E-mail Address:</label>
-                <input type="email" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="E-mail Address" />
+                <input id='email' type="email" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="E-mail Address" />
               </div>
               <div className="form-group">
                 <label htmlFor="author">GitHub Profile Url:</label>
