@@ -35,8 +35,6 @@ class CreateGroup extends Component {
     axios.post(`http://127.0.0.1:8080/app/currentuser/groups/create`, { name, gitHubGrupRep, trelloGroup, slackGroupHook }, config)
       .then((result) => {
         if (result.status === 200) {
-          window.localStorage.setItem(`Authorization`, result.state)
-          console.log(window.localStorage.getItem(`Authorization`));
           this.redir();
         }
       });
