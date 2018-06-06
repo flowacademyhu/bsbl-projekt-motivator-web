@@ -11,9 +11,11 @@ import GroupsCreate from './Components/GroupsCreate';
 import Trello from './Components/Trello';
 import Registration from './Components/Registration';
 import Header from './Components/Header';
+import GroupsEdit from './Components/GroupsEdit';
+import GroupsProfile from './Components/GroupsProfile';
 
 /* import GettingStarted from './Components/GettingStarted';
-import GroupsEdit from './Components/GroupsEdit';
+
 import GroupsMemberEdit from './Components/GroupsMemberEdit';
 import GroupsMemberNew from './Components/GroupsMemberNew';
 import GroupsProfile from './Components/GroupsProfile';
@@ -37,7 +39,9 @@ const Router = () => (
         <Route path='/logout' component={Logout} />
         <Route path='/userprofile' exact component={UserProfile} />
         <Route path='/userprofileedit' exact component={UserProfileEdit} />
-        <Route path='/groupsCreate' component={GroupsCreate} />
+        <Route path='/groupscreate' component={GroupsCreate} />
+        <Route path='/groupsedit' component={GroupsEdit} />
+        <Route path='/groupsprofile' component={GroupsProfile} />
         <Route path='/github' component={Github} />
         <Route path='/trello' component={Trello} />
         <Route path='/groups' component={Groups} />
@@ -45,10 +49,8 @@ const Router = () => (
         <Route render={() => <h3>Error 404 Custom Page</h3>} />
         {/* <Route path='/slack' exact component={Slack} />
         <Route path='/gettingStarted' component={GettingStarted} />
-        <Route path='/groupsEdit' component={GroupsEdit} />
         <Route path='/groupsMemberEdit' component={GroupsMemberEdit} />
         <Route path='/groupsMemberNew' component={GroupsMemberNew} />
-        <Route path='/groupsProfile' component={GroupsProfile} />
         <Route path='/passwordForgotten' exact component={PasswordForgotten} />
         <Route path='/passwordReset' exact component={PasswordReset} />
         <Route path='/statistics' exact component={Statistics} />       

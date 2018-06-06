@@ -22,18 +22,44 @@ class Create extends Component {
     const state = this.state
     state[e.target.name] = e.target.value;
     this.setState(state);
-};
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
     const { name, password, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
+    if (!this.passwordEquals()) {
+      alert("Password confirmation doesn't match.")
+      return false;
+    } else {
+      if (!this.emailRegex()) {
+        alert('Please enter a valid email address.');
+        return false;
+      } else {
+        axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })
+          .then((result) => {
+            if (result.status === 200) {
+              this.redir();
+            }
+          });
+      }
+    }
+  }
+  emailRegex = () => {
+    var email = document.getElementById("email").value;
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;    ;
+    if (!re.test(email)) {
+      return false;
+    }
+  }
 
-    axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })
-      .then((result) => {
-        if (result.status === 200) {
-          this.redir();
-        }
-      });
+  passwordEquals = () => {
+    var pass = document.getElementById("password").value;
+    var confPass = document.getElementById("password2").value;
+    if (pass === confPass) {
+      return true
+    } else {
+      return false;
+    }
   }
 
   render() {
@@ -52,11 +78,15 @@ class Create extends Component {
               </div>
               <div className="form-group">
                 <label htmlFor="title">Password:</label>
-                <input type="password" className="form-control" name="password" value={password} onChange={this.onChange} placeholder="Give a password" />
+                <input id='password' type="password" className="form-control" name="password" onChange={this.onChange} placeholder="Give a password" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="title">Confirm password:</label>
+                <input id='password2' type="password" className="form-control" name="password" onChange={this.onChange} placeholder="Confirm your password" />
               </div>
               <div className="form-group">
                 <label htmlFor="publisher">E-mail Address:</label>
-                <input type="email" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="E-mail Address" />
+                <input id='email' type="email" className="form-control" name="email" value={email} onChange={this.onChange} placeholder="E-mail Address" />
               </div>
               <div className="form-group">
                 <label htmlFor="author">GitHub Profile Url:</label>
