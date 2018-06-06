@@ -7,7 +7,8 @@ class GroupProfileEdit extends Component {
     name: '',
     gitHubGrupRep: '',
     trelloGroup: '',
-    slackGroupHook: ''
+    slackGroupHook: '',
+    member: ''
   };
 
   componentWillMount() {
@@ -73,7 +74,7 @@ class GroupProfileEdit extends Component {
         Authorization: "Bearer " + token
       }
     }
-    const { member } = this.state;
+    const { member } = this.state.member;
     axios.post(`http://127.0.0.1:8080//app/currentuser/groups/profile/edit/new/member`, { member }, config)
       .then((response) => {
         console.log(response);
@@ -106,12 +107,12 @@ class GroupProfileEdit extends Component {
           </label><br />
           <button type="submit" className="btn btn-default" onClick = {this.onSubmit} >Submit</button>
           </form>
-        <form onAdd={this.onAdd}>
+        <form onSubmit={this.onAdd}>
           <label>
             Add new member:
-          <input type='text' name='newMemberEmail' placeholder='Give an e-mail address' /*onChange={this.onChange}*/ />
+          <input type='text' name='newMemberEmail' placeholder='Give an e-mail address' onChange={this.onChange} />
           </label><br />
-          <button type="submit" className="btn btn-default" onClick = {this.onAdd} >Add</button>
+          <button type="submit" className="btn btn-default" >Add</button>
         </form>
       </div>
     )
