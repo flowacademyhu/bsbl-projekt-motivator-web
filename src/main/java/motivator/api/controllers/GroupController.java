@@ -109,16 +109,22 @@ public class GroupController {
         groupService.save(groupDb);
         user.setActiveGroup(group.getName());
         userService.save(user);
+
         return new ResponseEntity <Group>(groupDb, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/app/currentuser/groups/profile/edit", method = RequestMethod.POST)
-    public ResponseEntity<Group> inviteGroupMember(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody Group group) {
-        jwtToken = jwtToken.replace("Bearer ", "");
+    @RequestMapping(value = "/app/currentuser/groups/profile/edit/new/member", method = RequestMethod.POST)
+    public Group addNewMember(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String addUser) {
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(jwtToken).getBody();
 
+        User user = userService.findByEmail(claims.getSubject());
+        String activeGroup = user.getActiveGroup();
+        Group groupDb = groupService.findByName(activeGroup);
 
-
+        User addNewUser = userService.findByEmail(addUser);
+        setUser(addNewUser, groupDb);
+        return groupService.save(groupDb);
+    }
 }
