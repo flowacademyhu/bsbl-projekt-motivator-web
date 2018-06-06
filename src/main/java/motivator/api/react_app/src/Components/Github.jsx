@@ -7,36 +7,48 @@ class Github extends Component {
   constructor () {
     super();
     this.state = {
-      response: ''
+      commitShal: '',
+      commitMessage: '',
+      commitDate: ''
     };
-  }
-
-  getGithubInfo () {
-    var token = window.localStorage.getItem(`Authorization`);
-    var config = {
-      headers: {
-        Authorization: `Bearer ` + token
-      }
-    };
-    var self = this;
-    axios.get(`http://127.0.0.1:8080/app/github`, config)
-      .then(function (response) {
-        console.log(response);
-        self.setState({ response: response.data });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   componentWillMount () {
-    this.getGithubInfo();
+    var self = this;
+    var token = window.localStorage.getItem('Authorization');
+    var config = {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    };
+
+    axios.get(`http://127.0.0.1:8080/app/github`, config)
+      .then((response) => {
+        if (response.status === 200 || response.status === 202) {
+          var result = response.data;
+          var newData = {
+            commitShal: result.commitShal,
+            commitMessage: result.commitMessage,
+            commitDate: result.commitDate
+          };
+
+          self.setState(newData);
+          console.log(result);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   render () {
     return (
       <div>
-        GitHub
+        {<span key={this.state.commitShal}>
+          {this.state.commitShal}
+          {this.state.commitMessage}
+          {this.state.commitDate}
+        </span>}
       </div>
     );
   }

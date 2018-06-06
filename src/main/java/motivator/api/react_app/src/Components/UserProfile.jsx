@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
-
 class UserProfile extends Component {
-
-  state = {
-    name: '',
-    password: '',
-    email: '',
-    gitHubProfile: '',
-    trelloProfile: '',
-    slackProfile: ''
-  };
-
-  getUserData = () => {
-
+  constructor () {
+    super();
+    this.state = {
+      name: '',
+      password: '',
+      email: '',
+      gitHubProfile: '',
+      trelloProfile: '',
+      slackProfile: ''
+    };
   }
-  componentDidMount() {
+
+  componentDidMount () {
     var self = this;
     var token = window.localStorage.getItem('Authorization');
     var config = {
       headers: {
-        Authorization: "Bearer " + token
+        Authorization: 'Bearer ' + token
       }
-    }
+    };
+
     axios.get(`http://127.0.0.1:8080/app/userprofile`, config)
       .then((result) => {
         if (result.status === 200) {
@@ -38,39 +37,39 @@ class UserProfile extends Component {
             gitHubProfile: res.gitHubProfile,
             trelloProfile: res.trelloProfile,
             slackProfile: res.slackProfile
-          }
-          self.setState(newData)
-          console.log(res)
+          };
+
+          self.setState(newData);
+          console.log(res);
         }
       });
   }
 
-  render() {
+  render () {
     return (
       <div>
         <h1>User Profile</h1>
         <label>
           Username: {this.state.name}
-        </label>
+        </label><br />
         <label>
           E-mail address: {this.state.email}
-        </label>
+        </label><br />
         <label>
           Github URL: {this.state.gitHubProfile}
-        </label>
+        </label><br />
         <label>
           Slack URL: {this.state.slackProfile}
-        </label>
+        </label><br />
         <label>
           Trello URL: {this.state.trelloProfile}
-        </label>
+        </label><br />
         <label>
           <NavLink to='/userprofileedit'><Button bsStyle='success'>Edit</Button></NavLink>
         </label>
       </div>
-    )
+    );
   }
 }
-
 
 export default UserProfile;

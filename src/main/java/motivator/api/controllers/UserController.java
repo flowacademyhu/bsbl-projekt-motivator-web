@@ -109,7 +109,7 @@ public class UserController {
         userDb.setGitHubProfile(user.getGitHubProfile());
         userDb.setTrelloProfile(user.getTrelloProfile());
         userDb.setSlackProfile(user.getSlackProfile());
-
+		userService.save(userDb);
         return new ResponseEntity<User>(userDb, HttpStatus.OK);
 	}
 
@@ -122,6 +122,6 @@ public class UserController {
         String email = claims.getSubject();
         User userDb = userService.findByEmail(email);
 
-        return new ResponseEntity<User>(userDb,HttpStatus.OK);
+        return new ResponseEntity<User>(userDb, HttpStatus.OK);
     }
 }
