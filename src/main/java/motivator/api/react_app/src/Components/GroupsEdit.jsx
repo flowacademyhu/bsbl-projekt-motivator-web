@@ -10,7 +10,7 @@ class GroupProfileEdit extends Component {
     slackGroupHook: ''
   };
 
-  componentDidMount() {
+  componentWillMount() {
     var self = this;
     var token = window.localStorage.getItem('Authorization');
     var config = {
@@ -18,7 +18,7 @@ class GroupProfileEdit extends Component {
         Authorization: "Bearer " + token
       }
     }
-    axios.get(`http://127.0.0.1:8080/app/currentuser/groups/`, config)
+    axios.get(`http://127.0.0.1:8080/app/currentuser/groups/profile`, config)
       .then((result) => {
         if (result.status === 200) {
           var res = result.data;
@@ -35,7 +35,7 @@ class GroupProfileEdit extends Component {
   }
 
   redir = (props) => {
-    this.props.history.push('/groupProfile');
+    this.props.history.push('/groupsProfile');
   };
 
   onChange = (event) => {
@@ -53,7 +53,7 @@ class GroupProfileEdit extends Component {
       }
     }
     const { name, gitHubGrupRep, trelloGroup, slackGroupHook } = this.state;
-    axios.post(`http://127.0.0.1:8080/groupupdate`, { name, gitHubGrupRep, trelloGroup, slackGroupHook }, config)
+    axios.post(`http://127.0.0.1:8080//app/currentuser/groups/profile/edit`, { name, gitHubGrupRep, trelloGroup, slackGroupHook }, config)
       .then((response) => {
         console.log(response);
         this.setState(response);
@@ -72,19 +72,19 @@ class GroupProfileEdit extends Component {
           <label>
             Name:
           <input type='text' name='name' placeholder={this.state.name} onChange={this.onChange} />
-          </label>
+          </label><br />
           <label>
             GitHub:
-          <input type='text' name='gitHubGrupRep' placeholder='gitHubGrupRep' onChange={this.onChange} />
-          </label>
+          <input type='text' name='gitHubGrupRep' placeholder={this.state.gitHubGrupRep} onChange={this.onChange} />
+          </label><br />
           <label>
-            New password:
-          <input type='text' name='trelloGroup' placeholder='trelloGroup' onChange={this.onChange} />
-          </label>
+            Trello:
+          <input type='text' name='trelloGroup' placeholder={this.state.trelloGroup} onChange={this.onChange} />
+          </label><br />
           <label>
-            Repeat new password:
-          <input type='text' name='slackGroupHook' placeholder='slackGroupHook' onChange={this.onChange} />
-          </label>
+            Slack:
+          <input type='text' name='slackGroupHook' placeholder={this.state.slackGroupHook} onChange={this.onChange} />
+          </label><br />
           <button type="submit" className="btn btn-default" onClick = {this.onSubmit} >Submit</button>
         </form>
       </div>

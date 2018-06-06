@@ -58,7 +58,7 @@ public class GroupController {
         newGroup.setGitHubGrupRep(group.getGitHubGrupRep());
         newGroup.setTrelloGroup(group.getTrelloGroup());
         newGroup.setSlackGroupHook(group.getSlackGroupHook());
-
+        user.setActiveGroup(newGroup.getName());
         setAdmin(user, newGroup);
         setUser(user, newGroup);
         return groupService.save(newGroup);
@@ -91,28 +91,29 @@ public class GroupController {
         User user = userService.findByEmail(claims.getSubject());
         String activeGroup = user.getActiveGroup();
         Group group = groupService.findByName(activeGroup);
+        System.err.println(group);
         return new ResponseEntity<Group>(group, HttpStatus.OK);
     }
 
-/*
-    @RequestMapping(path="/all", method = RequestMethod.GET)
-    public ArrayList<Group> getAllGroup() {
-        //return groupRepository.findAll();
+    @RequestMapping(value = "/app/currentuser/groups/profile/edit", method = RequestMethod.POST)
+    public ResponseEntity<Group> updateGroup(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody Group group, User userOfGroup) {
+        jwtToken = jwtToken.replace("Bearer ", "");
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(jwtToken).getBody();
+
+        User user = userService.findByEmail(claims.getSubject());
+        String activeGroup = user.getActiveGroup();
+        Group groupDb = groupService.findByName(activeGroup);
+        System.err.println(user);
+        groupDb.setName(group.getName());
+        groupDb.setGitHubGrupRep(group.getGitHubGrupRep());
+        groupDb.setTrelloGroup(group.getTrelloGroup());
+        groupDb.setSlackGroupHook(group.getSlackGroupHook());
+        groupService.save(groupDb);
+        user.setActiveGroup(group.getName());
+        userService.save(user);
+        System.err.println(groupDb);
+        return new ResponseEntity <Group>(groupDb, HttpStatus.OK);
     }
-
-    @RequestMapping(path="/delete", method = RequestMethod.DELETE)
-    public Group deleteGroup(@RequestBody Group group) {
-        return groupService.deleteByName(group.getName());
-    }
-
-    @RequestMapping(path="/update", method = RequestMethod.PUT)
-    public Group updateGroup(@PathVariable("name") String name, @RequestBody Group group, User user) {
-
-        //Group currentGroup = GroupService.findByName(group.getName());
-        //currentGroup.setGroup();
-        //currentGroup.setUser();
-
-        return groupService.deleteByName(group.getName());
-    }
-*/
 }

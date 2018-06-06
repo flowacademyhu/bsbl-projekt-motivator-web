@@ -42,20 +42,20 @@ class GroupsProfile extends Component {
     return (
       <div>
         <h1>Group Profile</h1>
-        <label>
+        <label><br />
           Group's name: {this.state.name}
-        </label>
+        </label><br />
         <label>
           GitHub: {this.state.gitHubGrupRep}
-        </label>
+        </label><br />
         <label>
           Trello: {this.state.trelloGroup}
-        </label>
+        </label><br />
         <label>
           Slack: {this.state.slackGroupHook}
-        </label>
+        </label><br />
         <label>
-          <NavLink to='/groupprofileedit'><Button bsStyle='success'>Edit</Button></NavLink>
+          <NavLink to='/groupsEdit'><Button bsStyle='success'>Edit</Button></NavLink>
         </label>
       </div>
     )

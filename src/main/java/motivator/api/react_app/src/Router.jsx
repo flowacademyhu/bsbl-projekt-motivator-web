@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ModalFooter } from 'react-bootstrap'; // Components
 import Login from './Components/Login';
 import UserProfile from './Components/UserProfile';
+import UserProfileEdit from './Components/UserProfileEdit';
 import Github from './Components/Github';
 import Groups from './Components/Groups';
 import GroupsCreate from './Components/GroupsCreate';
@@ -13,7 +14,7 @@ import GroupsEdit from './Components/GroupsEdit';
 import GroupsProfile from './Components/GroupsProfile';
 
 /* import GettingStarted from './Components/GettingStarted';
-import UserProfileEdit from './Components/UserProfileEdit';
+
 import GroupsMemberEdit from './Components/GroupsMemberEdit';
 import GroupsMemberNew from './Components/GroupsMemberNew';
 import GroupsProfile from './Components/GroupsProfile';
@@ -35,6 +36,7 @@ const Router = () => (
         <Route path='/registration' component={Registration} />
         <Route path='/login' component={Login} />
         <Route path='/userprofile' exact component={UserProfile} />
+        <Route path='/userprofileedit' exact component={UserProfileEdit} />
         <Route path='/groupscreate' component={GroupsCreate} />
         <Route path='/groupsEdit' component={GroupsEdit} />
         <Route path='/groupsProfile' component={GroupsProfile} />
@@ -42,9 +44,7 @@ const Router = () => (
         <Route path='/trello' exact component={Trello} />
         <Route path='/' exact component={Groups} />
         <Route render={() => <h3>Error 404 Custom Page</h3>} />
-        
         {/* <Route path='/slack' exact component={Slack} />
-        <Route path='/userprofileedit' exact component={UserProfileEdit} />
         <Route path='/gettingStarted' component={GettingStarted} />
         <Route path='/groupsMemberEdit' component={GroupsMemberEdit} />
         <Route path='/groupsMemberNew' component={GroupsMemberNew} />

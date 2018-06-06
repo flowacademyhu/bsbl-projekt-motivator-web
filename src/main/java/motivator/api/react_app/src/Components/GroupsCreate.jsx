@@ -50,7 +50,7 @@ class CreateGroup extends Component {
       <div className="container">
         <div className="panel panel-default">
           <div className="panel-heading">
-            <h3 className="panel-title">Registrate your new profile</h3>
+            <h3 className="panel-title">Create Group</h3>
           </div>
           <div className="panel-body">
             <form onSubmit={this.onSubmit}>
