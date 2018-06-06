@@ -124,4 +124,16 @@ public class UserController {
 
         return new ResponseEntity<User>(userDb, HttpStatus.OK);
     }
+
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public ResponseEntity<String> logoutUser(@RequestHeader (value = "Authorization") String jwtToken) {
+		jwtToken = jwtToken.replace("Bearer ", "");
+		Claims claims = Jwts.parser()
+				.setSigningKey("secretkey")
+				.parseClaimsJws(jwtToken).getBody();
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "");
+		System.out.println("Logging out");
+		return new ResponseEntity<>("loggedout", HttpStatus.OK);
+	}
 }
