@@ -17,7 +17,7 @@ class Header extends Component {
             <NavLink to='/github'><Button bsStyle='success'>GitHub</Button></NavLink>
             <NavLink to='/slack'><Button bsStyle='info'>Slack</Button></NavLink>
             <NavLink to='/trello'><Button bsStyle='warning'>Trello</Button></NavLink>
-            <NavLink to='/groupProfile'><Button bsStyle='danger'>Group Profile</Button></NavLink>
+            <NavLink to='/groupsProfile'><Button bsStyle='danger'>Group Profile</Button></NavLink>
             <NavLink to='/userProfile'><Button bsStyle='secondary'>User Profile</Button></NavLink>
             <NavLink to='/logout'><Button bsStyle='link'>Logout</Button></NavLink>
           </ButtonToolbar>

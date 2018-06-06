@@ -47,8 +47,6 @@ public class GroupController {
                 .parseClaimsJws(Authorization).getBody();
 
         String email = claims.getSubject();
-        System.err.println(email);
-
         User user = userService.findByEmail(email);
         Group newGroup = new Group();
         newGroup.setName(group.getName());
@@ -91,12 +89,11 @@ public class GroupController {
         User user = userService.findByEmail(claims.getSubject());
         String activeGroup = user.getActiveGroup();
         Group group = groupService.findByName(activeGroup);
-        System.err.println(group);
         return new ResponseEntity<Group>(group, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/app/currentuser/groups/profile/edit", method = RequestMethod.POST)
-    public ResponseEntity<Group> updateGroup(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody Group group, User userOfGroup) {
+    public ResponseEntity<Group> updateGroup(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody Group group) {
         jwtToken = jwtToken.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
@@ -105,7 +102,6 @@ public class GroupController {
         User user = userService.findByEmail(claims.getSubject());
         String activeGroup = user.getActiveGroup();
         Group groupDb = groupService.findByName(activeGroup);
-        System.err.println(user);
         groupDb.setName(group.getName());
         groupDb.setGitHubGrupRep(group.getGitHubGrupRep());
         groupDb.setTrelloGroup(group.getTrelloGroup());
@@ -113,7 +109,16 @@ public class GroupController {
         groupService.save(groupDb);
         user.setActiveGroup(group.getName());
         userService.save(user);
-        System.err.println(groupDb);
         return new ResponseEntity <Group>(groupDb, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/app/currentuser/groups/profile/edit", method = RequestMethod.POST)
+    public ResponseEntity<Group> inviteGroupMember(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody Group group) {
+        jwtToken = jwtToken.replace("Bearer ", "");
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(jwtToken).getBody();
+
+
+
 }
