@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ModalFooter } from 'react-bootstrap'; // Components
 import Login from './Components/Login';
+import Logout from './Components/Logout';
 import UserProfile from './Components/UserProfile';
 import UserProfileEdit from './Components/UserProfileEdit';
 import Github from './Components/Github';
@@ -35,14 +36,16 @@ const Router = () => (
       <Switch>
         <Route path='/registration' component={Registration} />
         <Route path='/login' component={Login} />
+        <Route path='/logout' component={Logout} />
         <Route path='/userprofile' exact component={UserProfile} />
         <Route path='/userprofileedit' exact component={UserProfileEdit} />
         <Route path='/groupscreate' component={GroupsCreate} />
         <Route path='/groupsEdit' component={GroupsEdit} />
         <Route path='/groupsProfile' component={GroupsProfile} />
         <Route path='/github' component={Github} />
-        <Route path='/trello' exact component={Trello} />
-        <Route path='/' exact component={Groups} />
+        <Route path='/trello' component={Trello} />
+        <Route path='/groups' component={Groups} />
+        <Route path='/' exact component={Login} />
         <Route render={() => <h3>Error 404 Custom Page</h3>} />
         {/* <Route path='/slack' exact component={Slack} />
         <Route path='/gettingStarted' component={GettingStarted} />

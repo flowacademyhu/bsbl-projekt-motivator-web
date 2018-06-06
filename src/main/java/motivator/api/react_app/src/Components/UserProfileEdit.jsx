@@ -107,33 +107,33 @@ class UserProfileEdit extends Component {
         <p>E-mail address: {this.state.email}</p>
         <form onSubmit={this.onSubmit}>
           <label>
-            Username:
-          <input type='text' name='name' placeholder={this.state.name} onChange={this.onChange} />
-          </label>
+            Username: 
+          <input type='text' name='name' placeholder={this.state.resdata.name} onChange={this.onChange} />
+          </label><br />
           <label>
-            Current password:
+            Current password: 
           <input id='currPassw' type='password' name='currentPassword' placeholder='Current password' />
-          </label>
+          </label><br />
           <label>
-            New password:
+            New password: 
           <input id='newPassw' type='password' name='password' placeholder='New password' />
-          </label>
+          </label><br />
           <label>
-            Confirm password:
+            Confirm password: 
           <input id='confPassw' type='password' name='password' placeholder='Confirm password' onChange={this.onChange} />
-          </label>
+          </label><br />
           <label>
-            Github URL:
-          <input type='text' name='gitHubProfile' placeholder={this.state.gitHubProfile} onChange={this.onChange} />
-          </label>
+            Github URL: 
+          <input type='text' name='gitHubProfile' placeholder={this.state.resdata.gitHubProfile} onChange={this.onChange} />
+          </label><br />
           <label>
-            Trello URL:
-          <input type='text' name='trelloProfile' placeholder={this.state.trelloProfile} onChange={this.onChange} />
-          </label>
+            Trello URL: 
+          <input type='text' name='trelloProfile' placeholder={this.state.resdata.trelloProfile} onChange={this.onChange} />
+          </label><br />
           <label>
-            Slack URL:
-          <input type='text' name='slackProfile' placeholder={this.state.slackProfile} onChange={this.onChange} />
-          </label>
+            Slack URL: 
+          <input type='text' name='slackProfile' placeholder={this.state.resdata.slackProfile} onChange={this.onChange} />
+          </label><br />
           <button type="submit" className="btn btn-default" onClick={this.onSubmit} >Submit</button>
         </form>
       </div>
