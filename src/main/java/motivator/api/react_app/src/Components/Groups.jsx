@@ -39,7 +39,7 @@ class Groups extends Component {
     return (
       <div>
         <h2>Groups of the user:</h2>
-        <NavLink to='/groupsCreate'><Button bsStyle='danger'>Create New Group</Button></NavLink>
+        <NavLink to='/groupscreate'><Button bsStyle='danger'>Create New Group</Button></NavLink>
         <Popup trigger={<button>GETTING STARTED</button>} position='top left'>
           {close => (
             <div>

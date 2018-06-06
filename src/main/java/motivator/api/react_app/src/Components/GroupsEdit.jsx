@@ -35,7 +35,7 @@ class GroupProfileEdit extends Component {
   }
 
   redir = (props) => {
-    this.props.history.push('/groupsProfile');
+    this.props.history.push('/groupsprofile');
   };
 
   onChange = (event) => {

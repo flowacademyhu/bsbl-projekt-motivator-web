@@ -13,7 +13,7 @@ class CreateGroup extends Component {
   }
 
   redir = (props) => {
-    this.props.history.push('/');
+    this.props.history.push('/groups');
   };
 
   onChange = (e) => {
