@@ -74,3 +74,4 @@ export default Router;
 // npm starttal indul
 // npm install reactjs-popup --save
 // npm i react-iframe
+// create-react-app client --scripts-version=react-scripts-ts
