@@ -55,7 +55,7 @@ class GroupsProfile extends Component {
           Slack: {this.state.slackGroupHook}
         </label><br />
         <label>
-          <NavLink to='/groupsEdit'><Button bsStyle='success'>Edit</Button></NavLink>
+          <NavLink to='/groupsedit'><Button bsStyle='success'>Edit</Button></NavLink>
         </label>
       </div>
     )

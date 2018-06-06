@@ -40,8 +40,8 @@ const Router = () => (
         <Route path='/userprofile' exact component={UserProfile} />
         <Route path='/userprofileedit' exact component={UserProfileEdit} />
         <Route path='/groupscreate' component={GroupsCreate} />
-        <Route path='/groupsEdit' component={GroupsEdit} />
-        <Route path='/groupsProfile' component={GroupsProfile} />
+        <Route path='/groupsedit' component={GroupsEdit} />
+        <Route path='/groupsprofile' component={GroupsProfile} />
         <Route path='/github' component={Github} />
         <Route path='/trello' component={Trello} />
         <Route path='/groups' component={Groups} />
