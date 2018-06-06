@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button, ButtonToolbar } from 'react-bootstrap';
+import axios from 'axios';
 
 class Header extends Component {
   state = {
@@ -56,7 +57,7 @@ class Header extends Component {
     const state = this.state
     state[event.target.name] = event.target.value;
     this.setState(state);
-    this.setGroup;
+    this.setGroup();
   }
 
   iterateGroups = () => {
