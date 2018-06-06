@@ -119,4 +119,21 @@ public class User {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", gitHubProfile='" + gitHubProfile + '\'' +
+                ", trelloProfile='" + trelloProfile + '\'' +
+                ", slackProfile='" + slackProfile + '\'' +
+                ", currentScore=" + currentScore +
+                ", activeGroup='" + activeGroup + '\'' +
+                ", created=" + created +
+                ", updated=" + updated +
+                '}';
+    }
 }

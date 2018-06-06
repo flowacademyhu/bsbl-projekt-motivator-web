@@ -27,11 +27,17 @@ class CreateGroup extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { name, gitHubGrupRep, trelloGroup, slackGroupHook } = this.state;
+    var token = window.localStorage.getItem('Authorization');
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
 
-    axios.post(`http://127.0.0.1:8080/currentuser/groups/create`, { name, gitHubGrupRep, trelloGroup, slackGroupHook })
+    axios.post(`http://127.0.0.1:8080/app/currentuser/groups/create`, { name, gitHubGrupRep, trelloGroup, slackGroupHook }, config)
       .then((result) => {
         if (result.status === 200) {
-          window.localStorage.setItem(`Authorization`, res.data)
+          window.localStorage.setItem(`Authorization`, result.state)
           console.log(window.localStorage.getItem(`Authorization`));
           this.redir();
         }
@@ -62,7 +68,9 @@ class CreateGroup extends Component {
               </div>
               <div className="form-group">
                 <p>Click at the link and create a Slack App if your group doesn't have any!</p>
-                <a href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands&client_id=242600405299.364909370132"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+                <a href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands&client_id=242600405299.364909370132">
+                <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" 
+                srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
                 <label htmlFor="slack">Slack:</label>
                 <input type="text" className="form-control" name="slackGroupHook" value={slackGroupHook} onChange={this.onChange} placeholder="Give us a SlackHook" />
               </div>

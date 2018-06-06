@@ -4,17 +4,18 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "group_admin")
+
 public class GroupAdmin {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "group_id")
     private Group group;
 
