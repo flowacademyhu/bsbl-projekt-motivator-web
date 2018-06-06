@@ -13,12 +13,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.naming.NameAlreadyBoundException;
 import javax.servlet.ServletException;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Date;
 
-@CrossOrigin(origins = "http://localhost", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 public class UserController {
 

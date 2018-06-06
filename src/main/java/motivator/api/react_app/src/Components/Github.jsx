@@ -1,55 +1,52 @@
 // /groups/:id/github
 
 import React, { Component } from 'react';
-import axios from 'axios';
+import fetch from 'isomorphic-fetch';
 
 class Github extends Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
-      commitShal: '',
-      commitMessage: '',
-      commitDate: ''
+      commits: [{
+        id: 1,
+        commitShal: 'test1',
+        commitMessage: 'test2',
+        commitDate: 'test3'
+      }]
     };
   }
 
-  componentWillMount () {
-    var self = this;
+  componentDidMount (props) {
     var token = window.localStorage.getItem('Authorization');
     var config = {
       headers: {
         Authorization: 'Bearer ' + token
       }
     };
-
-    axios.get(`http://127.0.0.1:8080/app/github`, config)
-      .then((response) => {
-        if (response.status === 200 || response.status === 202) {
-          var result = response.data;
-          var newData = {
-            commitShal: result.commitShal,
-            commitMessage: result.commitMessage,
-            commitDate: result.commitDate
-          };
-
-          self.setState(newData);
-          console.log(result);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+    fetch(`http://127.0.0.1:8080/github`, config)
+      .then(response => {
+        var newData = {
+          id: response.id,
+          commitShal: response.commitShal,
+          commitMessage: response.commitMessage,
+          commitDate: response.commitDate
+        };
+        this.setState(newData);
       });
   }
 
   render () {
-    return (
-      <div>
-        {<span key={this.state.commitShal}>
-          {this.state.commitShal}
-          {this.state.commitMessage}
-          {this.state.commitDate}
-        </span>}
+    console.log(this.state.commits);
+    return this.state.commits.map((commit, i) => (
+      <div key={i}>
+        <h2>Last GitHub commits</h2>
+        <div>
+          <div>{commit.commitShal}</div>
+          <div>{commit.commitMessage}</div>
+          <div>{commit.commitDate}</div>
+        </div>
       </div>
+    )
     );
   }
 }
