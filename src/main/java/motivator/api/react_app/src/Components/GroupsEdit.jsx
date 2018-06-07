@@ -75,6 +75,7 @@ class GroupProfileEdit extends Component {
       }
     }
     const { member } = this.state.member;
+    console.log(this.state.member+ "saefasefd")
     axios.post(`http://127.0.0.1:8080//app/currentuser/groups/profile/edit/new/member`, { member }, config)
       .then((response) => {
         console.log(response);
@@ -110,7 +111,7 @@ class GroupProfileEdit extends Component {
         <form onSubmit={this.onAdd}>
           <label>
             Add new member:
-          <input type='text' name='newMemberEmail' placeholder='Give an e-mail address' onChange={this.onChange} />
+          <input type='text' name='member' placeholder='Give an e-mail address' onChange={this.onChange} />
           </label><br />
           <button type="submit" className="btn btn-default" >Add</button>
         </form>
