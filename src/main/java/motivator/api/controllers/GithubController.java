@@ -22,34 +22,30 @@ public class GithubController {
     private static final String REPOSITORY = "javascript";
 
     private class GitHub {
-        Map<String, Object> id = new HashMap<>();
-        Map<String, Object> commitShal = new HashMap<>();
-        Map<String, Object> commitMessage = new HashMap<>();
-        Map<String, Object> commitDate = new HashMap<>();
-        // Integer id;
-        // String commitShal;          // COMMIT SHAL
-        // String commitMessage;       // COMMIT MESSAGE
-        // Date commitDate;          // COMMIT DATE
-        private HashMap<String, Integer> changes;   // CHANGED FILENAME + CONTENT OF FILE
+        Integer id;
+        String commitShal;          // COMMIT SHAL
+        String commitMessage;       // COMMIT MESSAGE
+        Date commitDate;          // COMMIT DATE
+        private HashMap<String, Integer> changes = new HashMap<>();   // CHANGED FILENAME + CONTENT OF FILE
 
         @Override
         public String toString() {
-            return "GitHub{" +
-                    "id=" + id +
-                    ", commitShal=" + commitShal +
-                    ", commitMessage=" + commitMessage +
-                    ", commitDate=" + commitDate +
-                    ", changes=" + changes +
-                    '}';
+            return "{" +
+                    "\"id\": \"" + id +
+                    "\", \"commitShal\": \"" + commitShal +
+                    "\", \"commitMessage\": \"" + commitMessage +
+                    "\", \"commitDate\": \"" + commitDate +
+                    "\", \"changes\": \"" + changes +
+                    "\"}";
         }
     }
 
     @Autowired
     private UserService userService;
 
-    /*
+
     @RequestMapping(value = "/app/github", method = RequestMethod.GET)
-    public Collection<GitHub> getGithubInfo(@RequestHeader(value = "Authorization") String Authorization) throws IOException {
+    public @ResponseBody ResponseEntity getGithubInfo(@RequestHeader(value = "Authorization") String Authorization) throws IOException {
 
         Authorization = Authorization.replace("Bearer ", "");
         Claims claims = Jwts.parser()
@@ -73,38 +69,9 @@ public class GithubController {
                 temp.commitShal = shal;
                 temp.commitMessage = commit.getCommit().getMessage();
                 temp.commitDate = commit.getCommit().getAuthor().getDate();
-                System.out.println(temp);
                 list.add(temp);
             }
         }
-        Collection<GitHub> collection = new ArrayList<GitHub>(list);
-        return collection;
-    }
-    */
-
-    @RequestMapping(value = "/github", method = RequestMethod.GET)
-    public @ResponseBody Collection<GitHub> fakeGithub(@RequestHeader(value = "Authorization") String Authorization) throws IOException {
-
-        Authorization = Authorization.replace("Bearer ", "");
-        Claims claims = Jwts.parser()
-                .setSigningKey("secretkey")
-                .parseClaimsJws(Authorization).getBody();
-        User user = userService.findByEmail(claims.getSubject());
-
-        List<GitHub> list = new ArrayList<>();
-        int counter = 0;
-        for (int i = 0; i < 7; i++) {
-                counter++;
-                GitHub temp = new GitHub();
-                temp.id.put("id", counter);
-                temp.commitShal.put("commitShal", "shal shal" + counter);
-                temp.commitMessage.put("commitMessage", "commit Message" + counter);
-                temp.commitDate.put("commitDate", new Date());
-                System.out.println(temp);
-                list.add(temp);
-            }
-        Collection<GitHub> collection = new ArrayList<>(list);
-        System.out.println(collection);
-        return collection;
+        return ResponseEntity.ok(list.toString());
     }
 }

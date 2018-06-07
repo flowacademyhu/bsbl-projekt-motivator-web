@@ -1,53 +1,44 @@
 // /groups/:id/github
 
 import React, { Component } from 'react';
-import fetch from 'isomorphic-fetch';
+import axios from 'axios';
 
 class Github extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      commits: [{
-        id: 1,
-        commitShal: 'test1',
-        commitMessage: 'test2',
-        commitDate: 'test3'
-      }]
+      commits: []
     };
   }
 
-  componentDidMount (props) {
+  componentWillMount (props) {
     var token = window.localStorage.getItem('Authorization');
     var config = {
       headers: {
         Authorization: 'Bearer ' + token
       }
     };
-    fetch(`http://127.0.0.1:8080/github`, config)
-      .then(response => {
-        var newData = {
-          id: response.id,
-          commitShal: response.commitShal,
-          commitMessage: response.commitMessage,
-          commitDate: response.commitDate
-        };
-        this.setState(newData);
+    var self = this;
+    axios.get(`http://127.0.0.1:8080/app/github`, config)
+      .then((res) => {
+        self.setState({commits: res.data});
+        console.log(self.state);
       });
   }
 
   render () {
-    console.log(this.state.commits);
-    return this.state.commits.map((commit, i) => (
-      <div key={i}>
-        <h2>Last GitHub commits</h2>
-        <div>
-          <div>{commit.commitShal}</div>
-          <div>{commit.commitMessage}</div>
-          <div>{commit.commitDate}</div>
+    return this.state.commits.map((commit, i) => {
+      return (
+        <div key={commit.id}>
+          <h4>Last GitHub commits</h4>
+          <div>
+            <div>{commit.commitShal}</div>
+            <div>{commit.commitMessage}</div>
+            <div>{commit.commitDate}</div>
+          </div>
         </div>
-      </div>
-    )
-    );
+      );
+    });
   }
 }
 

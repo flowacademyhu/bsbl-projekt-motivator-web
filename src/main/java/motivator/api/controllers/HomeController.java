@@ -1,5 +1,6 @@
 package motivator.api.controllers;
 
+import com.google.gson.annotations.Expose;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import motivator.api.config.HibernateUtil;
@@ -21,16 +22,26 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
 public class HomeController {
-    class Home {
+    private class Home {
         private String groupName;
         private ArrayList<String> admins = new ArrayList<>();
 
+        private String listAdmins (ArrayList<String> admins) {
+            String adminList = "";
+            for (String admin: admins) {
+                adminList = adminList.concat('\"' + admin + "\", ");
+            }
+            adminList = adminList.trim().replace(adminList.charAt(adminList.length()-2), ' ').trim();
+            return adminList;
+        }
+
         @Override
         public String toString() {
-            return "Home{" +
-                    "groupName='" + groupName + '\'' +
-                    ", admins=" + admins +
-                    '}';
+            System.out.println(listAdmins(admins));
+            return "{" +
+                    "\"groupName\": \"" + groupName + '\"' +
+                    ", \"admins\": [" + listAdmins(admins) +
+                    "]}";
         }
     }
 
@@ -38,7 +49,7 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping(value = "/app/currentuser", method = RequestMethod.GET)
-    public ResponseEntity<List<Home>> getInfo (@RequestHeader (value = "Authorization") String Authorization) {
+    public @ResponseBody ResponseEntity getInfo (@RequestHeader (value = "Authorization") String Authorization) {
         Authorization = Authorization.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
@@ -72,6 +83,6 @@ public class HomeController {
             list.add(temp);
         }
         session.close();
-        return new ResponseEntity<List<Home>>(list, HttpStatus.OK);
+        return ResponseEntity.ok(list.toString());
     }
 }

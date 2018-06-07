@@ -33,7 +33,6 @@ public class HeaderController {
         User user = userService.findByEmail(claims.getSubject());
 
         user.setActiveGroup(input.getActiveGroup());
-
         return new ResponseEntity<>("allright", HttpStatus.OK);
     }
 

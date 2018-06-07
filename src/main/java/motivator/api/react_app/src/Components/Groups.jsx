@@ -8,11 +8,11 @@ class Groups extends Component {
   constructor () {
     super();
     this.state = {
-      response: ''
+      response: []
     };
   }
 
-  getGroupInfo (state) {
+  getGroupInfo () {
     var token = window.localStorage.getItem(`Authorization`);
     var config = {
       headers: {
@@ -22,17 +22,36 @@ class Groups extends Component {
     var self = this;
 
     axios.get(`http://127.0.0.1:8080/app/currentuser`, config)
-      .then(function (response) {
-        console.log(response.data);
-        self.setState({ response: response.data });
+      .then((res) => {
+        self.setState({ response: res.data });
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  componentDidMount (state) {
-    this.getGroupInfo(this.state);
+  componentWillMount () {
+    this.getGroupInfo();
+  }
+
+  renderGroups () {
+    var self = this;
+    return this.state.response.map((res, i) => {
+      return (
+        <div key={i}>
+          <h3>{res.groupName}</h3>
+          {self.renderAdmins(res)}
+        </div>
+      );
+    });
+  }
+
+  renderAdmins (res) {
+    return res.admins.map((admin, i) => {
+      return (
+        <div key={i}> {admin} </div>
+      );
+    });
   }
 
   render () {
@@ -50,6 +69,7 @@ class Groups extends Component {
             </div>
           )}
         </Popup>
+        {this.renderGroups()}
       </div>
     );
   }

@@ -6,7 +6,7 @@ import axios from 'axios';
 class Header extends Component {
   state = {
     Groups: [],
-    ActiveGroup: ''
+    activeGroup: ''
   }
 
   componentWillMount = () => {
@@ -43,9 +43,9 @@ class Header extends Component {
         Authorization: `Bearer ` + token
       }
     };
-    var activegroup = this.state.ActiveGroup;
-
-    axios.post(`http://127.0.0.1:8080/app/currentuser/activegroup`, { activegroup }, config)
+    var self = this;
+    var activeGroup = self.state.activeGroup;
+    axios.post(`http://127.0.0.1:8080/app/currentuser/activegroup`, { activeGroup }, config)
     .then((res) => {
       if (res.status === 200) {
         console.log('Success')
@@ -61,11 +61,9 @@ class Header extends Component {
   }
 
   renderGroups = () => {
-    return this.state.Groups.forEach((group) => {
+    return this.state.Groups.map((group, i) => {
       return (
-        <div>
-          <option value={group}> {group} </option>
-        </div>
+        <option key={i} value={group}> {group} </option>
       );
     });
   }
@@ -75,7 +73,7 @@ class Header extends Component {
       <div className='Header'>
         <ButtonToolbar>
           <NavLink to='/groups'><Button bsStyle='primary'>Home</Button></NavLink>
-          <select bsStyle='danger' name='ActiveGroup' onChange={this.handleChange} value={this.state.Groups}>
+          <select bsStyle='danger' name='activeGroup' onChange={this.handleChange} value={this.state.activeGroup}>
             <option selected disabled>Choose your group</option>
             {this.renderGroups()}
           </select>
