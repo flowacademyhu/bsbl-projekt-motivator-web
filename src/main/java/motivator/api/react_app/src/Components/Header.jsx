@@ -60,10 +60,14 @@ class Header extends Component {
     this.setGroup();
   }
 
-  iterateGroups = () => {
-    this.state.Groups.map((group) => {
-      return <option value={group}>group</option>
-    })
+  renderGroups = () => {
+    return this.state.Groups.forEach((group) => {
+      return (
+        <div>
+          <option value={group}> {group} </option>
+        </div>
+      );
+    });
   }
 
   render () {
@@ -71,9 +75,9 @@ class Header extends Component {
       <div className='Header'>
         <ButtonToolbar>
           <NavLink to='/groups'><Button bsStyle='primary'>Home</Button></NavLink>
-          <select bsStyle='danger' onChange={this.handleChange}>
+          <select bsStyle='danger' name='ActiveGroup' onChange={this.handleChange} value={this.state.Groups}>
             <option selected disabled>Choose your group</option>
-            {this.iterateGroups}
+            {this.renderGroups()}
           </select>
           <NavLink to='/github'><Button bsStyle='success'>GitHub</Button></NavLink>
           <NavLink to='/slack'><Button bsStyle='info'>Slack</Button></NavLink>

@@ -13,7 +13,7 @@ class GroupsProfile extends Component {
     slackGroupHook: ''
   };
 
-  componentDidMount() {
+  componentWillMount() {
     var self = this;
     var token = window.localStorage.getItem('Authorization');
     var config = {

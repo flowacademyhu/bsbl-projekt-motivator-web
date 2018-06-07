@@ -23,7 +23,7 @@ class Groups extends Component {
 
     axios.get(`http://127.0.0.1:8080/app/currentuser`, config)
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
         self.setState({ response: response.data });
       })
       .catch(function (error) {

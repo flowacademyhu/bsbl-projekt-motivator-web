@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +22,16 @@ import java.util.List;
 @RestController
 public class HomeController {
     class Home {
-        private Integer id;
         private String groupName;
-        private List<String> admins;
+        private ArrayList<String> admins = new ArrayList<>();
+
+        @Override
+        public String toString() {
+            return "Home{" +
+                    "groupName='" + groupName + '\'' +
+                    ", admins=" + admins +
+                    '}';
+        }
     }
 
     @Autowired
@@ -41,37 +49,29 @@ public class HomeController {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         String grpQuery = "SELECT groups.name FROM groups " +
-                "right join group_user on groups.id = group_user.group_id " +
+                "left join group_user on groups.id = group_user.group_id " +
                 "left join user on group_user.user_id = user.id " +
                 "where user.name = :userName";
         SQLQuery grpSql = session.createSQLQuery(grpQuery);
         grpSql.setParameter("userName", user.getName());
-        List grpList = grpSql.list();
-
-        for (Object gItem: grpList) {
-            Group grp = (Group) gItem;
+        ArrayList<String> grpList = new ArrayList<String>(grpSql.list());
+        for (String gItem: grpList) {
             Home temp = new Home();
-            String grpName = grp.getName();
-            temp.groupName = grpName;
+            temp.groupName = gItem;
 
             String adminQuery = "Select user.name from user " +
-                    "right join group_admin on user.id = group_admin.id " +
-                    "left join groups on group_admin.id = groups.id " +
+                    "left join group_admin on user.id = group_admin.user_id " +
+                    "left join groups on group_admin.group_id = groups.id " +
                     "where groups.name = :groupName";
             SQLQuery adminSql = session.createSQLQuery(adminQuery);
-            adminSql.setParameter("groupName", grpName);
-            List adminList = adminSql.list();
-
-            for (Object aItem: adminList) {
-                User admin = (User) aItem;
-                String adminName = admin.getName();
-
-                temp.admins.add(adminName);
+            adminSql.setParameter("groupName", gItem);
+            ArrayList<String> adminList = new ArrayList<String>(adminSql.list());
+            for (String aItem: adminList) {
+                temp.admins.add(aItem);
             }
-            temp.id += 1;
             list.add(temp);
         }
         session.close();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<List<Home>>(list, HttpStatus.OK);
     }
 }
