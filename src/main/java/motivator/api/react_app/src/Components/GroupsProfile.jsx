@@ -49,14 +49,28 @@ class GroupsProfile extends Component {
   };
 
   renderMembers () {
-    var self = this;
-    return self.state.members.map((member, i) => {
+    return this.state.members.map((member, i) => {
       return (
         <div key={i}>
-          <ul>{member}</ul>
+          <ul>{member} <Button bsStyle='danger' onClick={this.addAdmin.bind(this, member)} method='post'>Promote</Button></ul>
         </div>
       );
     });
+  }
+
+  addAdmin (admin) {
+    var token = window.localStorage.getItem('Authorization');
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
+    axios.post(`http://127.0.0.1:8080/app/currentuser/groups/profile/edit/new/admin`, { admin }, config)
+    .then((response) => {
+      if (response.status === 200 || response.status === 202) {
+        console.log('Promoted to administrator.');
+      }
+    })
   }
 
   render () {
