@@ -18,8 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Properties;
 import javax.naming.NameAlreadyBoundException;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
@@ -117,6 +117,7 @@ public class GroupController {
                 .parseClaimsJws(jwtToken).getBody();
         ArrayList<String> members = new ArrayList<>();
         User user = userService.findByEmail(claims.getSubject());
+        Group group = groupService.findByName(user.getActiveGroup());
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         String grpQuery = "SELECT group_user.group_id FROM group_user " +
@@ -124,17 +125,20 @@ public class GroupController {
                 "where user.name = :userName";
         SQLQuery grpSql = session.createSQLQuery(grpQuery);
         grpSql.setParameter("userName", user.getName());
-        ArrayList<String> grpList = new ArrayList<String>(grpSql.list());
+        ArrayList<BigInteger> grpList = new ArrayList<BigInteger>(grpSql.list());
 
-        for (String grp: grpList) {
-            String userQuery = "select user.name from user" +
-                    "left join group_user on group_user.user_id = user.id " +
-                    "where group_user.group_id = :groupId";
-            SQLQuery userSql = session.createSQLQuery(userQuery);
-            userSql.setParameter("groupId", grp);
-            ArrayList<String> userList = new ArrayList<String>(userSql.list());
-            for (String userName: userList) {
-                members.add(userName);
+        for (BigInteger grp: grpList) {
+            BigInteger bigI = new BigInteger(group.getId().toString());
+            if ( bigI.equals(grp)) {
+                String userQuery = "select user.name from user " +
+                        "left join group_user on group_user.user_id = user.id " +
+                        "where group_user.group_id = :groupId";
+                SQLQuery userSql = session.createSQLQuery(userQuery);
+                userSql.setParameter("groupId", grp);
+                ArrayList<String> userList = new ArrayList<String>(userSql.list());
+                for (String userName: userList) {
+                    members.add(userName);
+                }
             }
         }
         return ResponseEntity.ok(members);
@@ -162,34 +166,28 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/app/currentuser/groups/profile/edit/new/member", method = RequestMethod.POST)
-    public Group addNewMember(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String addUser) {
+    public void addNewMember(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String addUser) {
         jwtToken = jwtToken.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(jwtToken).getBody();
 
         User user = userService.findByEmail(claims.getSubject());
-        String activeGroup = user.getActiveGroup();
-        Group groupDb = groupService.findByName(activeGroup);
+        Group groupDb = groupService.findByName(user.getActiveGroup());
         User addNewUser = userService.findByEmail(addUser.split("\"")[3]);
         setMember(addNewUser, groupDb);
-        System.out.println(addUser.split("\"")[3]);
-        return groupService.save(groupDb);
     }
 
     @RequestMapping(value = "/app/currentuser/groups/profile/edit/new/admin", method = RequestMethod.POST)
-    public Group addNewAdmin(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String addUser) {
+    public void addNewAdmin(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String admin) {
         jwtToken = jwtToken.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(jwtToken).getBody();
 
         User user = userService.findByEmail(claims.getSubject());
-        String activeGroup = user.getActiveGroup();
-        Group groupDb = groupService.findByName(activeGroup);
-        User addNewUser = userService.findByEmail(addUser.split("\"")[3]);
+        Group groupDb = groupService.findByName(user.getActiveGroup());
+        User addNewUser = userService.findByName(admin.split("\"")[3]);
         setAdmin(addNewUser, groupDb);
-        System.out.println(addUser.split("\"")[3]);
-        return groupService.save(groupDb);
     }
 }

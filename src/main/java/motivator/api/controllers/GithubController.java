@@ -3,9 +3,7 @@ package motivator.api.controllers;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import motivator.api.config.HibernateUtil;
-import motivator.api.models.Group;
 import motivator.api.models.User;
-import motivator.api.service.GroupService;
 import motivator.api.service.UserService;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.CommitService;
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
