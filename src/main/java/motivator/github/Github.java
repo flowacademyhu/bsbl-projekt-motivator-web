@@ -13,12 +13,10 @@ import java.util.*;
 
 public class MainGithub {
     private static GitHub gitHub;
-    private static final String FULL_REPOSITORY = "laszlobalint/java";
-    private static final String OWNER = "laszlobalint";
-    private static final String REPOSITORY = "java";
+    private static final String FULL_REPOSITORY = "";
+    private static final String OWNER = "";
+    private static final String REPOSITORY = "";
     public static List<String> shals = new ArrayList<>();
-
-    // GET TREE STRUCTURE OF GIT REPOSITORY (COMMIT TEXTS AND COMMIT SHALS): git log --pretty=format:'%h : %s' --graph --oneline --all > log.log
 
     // LISTS OUT ALL THE REPOSIOTRY NAMES THAT USER HAS ACCESS TO
     private GHMyself getAllRepositories() throws IOException {
@@ -51,7 +49,7 @@ public class MainGithub {
 
     // LIST ALL OWN REPOSITORIES OF THE OWNER
     private void getUserRepositories() {
-        final String user = "laszlobalint";
+        final String user = "";
         final String format = "{0}) {1}- created on {2}";
         int count = 1;
         RepositoryService service = new RepositoryService();
