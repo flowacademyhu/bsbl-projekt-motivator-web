@@ -1,6 +1,7 @@
 package motivator.api.controllers;
 
 import io.jsonwebtoken.*;
+import motivator.api.config.HibernateUtil;
 import motivator.api.dao.GroupAdminRepository;
 import motivator.api.dao.GroupRepository;
 import motivator.api.dao.GroupUserRepository;
@@ -8,11 +9,16 @@ import motivator.api.models.*;
 import motivator.api.service.GroupService;
 import motivator.api.service.RepositoryService;
 import motivator.api.service.UserService;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
+
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.naming.NameAlreadyBoundException;
 
@@ -101,6 +107,37 @@ public class GroupController {
         String activeGroup = user.getActiveGroup();
         Group group = groupService.findByName(activeGroup);
         return new ResponseEntity<Group>(group, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/app/currentuser/groups/profile/members", method = RequestMethod.GET)
+    public ResponseEntity getUsers(@RequestHeader (value = "Authorization") String jwtToken) {
+        jwtToken = jwtToken.replace("Bearer ", "");
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(jwtToken).getBody();
+        ArrayList<String> members = new ArrayList<>();
+        User user = userService.findByEmail(claims.getSubject());
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        String grpQuery = "SELECT group_user.group_id FROM group_user " +
+                "left join user on user.id = group_user.user_id " +
+                "where user.name = :userName";
+        SQLQuery grpSql = session.createSQLQuery(grpQuery);
+        grpSql.setParameter("userName", user.getName());
+        ArrayList<String> grpList = new ArrayList<String>(grpSql.list());
+
+        for (String grp: grpList) {
+            String userQuery = "select user.name from user" +
+                    "left join group_user on group_user.user_id = user.id " +
+                    "where group_user.group_id = :groupId";
+            SQLQuery userSql = session.createSQLQuery(userQuery);
+            userSql.setParameter("groupId", grp);
+            ArrayList<String> userList = new ArrayList<String>(userSql.list());
+            for (String userName: userList) {
+                members.add(userName);
+            }
+        }
+        return ResponseEntity.ok(members);
     }
 
     @RequestMapping(value = "/app/currentuser/groups/profile/edit", method = RequestMethod.POST)
