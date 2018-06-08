@@ -1,1 +1,2 @@
+// /reset-password
 // /getting-started

@@ -1,7 +1,3 @@
-// /groups/:id/trello
-
-// WORKS IN CHROME, INSTALL THIS: https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe?hl=en-US
-
 import React, { Component } from 'react';
 import Iframe from 'react-iframe';
 import axios from 'axios';
@@ -42,3 +38,5 @@ class Trello extends Component {
 }
 
 export default Trello;
+
+// WORKS IN CHROME, INSTALL THIS: https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe?hl=en-US

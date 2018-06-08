@@ -7,11 +7,8 @@ import motivator.api.service.UserService;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.CommitService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 import java.util.*;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
@@ -45,7 +42,7 @@ public class GithubController {
 
 
     @RequestMapping(value = "/app/github", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity getGithubInfo(@RequestHeader(value = "Authorization") String Authorization) throws IOException {
+    public @ResponseBody ResponseEntity getGithubInfo(@RequestHeader(value = "Authorization") String Authorization) {
 
         Authorization = Authorization.replace("Bearer ", "");
         Claims claims = Jwts.parser()
