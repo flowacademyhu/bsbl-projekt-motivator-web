@@ -10,13 +10,21 @@ import motivator.api.models.User;
 import motivator.api.models.GroupAdmin;
 import motivator.api.service.GroupService;
 import motivator.api.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
 
+import java.util.Properties;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import javax.naming.NameAlreadyBoundException;
+
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
@@ -118,10 +126,44 @@ public class GroupController {
         User user = userService.findByEmail(claims.getSubject());
         String activeGroup = user.getActiveGroup();
         Group groupDb = groupService.findByName(activeGroup);
-
-        User addNewUser = userService.findByEmail(addUser);
+        User addNewUser = userService.findByEmail(addUser.split("\"")[3]);
         setMember(addNewUser, groupDb);
-        System.err.println(addUser);
+        System.out.println(addUser.split("\"")[3]);
         return groupService.save(groupDb);
+    }
+
+    private void sendMail(String from, String pw, String to, String subject, String content) {
+
+        Properties props = System.getProperties();
+        String host = "smtp.gmail.com";
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", from);
+        props.put("mail.smtp.password", pw);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+
+        javax.mail.Session session = javax.mail.Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress(from));
+            InternetAddress toAddress = new InternetAddress(to);
+
+            message.addRecipient(javax.mail.Message.RecipientType.TO, toAddress);
+
+            message.setSubject(subject);
+            message.setText(content);
+            javax.mail.Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, pw);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        }
+        catch (AddressException ae) {
+            ae.printStackTrace();
+        }
+        catch (javax.mail.MessagingException me) {
+            me.printStackTrace();
+        }
     }
 }

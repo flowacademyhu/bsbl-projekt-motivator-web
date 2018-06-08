@@ -74,8 +74,8 @@ class GroupProfileEdit extends Component {
         Authorization: "Bearer " + token
       }
     }
-    const { member } = this.state.member;
-    console.log(this.state.member+ "saefasefd")
+    const member = this.state.member;
+    console.log(member)
     axios.post(`http://127.0.0.1:8080//app/currentuser/groups/profile/edit/new/member`, { member }, config)
       .then((response) => {
         console.log(response);
