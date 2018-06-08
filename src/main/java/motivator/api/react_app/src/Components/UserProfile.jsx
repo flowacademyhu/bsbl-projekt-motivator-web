@@ -16,7 +16,7 @@ class UserProfile extends Component {
     };
   }
 
-  componentDidMount () {
+  componentWillMount () {
     var self = this;
     var token = window.localStorage.getItem('Authorization');
     var config = {

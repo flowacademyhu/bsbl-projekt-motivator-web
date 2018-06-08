@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class GroupProfileEdit extends Component {
-
   state = {
     name: '',
     gitHubGrupRep: '',
     trelloGroup: '',
-    slackGroupHook: ''
+    slackGroupHook: '',
+    member: ''
   };
 
   componentWillMount() {
@@ -65,6 +65,26 @@ class GroupProfileEdit extends Component {
 
   }
 
+  onAdd = (event) => {
+    event.preventDefault();
+    var token = window.localStorage.getItem('Authorization');
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
+    const member = this.state.member;
+    console.log(member)
+    axios.post(`http://127.0.0.1:8080//app/currentuser/groups/profile/edit/new/member`, { member }, config)
+      .then((response) => {
+        console.log(response);
+        this.setState(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <div>
@@ -86,6 +106,13 @@ class GroupProfileEdit extends Component {
           <input type='text' name='slackGroupHook' placeholder={this.state.slackGroupHook} onChange={this.onChange} />
           </label><br />
           <button type="submit" className="btn btn-default" onClick = {this.onSubmit} >Submit</button>
+          </form>
+        <form onSubmit={this.onAdd}>
+          <label>
+            Add new member:
+          <input type='text' name='member' placeholder='Give an e-mail address' onChange={this.onChange} />
+          </label><br />
+          <button type="submit" className="btn btn-default" >Add</button>
         </form>
       </div>
     )

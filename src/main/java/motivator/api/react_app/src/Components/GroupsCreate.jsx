@@ -8,7 +8,9 @@ class CreateGroup extends Component {
       name: '',
       gitHubGrupRep: '',
       trelloGroup: '',
-      slackGroupHook: ''
+      slackGroupHook: '',
+      owner: '',
+      repoName: ''
     };
   }
 
@@ -20,7 +22,7 @@ class CreateGroup extends Component {
     const state = this.state
     state[e.target.name] = e.target.value;
     this.setState(state);
-};
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -35,13 +37,30 @@ class CreateGroup extends Component {
     axios.post(`http://127.0.0.1:8080/app/currentuser/groups/create`, { name, gitHubGrupRep, trelloGroup, slackGroupHook }, config)
       .then((result) => {
         if (result.status === 200) {
+          this.repoSubmit()
+        }
+      });
+  }
+
+  repoSubmit = () => {
+    const { repoName, owner } = this.state;
+    var token = window.localStorage.getItem('Authorization');
+    var config = {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    }
+
+    axios.post(`http://127.0.0.1:8080/app/currentuser/groups/create/repo`, { repoName, owner }, config)
+      .then((result) => {
+        if (result.status === 200) {
           this.redir();
         }
       });
   }
 
   render() {
-    const { name, gitHubGrupRep, trelloGroup, slackGroupHook } = this.state;
+    const { name, gitHubGrupRep, trelloGroup, owner, repoName } = this.state;
     return (
       <div className="container">
         <div className="panel panel-default">
@@ -67,8 +86,14 @@ class CreateGroup extends Component {
                 <a href="https://slack.com/oauth/authorize?scope=incoming-webhook,commands&client_id=242600405299.364909370132">
                 <img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" 
                 srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
-                <label htmlFor="slack">Slack:</label>
-                <input type="text" className="form-control" name="slackGroupHook" value={slackGroupHook} onChange={this.onChange} placeholder="Give us a SlackHook" />
+              </div>
+              <h2>Your Repository</h2>
+              <div className="form-group">
+                <label htmlFor="owner">Owner's name:</label>
+                <input type="text" className="form-control" name="owner" value={owner} onChange={this.onChange} placeholder="The repository's owner" />
+              </div><div className="form-group">
+                <label htmlFor="repoName">Repository's name:</label>
+                <input type="text" className="form-control" name="repoName" value={repoName} onChange={this.onChange} placeholder="The repository's name" />
               </div>
               <button type="submit" className="btn btn-default">Submit</button>
             </form>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { ModalFooter } from 'react-bootstrap'; // Components
+import { ModalFooter } from 'react-bootstrap';
 import Login from './Components/Login';
 import Logout from './Components/Logout';
 import UserProfile from './Components/UserProfile';
@@ -15,7 +15,6 @@ import GroupsEdit from './Components/GroupsEdit';
 import GroupsProfile from './Components/GroupsProfile';
 
 /* import GettingStarted from './Components/GettingStarted';
-
 import GroupsMemberEdit from './Components/GroupsMemberEdit';
 import GroupsMemberNew from './Components/GroupsMemberNew';
 import GroupsProfile from './Components/GroupsProfile';
@@ -57,7 +56,7 @@ const Router = () => (
         <Route path='/groupsLine' exact component={GroupsLine} />
         <Route path='/groupStatistics' exact component={GroupStatistics} />
         <Route path='/userStatistics' exact component={UserStatistics} /> */}
-        
+
       </Switch>
       <ModalFooter>
         <p> Flow Academy - 2018 - Team BSBL &copy; - Motivator Project</p>
