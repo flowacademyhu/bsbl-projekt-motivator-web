@@ -20,7 +20,6 @@ import io.jsonwebtoken.Jwts;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Properties;
 import javax.naming.NameAlreadyBoundException;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)

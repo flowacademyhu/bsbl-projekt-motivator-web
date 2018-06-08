@@ -78,7 +78,7 @@ class GroupProfileEdit extends Component {
     axios.post(`http://127.0.0.1:8080//app/currentuser/groups/profile/edit/new/member`, { member }, config)
       .then((response) => {
         console.log(response);
-        this.setState(response);
+        alert('Success!');
       })
       .catch(function (error) {
         console.log(error);
