@@ -2,10 +2,16 @@ package motivator.api.controllers;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import motivator.api.config.HibernateUtil;
+import motivator.api.models.Group;
 import motivator.api.models.User;
+import motivator.api.service.GroupService;
 import motivator.api.service.UserService;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.CommitService;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.kohsuke.github.GHCommit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +59,6 @@ public class GithubController {
     @Autowired
     private UserService userService;
 
-
     @RequestMapping(value = "/app/github", method = RequestMethod.GET)
     public @ResponseBody ResponseEntity getGithubInfo(@RequestHeader(value = "Authorization") String Authorization) {
 
@@ -65,6 +70,30 @@ public class GithubController {
 
         List<GitHub> list = new ArrayList<>();
 
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        String ownerQuery = "SELECT repository.owner FROM repository " +
+                    "left join groups on groups.id = repository.group_id " +
+                    "where groups.name = :groupName";
+        SQLQuery ownerSql = session.createSQLQuery(ownerQuery);
+        ownerSql.setParameter("groupName", user.getActiveGroup());
+        ArrayList<String> ownerList = new ArrayList<String>(ownerSql.list());
+        String owner = "";
+        for (String own : ownerList) {
+            owner = own;
+        }
+
+        String repoQuery = "SELECT repository.repo_name FROM repository " +
+                    "left join groups on groups.id = repository.group_id " +
+                    "where groups.name = :groupName";
+        SQLQuery repoSql = session.createSQLQuery(repoQuery);
+        repoSql.setParameter("groupName", user.getActiveGroup());
+        ArrayList<String> repoList = new ArrayList<String>(repoSql.list());
+        String repoName = "";
+        for (String rep : repoList) {
+            repoName = rep;
+        }
+
         org.kohsuke.github.GitHub github = null;
         try {
             github = org.kohsuke.github.GitHub.connect();
@@ -73,7 +102,7 @@ public class GithubController {
         }
 
         final int size = 1;
-        final RepositoryId repo = new RepositoryId(OWNER, REPOSITORY);
+        final RepositoryId repo = new RepositoryId(owner, repoName);
         final CommitService service = new CommitService();
         int counter = 0;
 
@@ -86,7 +115,7 @@ public class GithubController {
 
                 List<GHCommit.File> kohsuke = null;
                 try {
-                    kohsuke = github.getRepository(FULL_REPOSITORY).getCommit(shal).getFiles();
+                    kohsuke = github.getRepository(owner + "/" + repoName).getCommit(shal).getFiles();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -101,7 +130,7 @@ public class GithubController {
                 list.add(temp);
             }
         }
-        System.out.println(list.toString());
+        session.close();
         return ResponseEntity.ok(list.toString());
     }
 }
