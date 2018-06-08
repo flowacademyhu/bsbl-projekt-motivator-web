@@ -10,7 +10,6 @@ class GroupsProfile extends Component {
     name: '',
     gitHubGrupRep: '',
     trelloGroup: '',
-    slackGroupHook: '',
     members: []
   };
 
@@ -30,8 +29,7 @@ class GroupsProfile extends Component {
           var newData = {
             name: res.name,
             gitHubGrupRep: res.gitHubGrupRep,
-            trelloGroup: res.trelloGroup,
-            slackGroupHook: res.slackGroupHook
+            trelloGroup: res.trelloGroup
           }
           self.setState(newData);
           console.log(res);
@@ -74,13 +72,11 @@ class GroupsProfile extends Component {
         <label>
           Trello: {this.state.trelloGroup}
         </label><br />
-        <label>
-          Slack: {this.state.slackGroupHook}
-        </label><br />
+      
         <label>
           <NavLink to='/groupsedit'><Button bsStyle='success'>Edit</Button></NavLink>
         </label>
-        <h3>Member of the group</h3>
+        <h3>Members of the group</h3>
         <div>{this.renderMembers()}</div>
       </div>
     )

@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Properties;
 import javax.naming.NameAlreadyBoundException;
@@ -117,6 +118,7 @@ public class GroupController {
                 .parseClaimsJws(jwtToken).getBody();
         ArrayList<String> members = new ArrayList<>();
         User user = userService.findByEmail(claims.getSubject());
+        Group group = groupService.findByName(user.getActiveGroup());
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         String grpQuery = "SELECT group_user.group_id FROM group_user " +
@@ -124,17 +126,20 @@ public class GroupController {
                 "where user.name = :userName";
         SQLQuery grpSql = session.createSQLQuery(grpQuery);
         grpSql.setParameter("userName", user.getName());
-        ArrayList<String> grpList = new ArrayList<String>(grpSql.list());
+        ArrayList<BigInteger> grpList = new ArrayList<BigInteger>(grpSql.list());
 
-        for (String grp: grpList) {
-            String userQuery = "select user.name from user" +
-                    "left join group_user on group_user.user_id = user.id " +
-                    "where group_user.group_id = :groupId";
-            SQLQuery userSql = session.createSQLQuery(userQuery);
-            userSql.setParameter("groupId", grp);
-            ArrayList<String> userList = new ArrayList<String>(userSql.list());
-            for (String userName: userList) {
-                members.add(userName);
+        for (BigInteger grp: grpList) {
+            BigInteger bigI = new BigInteger(group.getId().toString());
+            if ( bigI.equals(grp)) {
+                String userQuery = "select user.name from user " +
+                        "left join group_user on group_user.user_id = user.id " +
+                        "where group_user.group_id = :groupId";
+                SQLQuery userSql = session.createSQLQuery(userQuery);
+                userSql.setParameter("groupId", grp);
+                ArrayList<String> userList = new ArrayList<String>(userSql.list());
+                for (String userName: userList) {
+                    members.add(userName);
+                }
             }
         }
         return ResponseEntity.ok(members);
