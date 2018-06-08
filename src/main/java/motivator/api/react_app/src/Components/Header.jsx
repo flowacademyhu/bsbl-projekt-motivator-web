@@ -68,6 +68,7 @@ class Header extends Component {
     });
   }
 
+
   render() {
     var divStyle = {
       height: '190px',
