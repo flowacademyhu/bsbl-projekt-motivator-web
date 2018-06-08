@@ -167,34 +167,28 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/app/currentuser/groups/profile/edit/new/member", method = RequestMethod.POST)
-    public Group addNewMember(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String addUser) {
+    public void addNewMember(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String addUser) {
         jwtToken = jwtToken.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(jwtToken).getBody();
 
         User user = userService.findByEmail(claims.getSubject());
-        String activeGroup = user.getActiveGroup();
-        Group groupDb = groupService.findByName(activeGroup);
+        Group groupDb = groupService.findByName(user.getActiveGroup());
         User addNewUser = userService.findByEmail(addUser.split("\"")[3]);
         setMember(addNewUser, groupDb);
-        System.out.println(addUser.split("\"")[3]);
-        return groupService.save(groupDb);
     }
 
     @RequestMapping(value = "/app/currentuser/groups/profile/edit/new/admin", method = RequestMethod.POST)
-    public Group addNewAdmin(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String addUser) {
+    public void addNewAdmin(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String admin) {
         jwtToken = jwtToken.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
                 .parseClaimsJws(jwtToken).getBody();
 
         User user = userService.findByEmail(claims.getSubject());
-        String activeGroup = user.getActiveGroup();
-        Group groupDb = groupService.findByName(activeGroup);
-        User addNewUser = userService.findByEmail(addUser.split("\"")[3]);
+        Group groupDb = groupService.findByName(user.getActiveGroup());
+        User addNewUser = userService.findByName(admin.split("\"")[3]);
         setAdmin(addNewUser, groupDb);
-        System.out.println(addUser.split("\"")[3]);
-        return groupService.save(groupDb);
     }
 }
