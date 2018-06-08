@@ -4,28 +4,17 @@ import io.jsonwebtoken.*;
 import motivator.api.dao.GroupAdminRepository;
 import motivator.api.dao.GroupRepository;
 import motivator.api.dao.GroupUserRepository;
-import motivator.api.models.Group;
-import motivator.api.models.GroupUser;
-import motivator.api.models.User;
-import motivator.api.models.GroupAdmin;
+import motivator.api.models.*;
 import motivator.api.service.GroupService;
+import motivator.api.service.RepositoryService;
 import motivator.api.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
-
 import java.util.Properties;
-/*
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-*/
-
 import javax.naming.NameAlreadyBoundException;
-
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
@@ -41,6 +30,24 @@ public class GroupController {
     private GroupUserRepository groupUserRepository;
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private RepositoryService repositoryService;
+
+    @RequestMapping(value = "/app/currentuser/groups/create/repo", method = RequestMethod.POST)
+    public Repository addRepository(@RequestBody Repository repository, @RequestHeader (value = "Authorization") String Authorization) {
+        Authorization = Authorization.replace("Bearer ", "");
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(Authorization).getBody();
+        User user = userService.findByEmail(claims.getSubject());
+        Group group = groupService.findByName(user.getActiveGroup());
+
+        Repository newRepository = new Repository();
+        newRepository.setOwner(repository.getOwner());
+        newRepository.setRepoName(repository.getRepoName());
+        newRepository.setGroup(group);
+        return repositoryService.save(newRepository);
+    }
 
     @RequestMapping(value = "/app/currentuser/groups/create", method = RequestMethod.POST)
     public Group createGroup(@RequestBody Group group, @RequestHeader (value = "Authorization") String Authorization)

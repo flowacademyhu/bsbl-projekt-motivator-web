@@ -46,7 +46,7 @@ class Create extends Component {
   }
   emailRegex = () => {
     var email = document.getElementById("email").value;
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;    ;
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;    ;
     if (!re.test(email)) {
       return false;
     } else{
@@ -65,7 +65,7 @@ class Create extends Component {
   }
 
   render() {
-    const { name, password, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
+    const { name, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
     return (
       <div className="container">
         <div className="panel panel-default">

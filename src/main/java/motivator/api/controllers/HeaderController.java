@@ -33,12 +33,11 @@ public class HeaderController {
         User user = userService.findByEmail(claims.getSubject());
 
         user.setActiveGroup(input.getActiveGroup());
-
         return new ResponseEntity<>("allright", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/app/currentuser/activegroup", method = RequestMethod.GET)
-    public ResponseEntity<List<String>> getGroups (@RequestHeader(value = "Authorization") String Authorization) {
+    public @ResponseBody ResponseEntity getGroups (@RequestHeader(value = "Authorization") String Authorization) {
         Authorization = Authorization.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
@@ -50,7 +49,7 @@ public class HeaderController {
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Session session = factory.openSession();
         String grpQuery = "SELECT groups.name FROM groups " +
-                "right join group_user on groups.id = group_user.group_id " +
+                "left join group_user on groups.id = group_user.group_id " +
                 "left join user on group_user.user_id = user.id " +
                 "where user.name = :userName";
         SQLQuery grpSql = session.createSQLQuery(grpQuery);
@@ -58,10 +57,10 @@ public class HeaderController {
         List grpList = grpSql.list();
 
         for (Object gItem: grpList) {
-            String groupName = ((Group) gItem).getName();
+            String groupName = (String) gItem;
             groups.add(groupName);
         }
         session.close();
-        return new ResponseEntity<>(groups, HttpStatus.OK);
+        return ResponseEntity.ok(groups);
     }
 }

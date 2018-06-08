@@ -141,5 +141,4 @@ class UserProfileEdit extends Component {
   }
 }
 
-
 export default UserProfileEdit;

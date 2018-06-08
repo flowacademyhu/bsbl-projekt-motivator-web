@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
 
@@ -13,7 +13,7 @@ class GroupsProfile extends Component {
     slackGroupHook: ''
   };
 
-  componentDidMount() {
+  componentWillMount() {
     var self = this;
     var token = window.localStorage.getItem('Authorization');
     var config = {
