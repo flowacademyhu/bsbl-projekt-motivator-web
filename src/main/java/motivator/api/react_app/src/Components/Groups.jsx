@@ -59,7 +59,8 @@ class Groups extends Component {
       <div>
         <h2>Groups of the user:</h2>
         <NavLink to='/groupscreate'><Button bsStyle='danger'>Create New Group</Button></NavLink>
-        <Popup trigger={<button>GETTING STARTED</button>} position='botton right  '>
+        {this.renderGroups()}
+        <Popup trigger={<button>GETTING STARTED</button>} position='botton right'>
           {close => (
             <div>
               Hi! We are glad to see you joining our motivator application program. Our main aim is to help you succeed at your work,
@@ -70,7 +71,6 @@ class Groups extends Component {
             </div>
           )}
         </Popup>
-        {this.renderGroups()}
       </div>
     );
   }

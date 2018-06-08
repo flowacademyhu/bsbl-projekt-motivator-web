@@ -9,8 +9,6 @@ class Create extends Component {
       password: '',
       email: '',
       gitHubProfile: '',
-      trelloProfile: '',
-      slackProfile: '',
       currentScore: ''
     };
   }
@@ -27,7 +25,7 @@ class Create extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, password, email, gitHubProfile, trelloProfile, slackProfile, currentScore } = this.state;
+    const { name, password, email, gitHubProfile, currentScore } = this.state;
     if (!this.passwordEquals()) {
       alert("Password confirmation doesn't match.")
       return false;
@@ -36,7 +34,7 @@ class Create extends Component {
         alert('Please enter a valid email address.');
         return false;
       } else {
-        axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile, currentScore })
+        axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, currentScore })
           .then((result) => {
             if (result.status === 200) {
               this.redir();
@@ -66,7 +64,7 @@ class Create extends Component {
   }
 
   render() {
-    const { name, email, gitHubProfile, trelloProfile, slackProfile, currentScore } = this.state;
+    const { name, email, gitHubProfile, currentScore } = this.state;
     return (
       <div className="container">
         <div className="panel panel-default">
@@ -94,14 +92,6 @@ class Create extends Component {
               <div className="form-group">
                 <label htmlFor="author">GitHub Profile Url:</label>
                 <input type="text" className="form-control" name="gitHubProfile" value={gitHubProfile} onChange={this.onChange} placeholder="GitHub Profile Url" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="author">Trello Profile Url:</label>
-                <input type="text" className="form-control" name="trelloProfile" value={trelloProfile} onChange={this.onChange} placeholder="Trello Profile Url" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="author">Slack Display Name:</label>
-                <input type="text" className="form-control" name="slackProfile" value={slackProfile} onChange={this.onChange} placeholder="Slack Display Name" />
               </div>
               <div className="form-group">
                 <label htmlFor="author">Current Score:</label>
