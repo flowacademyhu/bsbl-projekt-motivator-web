@@ -37,7 +37,6 @@ public class HomeController {
 
         @Override
         public String toString() {
-            System.out.println(listAdmins(admins));
             return "{" +
                     "\"groupName\": \"" + groupName + '\"' +
                     ", \"admins\": [" + listAdmins(admins) +
