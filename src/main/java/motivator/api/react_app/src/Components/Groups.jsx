@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button, Panel } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import Popup from 'reactjs-popup';
 import axios from 'axios';
 
@@ -23,7 +23,11 @@ class Groups extends Component {
 
     axios.get(`http://127.0.0.1:8080/app/currentuser`, config)
       .then((res) => {
-        self.setState({ response: res.data });
+        console.log(res.data);
+        var data = {
+          response: res.data
+        };
+        self.setState(data);
       })
       .catch(function (error) {
         console.log(error);
@@ -57,9 +61,7 @@ class Groups extends Component {
   render () {
     return (
       <div>
-        <h2 div >
-          Groups of the user:
-        </h2>
+        <h2>Groups of the user:</h2>
         <NavLink to='/groupscreate'><Button bsStyle='danger'>Create New Group</Button></NavLink>
         {this.renderGroups()}
         <Popup trigger={<button>GETTING STARTED</button>} position='botton right'>

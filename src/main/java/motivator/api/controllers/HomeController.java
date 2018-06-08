@@ -27,8 +27,10 @@ public class HomeController {
             for (String admin: admins) {
                 adminList = adminList.concat('\"' + admin + "\", ");
             }
-            adminList = adminList.trim().replace(adminList.charAt(adminList.length()-2), ' ').trim();
-            return adminList;
+            StringBuilder aList = new StringBuilder(adminList);
+            aList.deleteCharAt(aList.lastIndexOf(","));
+            System.out.println(aList.toString());
+            return aList.toString();
         }
 
         @Override
