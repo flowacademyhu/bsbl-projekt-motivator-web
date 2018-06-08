@@ -13,8 +13,8 @@ public class Repository {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    private String name;
-    private String link;
+    private String repoName;
+    private String owner;
 
     @OneToOne
     @JoinColumn(name = "group_id")
@@ -38,20 +38,28 @@ public class Repository {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRepoName() {
+        return repoName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRepoName(String repoName) {
+        this.repoName = repoName;
     }
 
-    public String getLink() {
-        return link;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public Date getCreated() {
