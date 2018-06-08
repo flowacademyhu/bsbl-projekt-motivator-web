@@ -34,7 +34,7 @@ public class UserController {
 		newUser.setGitHubProfile(user.getGitHubProfile());
 		newUser.setTrelloProfile(user.getTrelloProfile());
 		newUser.setSlackProfile(user.getSlackProfile());
-		newUser.setCurrentScore(0L);
+		newUser.setCurrentScore(user.getCurrentScore());
 		return userService.save(newUser);
 	}
 

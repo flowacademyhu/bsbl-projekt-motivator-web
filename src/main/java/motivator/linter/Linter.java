@@ -1,7 +1,5 @@
 package motivator.linter;
 
-import java.util.Arrays;
-
 public class Linter {
     private int depthCount;
 
@@ -12,22 +10,6 @@ public class Linter {
     public String[] rowSplitter(String input) {
         return input.split("\n");
     }
-
-    /*
-    public boolean rowCounter(String[] input) {
-        int rowCount = 0;
-        for (int i = 0; i < input.length; i++) {
-            rowCount++;
-            if (input[i].contains("{")) {
-                return rowCounter(Arrays.copyOfRange(input, i, input.length));
-            }
-            if (input[i].contains("}")) {
-                return rowCount <= 15;
-            }
-        }
-        return true;
-    }
-    */
 
     public boolean fileLength(String[] input) {
         return input.length <= 100;

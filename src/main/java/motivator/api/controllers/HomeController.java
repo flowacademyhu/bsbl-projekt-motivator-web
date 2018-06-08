@@ -1,18 +1,14 @@
 package motivator.api.controllers;
 
-import com.google.gson.annotations.Expose;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import motivator.api.config.HibernateUtil;
-import motivator.api.models.Group;
 import motivator.api.models.User;
 import motivator.api.service.UserService;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

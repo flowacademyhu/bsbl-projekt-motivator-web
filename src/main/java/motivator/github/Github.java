@@ -11,14 +11,13 @@ import java.io.*;
 import java.text.MessageFormat;
 import java.util.*;
 
-public class MainGithub {
+public class Github {
     private static GitHub gitHub;
     private static final String FULL_REPOSITORY = "";
     private static final String OWNER = "";
     private static final String REPOSITORY = "";
     public static List<String> shals = new ArrayList<>();
 
-    // LISTS OUT ALL THE REPOSIOTRY NAMES THAT USER HAS ACCESS TO
     private GHMyself getAllRepositories() throws IOException {
         try {
             gitHub = GitHub.connect();
@@ -33,7 +32,6 @@ public class MainGithub {
         return user;
     }
 
-    // LISTS OUT ALL OUT BRANCHES TO THE SPECIFIC REPOSITORY
     private Map<String, GHBranch> getRepositoryBranchesNames() throws IOException {
         try {
             gitHub = GitHub.connect();
@@ -47,7 +45,6 @@ public class MainGithub {
         return branches;
     }
 
-    // LIST ALL OWN REPOSITORIES OF THE OWNER
     private void getUserRepositories() {
         final String user = "";
         final String format = "{0}) {1}- created on {2}";
@@ -61,7 +58,6 @@ public class MainGithub {
         }
     }
 
-    // LAST 20 COMMITS OF THE REPOSITORY (message, shalId, author, date)
     private void getPageCommits() {
         final int size = 20;
         final RepositoryId repo = new RepositoryId(OWNER, REPOSITORY);
@@ -83,7 +79,6 @@ public class MainGithub {
         }
     }
 
-    // LIST THE CHANGES OF THE FILES IN THE COMMIT:
     private void getFileContents() throws IOException {
         try {
             gitHub = GitHub.connect();

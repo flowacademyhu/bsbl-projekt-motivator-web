@@ -26,7 +26,6 @@ public class TrelloApi {
         return tokenKey;
     }
 
-    // Returns the Trello Card name
     public void cardName(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "?fields=name" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -39,7 +38,6 @@ public class TrelloApi {
         trelloCard.setCardName(repBody);
     }
 
-    // Passes Id to the cardId
     public void cardId(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "?fields=name" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -52,7 +50,6 @@ public class TrelloApi {
         trelloCard.setId(repBody);
     }
 
-    // Returns if there is an issue date
     public void cardDue(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException, ParseException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/due?" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -72,7 +69,6 @@ public class TrelloApi {
         }
     }
 
-    // Returns if the task was completed until due date
     public void cardDueComp(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/dueComplete?" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -86,7 +82,6 @@ public class TrelloApi {
         trelloCard.setDueComp(bool);
     }
 
-    // Returns the Id and the username
     public void listName(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException {
         String url = "https://api.trello.com/1/cards/" + cardId + "/list?fields=name" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -99,7 +94,6 @@ public class TrelloApi {
         trelloCard.setListName(repBody);
     }
 
-    // Returns the Id and the last activity
     public void getDateLastAct(String cardId, String tokenKey, TrelloCard trelloCard) throws IOException, ParseException {
         String url = "https://api.trello.com/1/cards/" + cardId + "?fields=dateLastActivity" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -114,7 +108,6 @@ public class TrelloApi {
         trelloCard.setLastActivity(result);
     }
 
-    // User relevant: Returns all user's card Id
     public String[] userAllCard(String username, String tokenKey) throws IOException { // username+id j?n vissza
         String url = "https://api.trello.com/1/members/" + username + "/cards?fields=id" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -127,7 +120,6 @@ public class TrelloApi {
         return userAllCarsrep;
     }
 
-    // Returns all Id-s which are represented on the board
     public String[] boardAllCards(String boardId, String tokenKey) throws IOException { // username+id j?n vissza
         String url = "https://api.trello.com/1/boards/" + boardId + "/cards?fields=id" + tokenKey;
         URLConnection connection = new URL(url).openConnection();
@@ -140,7 +132,6 @@ public class TrelloApi {
         return boardAllCardsrep;
     }
 
-    // Returns the card Ids where the user and board are sharing them
     ArrayList<String> ar = new ArrayList<>();
     public ArrayList boardUserCards(String[] boardCards, String[] userCards) {
         for(int i = 0; i < boardCards.length; i++) {
