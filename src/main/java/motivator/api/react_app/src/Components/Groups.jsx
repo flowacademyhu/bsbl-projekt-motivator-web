@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Panel } from 'react-bootstrap';
 import Popup from 'reactjs-popup';
 import axios from 'axios';
 
@@ -57,7 +57,9 @@ class Groups extends Component {
   render () {
     return (
       <div>
-        <h2>Groups of the user:</h2>
+        <h2 div >
+          Groups of the user:
+        </h2>
         <NavLink to='/groupscreate'><Button bsStyle='danger'>Create New Group</Button></NavLink>
         <Popup trigger={<button>GETTING STARTED</button>} position='botton right  '>
           {close => (

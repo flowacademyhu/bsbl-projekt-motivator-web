@@ -27,6 +27,7 @@ import GroupStatistics from './Components/Statistics/GroupStatistics';
 import UserStatistics from './Components/Statistics/UserStatistics'; */
 
 const Router = () => (
+  
   <BrowserRouter>
     <div>
       <header>

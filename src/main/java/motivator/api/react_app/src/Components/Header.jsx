@@ -68,22 +68,30 @@ class Header extends Component {
     });
   }
 
-  render () {
+  render() {
+    var divStyle = {
+      height: '190px',
+      };
+      var size = {
+        marginTop: '50px',
+        marginLeft: '10px',
+      }
+
     if (window.localStorage.length !== 0) {
       return (
-        <div className='Header'>
+        <div className='Header' style={divStyle}>
           <ButtonToolbar>
-            <NavLink to='/groups'><Button bsStyle='primary'>Home</Button></NavLink>
-            <select bsStyle='danger' name='activeGroup' onChange={this.handleChange} value={this.state.activeGroup}>
+            <NavLink to='/groups' style={size}><Button bsStyle='danger'>Home</Button></NavLink>
+            <select bsStyle='danger' style={size} name='activeGroup' onChange={this.handleChange} value={this.state.activeGroup}>
               <option selected disabled>Choose your group</option>
               {this.renderGroups()}
             </select>
-            <NavLink to='/github'><Button bsStyle='success'>GitHub</Button></NavLink>
-            <NavLink to='/slack'><Button bsStyle='info'>Slack</Button></NavLink>
-            <NavLink to='/trello'><Button bsStyle='warning'>Trello</Button></NavLink>
-            <NavLink to='/groupsprofile'><Button bsStyle='danger'>Group Profile</Button></NavLink>
-            <NavLink to='/userprofile'><Button bsStyle='secondary'>User Profile</Button></NavLink>
-            <NavLink to='/logout'><Button bsStyle='link'>Logout</Button></NavLink>
+            <NavLink to='/github' style={size}><Button bsStyle='success'>GitHub</Button></NavLink>
+            <NavLink to='/slack' style={size}><Button bsStyle='info'>Slack</Button></NavLink>
+            <NavLink to='/trello' style={size}><Button bsStyle='warning'>Trello</Button></NavLink>
+            <NavLink to='/groupsprofile' style={size}><Button bsStyle='primary'>Group Profile</Button></NavLink>
+            <NavLink to='/userprofile' style={size}><Button bsStyle='secondary'>User Profile</Button></NavLink>
+            <NavLink to='/logout' style={size}><Button bsStyle='danger'>Logout</Button></NavLink>
           </ButtonToolbar>
         </div>
       );
