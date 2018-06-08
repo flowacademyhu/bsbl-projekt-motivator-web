@@ -62,7 +62,8 @@ class Groups extends Component {
         <Popup trigger={<button>GETTING STARTED</button>} position='top left'>
           {close => (
             <div>
-              HI, MAN! YOU ARE ABOUT TO START THIS BEATIFUL APPLICATON, AND I WANT TO EXPLAIN YOU SOME THINGS!
+              Hi! We are glad to see you joining our motivator application program. Our main aim is to help you succeed at your work,
+              and to grow attention on your skills, development and every day routine. Discover the options and changes with this application.
               <a className='close' onClick={close}>
                 &times;
               </a>

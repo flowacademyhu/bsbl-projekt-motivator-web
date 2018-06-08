@@ -6,9 +6,13 @@ import motivator.api.models.User;
 import motivator.api.service.UserService;
 import org.eclipse.egit.github.core.*;
 import org.eclipse.egit.github.core.service.CommitService;
+import org.kohsuke.github.GHCommit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
@@ -20,10 +24,19 @@ public class GithubController {
 
     private class GitHub {
         Integer id;
-        String commitShal;          // COMMIT SHAL
-        String commitMessage;       // COMMIT MESSAGE
-        Date commitDate;          // COMMIT DATE
-        private HashMap<String, Integer> changes = new HashMap<>();   // CHANGED FILENAME + CONTENT OF FILE
+        String commitShal;
+        String commitMessage;
+        Date commitDate;
+        List<String> changes = new ArrayList<>();
+
+        private String listChanges (ArrayList<String> changes) {
+            String changeList = "";
+            for (String change: changes) {
+                changeList = changeList.concat('\"' + change + "\", ");
+            }
+            changeList = changeList.trim().replace(changeList.charAt(changeList.length()-2), ' ').trim();
+            return changeList;
+        }
 
         @Override
         public String toString() {
@@ -52,6 +65,13 @@ public class GithubController {
 
         List<GitHub> list = new ArrayList<>();
 
+        org.kohsuke.github.GitHub github = null;
+        try {
+            github = org.kohsuke.github.GitHub.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         final int size = 1;
         final RepositoryId repo = new RepositoryId(OWNER, REPOSITORY);
         final CommitService service = new CommitService();
@@ -63,12 +83,25 @@ public class GithubController {
                 GitHub temp = new GitHub();
                 temp.id = counter;
                 String shal = commit.getSha().substring(0, 7);
+
+                List<GHCommit.File> kohsuke = null;
+                try {
+                    kohsuke = github.getRepository(FULL_REPOSITORY).getCommit(shal).getFiles();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                for (GHCommit.File file : kohsuke) {
+                    temp.changes.add(file.getFileName());
+                }
+
                 temp.commitShal = shal;
                 temp.commitMessage = commit.getCommit().getMessage();
                 temp.commitDate = commit.getCommit().getAuthor().getDate();
+
                 list.add(temp);
             }
         }
+        System.out.println(list.toString());
         return ResponseEntity.ok(list.toString());
     }
 }

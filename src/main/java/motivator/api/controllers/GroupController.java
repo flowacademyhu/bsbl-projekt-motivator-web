@@ -1,7 +1,6 @@
 package motivator.api.controllers;
 
 import io.jsonwebtoken.*;
-import motivator.api.config.HibernateUtil;
 import motivator.api.dao.GroupAdminRepository;
 import motivator.api.dao.GroupRepository;
 import motivator.api.dao.GroupUserRepository;
@@ -11,17 +10,12 @@ import motivator.api.models.User;
 import motivator.api.models.GroupAdmin;
 import motivator.api.service.GroupService;
 import motivator.api.service.UserService;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
-
 import javax.naming.NameAlreadyBoundException;
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
