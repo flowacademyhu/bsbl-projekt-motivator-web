@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 
-
 class GroupsProfile extends Component {
 
   state = {
