@@ -104,7 +104,7 @@ class UserProfileEdit extends Component {
   render() {
     return (
       <div>
-        <p>E-mail address: {this.state.email}</p>
+        <p>E-mail address: {this.state.resdata.email}</p>
         <form onSubmit={this.onSubmit}>
           <label>
             Username: 

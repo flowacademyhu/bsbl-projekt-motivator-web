@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.jsonwebtoken.Jwts;
+import java.util.Properties;
 import javax.naming.NameAlreadyBoundException;
 
 @CrossOrigin(origins = "http://localhost", maxAge = 3600)
@@ -68,7 +69,7 @@ public class GroupController {
         newGroup.setSlackGroupHook(group.getSlackGroupHook());
         user.setActiveGroup(newGroup.getName());
         setAdmin(user, newGroup);
-        setUser(user, newGroup);
+        setMember(user, newGroup);
         return groupService.save(newGroup);
 
     }
@@ -81,7 +82,7 @@ public class GroupController {
         return groupAdmin;
     }
 
-    public GroupUser setUser(User user, Group group) {
+    public GroupUser setMember(User user, Group group) {
         GroupUser groupUser = new GroupUser();
         groupUser.setUser(user);
         groupUser.setGroup(group);
@@ -99,12 +100,11 @@ public class GroupController {
         User user = userService.findByEmail(claims.getSubject());
         String activeGroup = user.getActiveGroup();
         Group group = groupService.findByName(activeGroup);
-        System.err.println(group);
         return new ResponseEntity<Group>(group, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/app/currentuser/groups/profile/edit", method = RequestMethod.POST)
-    public ResponseEntity<Group> updateGroup(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody Group group, User userOfGroup) {
+    public ResponseEntity<Group> updateGroup(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody Group group) {
         jwtToken = jwtToken.replace("Bearer ", "");
         Claims claims = Jwts.parser()
                 .setSigningKey("secretkey")
@@ -113,7 +113,6 @@ public class GroupController {
         User user = userService.findByEmail(claims.getSubject());
         String activeGroup = user.getActiveGroup();
         Group groupDb = groupService.findByName(activeGroup);
-        System.err.println(user);
         groupDb.setName(group.getName());
         groupDb.setGitHubGrupRep(group.getGitHubGrupRep());
         groupDb.setTrelloGroup(group.getTrelloGroup());
@@ -121,7 +120,39 @@ public class GroupController {
         groupService.save(groupDb);
         user.setActiveGroup(group.getName());
         userService.save(user);
-        System.err.println(groupDb);
+
         return new ResponseEntity <Group>(groupDb, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/app/currentuser/groups/profile/edit/new/member", method = RequestMethod.POST)
+    public Group addNewMember(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String addUser) {
+        jwtToken = jwtToken.replace("Bearer ", "");
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(jwtToken).getBody();
+
+        User user = userService.findByEmail(claims.getSubject());
+        String activeGroup = user.getActiveGroup();
+        Group groupDb = groupService.findByName(activeGroup);
+        User addNewUser = userService.findByEmail(addUser.split("\"")[3]);
+        setMember(addNewUser, groupDb);
+        System.out.println(addUser.split("\"")[3]);
+        return groupService.save(groupDb);
+    }
+
+    @RequestMapping(value = "/app/currentuser/groups/profile/edit/new/admin", method = RequestMethod.POST)
+    public Group addNewAdmin(@RequestHeader (value = "Authorization") String jwtToken, @RequestBody String addUser) {
+        jwtToken = jwtToken.replace("Bearer ", "");
+        Claims claims = Jwts.parser()
+                .setSigningKey("secretkey")
+                .parseClaimsJws(jwtToken).getBody();
+
+        User user = userService.findByEmail(claims.getSubject());
+        String activeGroup = user.getActiveGroup();
+        Group groupDb = groupService.findByName(activeGroup);
+        User addNewUser = userService.findByEmail(addUser.split("\"")[3]);
+        setAdmin(addNewUser, groupDb);
+        System.out.println(addUser.split("\"")[3]);
+        return groupService.save(groupDb);
     }
 }
