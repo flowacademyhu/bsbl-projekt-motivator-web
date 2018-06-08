@@ -10,7 +10,8 @@ class Create extends Component {
       email: '',
       gitHubProfile: '',
       trelloProfile: '',
-      slackProfile: ''
+      slackProfile: '',
+      currentScore: ''
     };
   }
 
@@ -26,7 +27,7 @@ class Create extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, password, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
+    const { name, password, email, gitHubProfile, trelloProfile, slackProfile, currentScore } = this.state;
     if (!this.passwordEquals()) {
       alert("Password confirmation doesn't match.")
       return false;
@@ -35,7 +36,7 @@ class Create extends Component {
         alert('Please enter a valid email address.');
         return false;
       } else {
-        axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile })
+        axios.post(`http://127.0.0.1:8080/register`, { name, password, email, gitHubProfile, trelloProfile, slackProfile, currentScore })
           .then((result) => {
             if (result.status === 200) {
               this.redir();
@@ -65,7 +66,7 @@ class Create extends Component {
   }
 
   render() {
-    const { name, email, gitHubProfile, trelloProfile, slackProfile } = this.state;
+    const { name, email, gitHubProfile, trelloProfile, slackProfile, currentScore } = this.state;
     return (
       <div className="container">
         <div className="panel panel-default">
@@ -101,6 +102,10 @@ class Create extends Component {
               <div className="form-group">
                 <label htmlFor="author">Slack Display Name:</label>
                 <input type="text" className="form-control" name="slackProfile" value={slackProfile} onChange={this.onChange} placeholder="Slack Display Name" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="author">Current Score:</label>
+                <input type="number" className="form-control" name="currentScore" value={currentScore} onChange={this.onChange} placeholder="Starting Score" />
               </div>
               <button type="submit" className="btn btn-default">Submit</button>
             </form>

@@ -60,7 +60,7 @@ class CreateGroup extends Component {
   }
 
   render() {
-    const { name, gitHubGrupRep, trelloGroup, slackGroupHook, owner, repoName } = this.state;
+    const { name, gitHubGrupRep, trelloGroup, owner, repoName } = this.state;
     return (
       <div className="container">
         <div className="panel panel-default">
